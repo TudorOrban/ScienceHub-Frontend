@@ -27,6 +27,8 @@ export const useSidebarNavigation = () => {
 
 const determinePageDirectory = (path: string[]): PageDirectory => {
     switch (path[1]) {
+        case "":
+            return PageDirectory.Home;
         case "workspace":
             return PageDirectory.Workspace;
         case "browse":

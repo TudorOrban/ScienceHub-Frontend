@@ -6,7 +6,7 @@ import { useSidebarNavigation } from "../../hooks/useSidebarNavigation";
 import CollapsedSidebar from "./CollapsedSidebar";
 import SidebarDropdown from "./SidebarDropdown";
 import SidebarNavigationItems from "./SidebarNavigationItems";
-import { CollapsedItems } from "../../models/UIElements";
+import { CollapsedItems, PageDirectory } from "../../models/UIElements";
 
 const Sidebar = () => {
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
@@ -20,6 +20,10 @@ const Sidebar = () => {
             [itemLabel]: !prev[itemLabel],
         }));
     };
+
+    if (pageDirectory === PageDirectory.Home) {
+        return null;
+    }
 
     if (!isSidebarExpanded) {
         return (
