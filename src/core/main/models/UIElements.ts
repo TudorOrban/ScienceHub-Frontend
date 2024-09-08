@@ -6,8 +6,9 @@ export enum PageDirectory {
     Workspace = "Workspace",
     Browse = "Browse",
     Resources = "Resources",
-    UserProfile = "UserProfile",
+    UserProfile = "User Profile",
     Project = "Project",
+    NotFound = "Not Found"
 }
 
 export interface NavigationItem {
@@ -16,6 +17,5 @@ export interface NavigationItem {
     link?: string;
     value?: string;
     subItems?: NavigationItem[];
-    expanded?: boolean;
     selected?: boolean;
 }

@@ -6,6 +6,7 @@ import { getNavigationItems } from "../config/sidebarNavigationItems";
 export const useSidebarNavigation = () => {
     const [pageDirectory, setPageDirectory] = useState<PageDirectory>(PageDirectory.Home);
     const [navigationItems, setNavigationItems] = useState<NavigationItem[]>([]);
+    const [selectedItem, setSelectedItem] = useState<string>("");
 
     const pathname = usePathname();
 
@@ -14,19 +15,14 @@ export const useSidebarNavigation = () => {
         const currentPageDirectory = determinePageDirectory(path);
         setPageDirectory(currentPageDirectory);
         
-        if (currentPageDirectory === PageDirectory.UserProfile) {
-            setNavigationItems([]);
-            return;
-        }
-        if (currentPageDirectory === PageDirectory.Project) {
-            setNavigationItems([]);
-            return;
-        }
-        const navigationItems = getNavigationItems(currentPageDirectory);
+        const navigationItems = determineNavigationItems(currentPageDirectory);
         setNavigationItems(navigationItems);
+
+        const selectedItem = determineSelectedItem(pathname, navigationItems);
+        setSelectedItem(selectedItem);
     }, [pathname]);
 
-    return { pageDirectory, navigationItems };
+    return { pageDirectory, navigationItems, selectedItem };
 };
 
 const determinePageDirectory = (path: string[]): PageDirectory => {
@@ -42,6 +38,29 @@ const determinePageDirectory = (path: string[]): PageDirectory => {
         case "project":
             return PageDirectory.Project;
         default:
-            return PageDirectory.Home;
+            return PageDirectory.NotFound;
     }
 };
+
+const determineNavigationItems = (currentPageDirectory: PageDirectory): NavigationItem[] => {
+    if (currentPageDirectory === PageDirectory.UserProfile) {
+        return [];
+    }
+    if (currentPageDirectory === PageDirectory.Project) {
+        return [];
+    }
+    return getNavigationItems(currentPageDirectory);
+}
+
+const determineSelectedItem = (pathname: string, navigationItems: NavigationItem[]): string => {
+    let currentPathLabel = navigationItems.find((item) => item.link === pathname)?.label;
+    if (!currentPathLabel) {
+        for (const item of navigationItems) {
+            currentPathLabel = (item?.subItems || []).find((subItem) => subItem.link === pathname)?.label;
+            if (currentPathLabel) {
+                break;
+            }
+        }
+    }
+    return currentPathLabel ?? "";
+}

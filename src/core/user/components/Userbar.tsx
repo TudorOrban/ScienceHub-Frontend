@@ -38,7 +38,7 @@ const Userbar = ({
     ];
 
     return (
-        <div className="w-48 p-4 bg-white text-black border border-gray-300 rounded-md shadow-sm">
+        <div className="w-48 p-4 bg-white text-black border border-gray-300 rounded-md shadow-sm z-50">
             <div className="flex items-center space-x-2">
                 <UserAvatar userSmall={userSmall} />
 
@@ -47,8 +47,8 @@ const Userbar = ({
 
             <div className="space-y-4 py-4">
                 {navigationOptions.map((option, index) => (
-                    <div>
-                        <Link key={index} href={option.link} className="flex items-center text-gray-800 hover:font-semibold hover:text-gray-900">
+                    <div key={option.label}>
+                        <Link href={option.link} className="flex items-center text-gray-800 hover:font-semibold hover:text-gray-900">
                             <FontAwesomeIcon
                                 icon={option.icon}
                                 className="small-icon mr-2"

@@ -38,7 +38,7 @@ export default function RootLayout({
 
 
                         <div
-                            className="flex-grow overflow-y-auto overflow-x-none ml-12 md:ml-0 relative"
+                            className="flex-grow overflow-y-auto overflow-x-none ml-12 md:ml-0 relative z-30"
                             style={{ height: "calc(100vh - 4rem)" }}
                         >
                             {children}
