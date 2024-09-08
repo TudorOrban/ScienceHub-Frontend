@@ -2,12 +2,19 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faMessage, faSearch } from "@fortawesome/free-solid-svg-icons";
 
+import UserAvatar from "@/core/user/components/UserAvatar";
+import Userbar from "@/core/user/components/Userbar";
+import { UserSmall } from "@/core/user/models/User";
+
 const Header = () => {
+    const [isUserbarOpen, setIsUserbarOpen] = useState(false);
 
     const currentUserId = "1";
+    const userSmallData: UserSmall = { id: "1", username: "JohnDoe", fullName: "John A. Doe" };
 
     return (
         <div className="header">
@@ -37,7 +44,7 @@ const Header = () => {
                     <input
                         type="text"
                         value={""}
-                        // onChange={handleInputChange}
+                        onChange={() => {}}
                         // onFocus={() => setIsPopoverOpen(true)}
                         placeholder={"Search ScienceHub"}
                         className={` h-full border border-gray-200 py-2 pl-3 rounded-md text-black focus:outline-none ${
@@ -72,23 +79,20 @@ const Header = () => {
             {/* Sign-in/Sign-up & Buttons */}
             <div className="hidden sm:flex items-center gap-x-4">
                 {currentUserId ? (
-                    <div className="flex items-center mr-4">
-                        <button
-                            className="w-10 h-10 rounded-full border border-gray-700"
-                            style={{ backgroundColor: "var(--sidebar-bg-color)", color: "var(--sidebar-text-color)" }}
-                            // onClick={() => {
-                            //     setIsUserbarOpen(!isUserbarOpen);
-                            // }}
-                        >
-                            <p>{"TO"}</p>
-                        </button>
+                    <div className="flex items-center mr-4 relative">
+                        <UserAvatar 
+                            user={userSmallData} 
+                            onClick={() => setIsUserbarOpen(!isUserbarOpen)}
+                        />
 
-                        {/* {isUserbarOpen && (
-                            <Userbar
-                                setIsUserbarOpen={setIsUserbarOpen}
-                                userSmall={(userSmall.data ?? [])[0]}
-                            />
-                        )} */}
+                        {isUserbarOpen && (
+                            <div className="absolute top-10 right-0">
+                                <Userbar
+                                    setIsUserbarOpen={setIsUserbarOpen}
+                                    user={userSmallData}
+                                />
+                            </div>
+                        )}
                     </div>
                 ) : (
                     <div className="flex items-center space-x-4 pr-4">
