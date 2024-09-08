@@ -16,4 +16,6 @@ export interface NavigationItem {
     link?: string;
     value?: string;
     subItems?: NavigationItem[];
+    expanded?: boolean;
+    selected?: boolean;
 }
