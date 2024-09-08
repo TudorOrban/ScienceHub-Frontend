@@ -19,3 +19,7 @@ export interface NavigationItem {
     subItems?: NavigationItem[];
     selected?: boolean;
 }
+
+export interface CollapsedItems {
+    [key: string]: boolean;
+}

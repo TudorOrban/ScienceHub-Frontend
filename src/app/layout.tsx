@@ -5,7 +5,7 @@ import "/src/styles/common-elements.css";
 import "/src/styles/buttons.css";
 import "/src/styles/forms.css";
 import type { Metadata } from "next";
-import Sidebar from "@/core/main/components/Sidebar";
+import Sidebar from "@/core/main/components/sidebar/Sidebar";
 import Header from "@/core/main/components/Header";
 
 export const metadata: Metadata = {
