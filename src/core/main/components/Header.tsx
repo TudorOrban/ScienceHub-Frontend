@@ -61,7 +61,7 @@ const Header = () => {
             </div>
 
             {/* User/Auth */}
-            <div className="hidden sm:flex items-center gap-x-4">
+            <div className="hidden sm:flex items-center space-x-4">
                 {currentUserId ? (
                     <div className="flex items-center mx-4 relative">
                         <UserAvatar 
