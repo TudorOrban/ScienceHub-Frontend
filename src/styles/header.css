@@ -3,7 +3,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 4rem;
+    overflow: hidden;
+    height: 4rem; 
+    padding: 16px;
     background-color: var(--header-bg-color);
     color: var(--header-text-color);
 }

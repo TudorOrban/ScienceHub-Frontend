@@ -8,7 +8,7 @@
     width: 2.5rem;
     height: 2.5rem;
     background-color: #171717; 
-    color: "var(--sidebar-text-color)";
+    color: white;
     border-radius: 9999px;
     border: 1px solid #1a1a1a;
 }

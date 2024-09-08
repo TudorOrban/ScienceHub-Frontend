@@ -1,12 +1,12 @@
 import { UserSmall } from "../models/User";
 
 export interface UserAvatarProps {
-    user: UserSmall;
+    userSmall: UserSmall;
     onClick?: () => void;
 }
 
 const UserAvatar = (
-    { user, onClick }: UserAvatarProps
+    { userSmall, onClick }: UserAvatarProps
 ) => {
 
     const getUserInitials = (fullName: string) => {
@@ -20,7 +20,7 @@ const UserAvatar = (
             className="user-avatar"
             onClick={() => (onClick && onClick())}
         >
-            <p>{getUserInitials(user?.fullName || "")}</p>
+            <p>{getUserInitials(userSmall?.fullName || "")}</p>
         </button>
     )
 }

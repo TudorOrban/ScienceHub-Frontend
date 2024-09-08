@@ -1,0 +1,19 @@
+
+.auth-button {
+    background: var(--auth-button-bg-color);
+    color: var(--auth-button-text-color);
+    width: 6rem;
+    height: 2rem;
+    border-radius: 0.375rem;
+    border: 1px solid rgb(55 65 81);
+}
+
+.search-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--sidebar-bg-color);
+    color: var(--sidebar-text-color);
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s;
+}

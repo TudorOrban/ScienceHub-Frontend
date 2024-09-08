@@ -9,6 +9,7 @@ import { faBell, faMessage, faSearch } from "@fortawesome/free-solid-svg-icons";
 import UserAvatar from "@/core/user/components/UserAvatar";
 import Userbar from "@/core/user/components/Userbar";
 import { UserSmall } from "@/core/user/models/User";
+import HeaderSearchInput from "./HeaderSearchInput";
 
 const Header = () => {
     const [isUserbarOpen, setIsUserbarOpen] = useState(false);
@@ -40,24 +41,7 @@ const Header = () => {
 
             <div className="flex items-center space-x-4">
                 {/* Search Bar */}
-                <div className="flex items-center rounded-r-md">
-                    <input
-                        type="text"
-                        value={""}
-                        onChange={() => {}}
-                        // onFocus={() => setIsPopoverOpen(true)}
-                        placeholder={"Search ScienceHub"}
-                        className={` h-full border border-gray-200 py-2 pl-3 rounded-md text-black focus:outline-none ${
-                            ""
-                        }`}
-                    />
-                    <button
-                        className="h-full bg-gray-800 text-white w-10 border border-gray-400 rounded-l-none rounded-r-md hover:bg-gray-900 hover:text-white lg:mt-0"
-                        onClick={() => {}}
-                    >
-                        <FontAwesomeIcon icon={faSearch} className="small-icon" />
-                    </button>
-                </div>
+                <HeaderSearchInput />
 
                 {/* Chats and notifications */}
                 <div className="hidden md:flex items-center pl-4">
@@ -76,26 +60,26 @@ const Header = () => {
                 </div>
             </div>
 
-            {/* Sign-in/Sign-up & Buttons */}
+            {/* User/Auth */}
             <div className="hidden sm:flex items-center gap-x-4">
                 {currentUserId ? (
-                    <div className="flex items-center mr-4 relative">
+                    <div className="flex items-center mx-4 relative">
                         <UserAvatar 
-                            user={userSmallData} 
+                            userSmall={userSmallData} 
                             onClick={() => setIsUserbarOpen(!isUserbarOpen)}
                         />
 
                         {isUserbarOpen && (
-                            <div className="absolute top-10 right-0">
+                            <div className="absolute top-12 right-0 z-50 shadow-lg">
                                 <Userbar
                                     setIsUserbarOpen={setIsUserbarOpen}
-                                    user={userSmallData}
+                                    userSmall={userSmallData}
                                 />
                             </div>
                         )}
                     </div>
                 ) : (
-                    <div className="flex items-center space-x-4 pr-4">
+                    <div className="flex items-center space-x-4 pr-4">    
                         <button
                             className="auth-button"
                             // onClick={() => setIsAuthModalOpen(!isAuthModalOpen)}
