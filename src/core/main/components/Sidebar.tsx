@@ -2,7 +2,7 @@
 
 const Sidebar = () => {
     return (
-        <div className="sidebar">
+        <div className="sidebar shadow-md">
             Sidebar
         </div>
     );

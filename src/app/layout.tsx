@@ -24,13 +24,24 @@ export default function RootLayout({
                 <div>
                     <Header />
                     
-                    <div className="flex flex-row w-full h-full bg-white">
-                        <Sidebar />
+                    <div className="flex flex-row flex-grow overflow-hidden bg-white">
+                        <div
+                            className="fixed inset-y-0 left-0 z-50 md:static md:flex-none rounded-r-md"
+                            style={{
+                                height: "calc(100vh - 4rem)",
+                                top: "4rem",
+                                backgroundColor: "var(--sidebar-bg-color)",
+                            }}
+                        >
+                            <Sidebar />
+                        </div>
 
-                        <div className="flex-1 w-full h-full">
-                            <main>
-                                {children}
-                            </main>
+
+                        <div
+                            className="flex-grow overflow-y-auto overflow-x-none ml-12 md:ml-0 relative"
+                            style={{ height: "calc(100vh - 4rem)" }}
+                        >
+                            {children}
                         </div>
                     </div>
                 </div>
