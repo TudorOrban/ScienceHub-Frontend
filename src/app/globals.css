@@ -2,22 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+    --main-content-bg-color: #1a1a1ae2;
+    --main-content-text-color: black;
+    --header-bg-color: #1b3e85;
+    --header-bg-color-2: #0e204a;
+    --header-text-color: white;
+    --sidebar-bg-color: #171717;
+    --sidebar-text-color: rgb(243 244 246);
+    --sidebar-button-bg-color: #272727;
+    --sidebar-button-text-color: white;
+    --selected-tab-text-color: #0f6ada;
+
+    --auth-button-bg-color: rgb(26, 34, 45);
+    --auth-button-text-color: white;
+    --page-header-bg-color: rgb(252, 252, 252);
+    --box-header-bg-color: rgb(247, 248, 249);
+
+    --button-bg-color: #a66ec2;
+    --button-text-color: #f4f4f4;
+    --main-content-bg-bg-color: #642323;
+    --main-content-bg-text-color: #000000;
+    --profile-header-bg-color: #fcfcfc;
+    --profile-header-text-color: #060606;
+    --ring: 0 100% 0%;
+    
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 @layer utilities {
