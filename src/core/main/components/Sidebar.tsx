@@ -7,18 +7,18 @@ import { useState } from "react";
 
 import { useSidebarNavigation } from "../hooks/handleSidebarNavigation";
 
-interface ExpandedItems {
+interface CollapsedItems {
     [key: string]: boolean;
 }
 
 const Sidebar = () => {
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
-    const [expandedItems, setExpandedItems] = useState<ExpandedItems>({});
+    const [collapsedItems, setCollapsedItems] = useState<CollapsedItems>({});
 
     const { pageDirectory, navigationItems } = useSidebarNavigation();
 
     const handleExpandItem = (itemLabel: string) => {
-        setExpandedItems((prev) => ({
+        setCollapsedItems((prev) => ({
             ...prev,
             [itemLabel]: !prev[itemLabel],
         }));
@@ -48,7 +48,7 @@ const Sidebar = () => {
             <div className="pl-6 pr-4 py-4 w-full h-full space-y-4">
                 {navigationItems.map((item) => (
                     <div key={item.label}>
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between py-2">
                             <Link href={item?.link ?? ""} className="flex items-center space-x-3">
                                 <FontAwesomeIcon
                                     icon={item?.icon ?? faQuestion}
@@ -60,20 +60,20 @@ const Sidebar = () => {
                             {item?.subItems && (
                                 <button onClick={() => handleExpandItem(item.label)}>
                                     <FontAwesomeIcon
-                                        icon={expandedItems[item.label] ? faCaretUp : faCaretDown}
+                                        icon={!collapsedItems[item.label] ? faCaretUp : faCaretDown}
                                         className="small-icon"
                                     />
                                 </button>
                             )}
                         </div>
 
-                        <div className="flex flex-col px-4 py-2 space-y-2">
-                            {expandedItems[item.label] &&
-                                (item.subItems ?? []).map((subItem, index) => (
+                        {!collapsedItems[item.label] && item?.subItems && (
+                            <div className="flex flex-col px-4 space-y-2">
+                            {(item.subItems ?? []).map((subItem, index) => (
                                     <Link
                                         key={subItem.label}
                                         href={subItem.link ?? ""}
-                                        className={`flex items-center space-x-3 py-2 hover:text-white ${
+                                        className={`flex items-center space-x-3 py-1 hover:text-white ${
                                             index === 0 ? "pt-4" : ""
                                         }`}
                                     >
@@ -85,6 +85,7 @@ const Sidebar = () => {
                                     </Link>
                                 ))}
                         </div>
+                        )}
                     </div>
                 ))}
             </div>

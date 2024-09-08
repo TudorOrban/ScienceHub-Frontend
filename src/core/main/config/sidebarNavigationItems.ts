@@ -42,7 +42,7 @@ export const getNavigationItems = (pageDirectory: PageDirectory, identifier?: st
         }
         return getUserProfileNavItems(identifier, isCurrentUser);
     }
-    
+
     if (pageDirectory === PageDirectory.Project) {
         if (!identifier || !projectName) {
             return [];
@@ -126,9 +126,9 @@ export const sidebarNavigationItems: Record<PageDirectory, NavigationItem[]> = {
                     link: "/workspace/community/chats",
                 },
                 {
-                    label: "Teams",
+                    label: "Collaborations",
                     icon: faUserGroup,
-                    link: "/workspace/community/teams",
+                    link: "/workspace/community/collaborations",
                 },
                 // { label: 'Collaborations', icon: faUsers, link: '/workspace/collaborations' },
             ],
@@ -333,9 +333,9 @@ export const getUserProfileNavItems = (username: string, isCurrentUser?: boolean
                     link: `/${username}/community/discussions`,
                 },
                 {
-                    label: "Teams",
+                    label: "Collaborations",
                     icon: faUserGroup,
-                    link: `/${username}/community/teams`,
+                    link: `/${username}/community/collaborations`,
                 },
             ],
         },
