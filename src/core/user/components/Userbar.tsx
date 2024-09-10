@@ -7,12 +7,10 @@ import UserAvatar from "./UserAvatar";
 
 export interface UserbarProps {
     userSmall?: UserSmall;
-    setIsUserbarOpen?: (isOpen: boolean) => void;
 }
 
 const Userbar = ({ 
     userSmall,
-    setIsUserbarOpen
 }: UserbarProps) => {
     const navigationOptions = [
         {

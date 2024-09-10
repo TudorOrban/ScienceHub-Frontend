@@ -9,6 +9,7 @@ import type { Metadata } from "next";
 import Sidebar from "@/core/main/components/sidebar/Sidebar";
 import Header from "@/core/main/components/Header";
 import Providers from "@/core/main/providers/Providers";
+import UserbarWrapper from "@/core/user/components/UserbarWrapper";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -26,10 +27,11 @@ export default function RootLayout({
                 <Providers>
                     <div>
                         <Header />
+                        <UserbarWrapper />
                         
                         <div className="flex flex-row flex-grow overflow-hidden bg-white">
                             <div
-                                className="fixed inset-y-0 left-0 md:static md:flex-none rounded-r-md"
+                                className="fixed inset-y-0 left-0 z-40 md:static md:flex-none rounded-r-md"
                                 style={{
                                     height: "calc(100vh - 4rem)",
                                     top: "4rem",

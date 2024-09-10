@@ -13,9 +13,7 @@ import { useFetchUserSmall } from "@/core/user/hooks/useFetchUserSmall";
 import { useCurrentUser } from "@/core/user/contexts/CurrentUserContext";
 
 const Header = () => {
-    const [isUserbarOpen, setIsUserbarOpen] = useState(false);
-
-    const { setCurrentUser } = useCurrentUser();
+    const { setCurrentUser, isUserbarOpen, setIsUserbarOpen } = useCurrentUser();
 
     const currentUserId = 1;
     const userSmallData = useFetchUserSmall(currentUserId, !!currentUserId)?.data;
@@ -71,20 +69,11 @@ const Header = () => {
             {/* User/Auth */}
             <div className="hidden sm:flex items-center space-x-4">
                 {currentUserId ? (
-                    <div className="flex items-center mx-4 relative">
+                    <div className="flex items-center mx-4">
                         <UserAvatar
                             userSmall={userSmallData}
-                            onClick={() => setIsUserbarOpen(!isUserbarOpen)}
+                            onClick={() => setIsUserbarOpen?.(!isUserbarOpen)}
                         />
-
-                        {isUserbarOpen && (
-                            <div className="absolute top-12 right-0 shadow-lg overflow-auto">
-                                <Userbar
-                                    setIsUserbarOpen={setIsUserbarOpen}
-                                    userSmall={userSmallData}
-                                />
-                            </div>
-                        )}
                     </div>
                 ) : (
                     <div className="flex items-center space-x-4 pr-4">
