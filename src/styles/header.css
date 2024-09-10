@@ -8,3 +8,7 @@
     background-color: var(--header-bg-color);
     color: var(--header-text-color);
 }
+
+.list-header {
+    padding: 0.5rem 0rem 2rem 0rem;
+}

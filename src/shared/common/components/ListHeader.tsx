@@ -1,10 +1,16 @@
 import { SearchParams } from "@/shared/search/models/Search";
 import SearchInput from "./SearchInput";
 import { UIItem } from "../models/UITypes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowDownShortWide, faArrowUpWideShort, faPlus } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 export interface ListHeaderProps {
-    title: string;
+    pageTitle: UIItem;
     sortOptions?: UIItem[];
+    createNewButtonData?: UIItem;
+    addBorder?: boolean;
+
     searchParams: SearchParams;
     onTermChange?: (term: string) => void;
     onSortOptionChange?: (sortOption: string) => void;
@@ -13,8 +19,10 @@ export interface ListHeaderProps {
 
 
 const ListHeader = ({
-    title,
+    pageTitle,
     sortOptions = [],
+    createNewButtonData,
+    addBorder = true,
     searchParams,
     onTermChange,
     onSortOptionChange,
@@ -30,26 +38,44 @@ const ListHeader = ({
     };
     
     return (
-        <div className="page-standard-horizontal-padding py-6">
-            <h2 className="page-title">
-                {title}
-            </h2>
-
-            <div className="flex items-center flex-wrap xl:flex-nowrap">
-                <SearchInput searchTerm={searchParams.searchTerm ?? ""} onTermChange={handleTermChange} />
-
-                <select
-                    className="custom-select ml-2"
-                    value={searchParams.sortBy}
-                    onChange={handleSortChange}
-                >
-                    {sortOptions.map(option => (
-                        <option key={option.value} value={option.value}>{option.label}</option>
-                    ))}
-                </select>
-                <button className="ml-2" onClick={onToggleDescending}>Toggle</button>
+        <div className={`page-standard-horizontal-padding list-header ${addBorder ? "border-b border-gray-300 shadow-sm" : ""}`}>
+            <div className="flex items-center py-4 space-x-2">
+                {pageTitle?.icon && (
+                    <FontAwesomeIcon icon={pageTitle.icon} className="small-icon" />
+                )}
+                {pageTitle?.label && (
+                    <h2 className="page-title">
+                        {pageTitle.label}
+                    </h2>
+                )}
             </div>
-            <button onClick={onToggleDescending}>Toggle</button>
+
+            <div className="flex items-start justify-between">
+                <div className="flex items-center flex-wrap xl:flex-nowrap">
+                    <SearchInput searchTerm={searchParams.searchTerm ?? ""} onTermChange={handleTermChange} />
+
+                    <select
+                        className="custom-select lg:ml-4"
+                        value={searchParams.sortBy}
+                        onChange={handleSortChange}
+                    >
+                        {sortOptions.map(option => (
+                            <option key={option.value} value={option.value}>{option.label}</option>
+                        ))}
+                    </select>
+                    <button 
+                        className="standard-button" 
+                        onClick={onToggleDescending}
+                    >
+                        <FontAwesomeIcon icon={searchParams.sortDescending ? faArrowUpWideShort : faArrowDownShortWide} />
+                    </button>
+                    
+                </div>
+                <Link href={createNewButtonData?.link ?? "/not-found"} className="standard-write-button flex items-center space-x-2">
+                    <FontAwesomeIcon icon={faPlus} />
+                    <p>{createNewButtonData?.label}</p>
+                </Link>
+            </div>
         </div>
     );
 }

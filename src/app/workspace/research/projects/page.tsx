@@ -4,15 +4,19 @@ import { useSearchProjectsByUserId } from "@/features/research/projects/hooks/us
 import ListHeader from "@/shared/common/components/ListHeader";
 import { UIItem } from "@/shared/common/models/UITypes";
 import { SearchParams } from "@/shared/search/models/Search";
+import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 
 
 export default function ProjectsPage() {
+    const pageTitle: UIItem = { label: "Projects", value: "", icon: faBoxArchive };
     const sortOptions: UIItem[] = [
         { label: "Created At", value: "createdAt" },
         { label: "Updated At", value: "updatedAt" },
         { label: "Name", value: "Name" },
     ];
+    const createNewButtonData: UIItem = { label: "New Project", value: "", link: "/workspace/research/projects/create" };
+
     const userId = 1;
     const [searchParams, setSearchParams] = useState<SearchParams>({
         searchTerm: "",
@@ -45,14 +49,14 @@ export default function ProjectsPage() {
         }));
     }
 
-    console.log(data, error, isLoading);
-
     return (
         <div className="text-2xl overflow-x-hidden">
             <ListHeader 
-                title="Projects"
-                searchParams={searchParams}
+                pageTitle={pageTitle}
                 sortOptions={sortOptions}
+                createNewButtonData={createNewButtonData}
+                addBorder={false}
+                searchParams={searchParams}
                 onTermChange={handleTermChange}
                 onSortOptionChange={handleSortOptionChange}
                 onToggleDescending={handleToggleDescending}
