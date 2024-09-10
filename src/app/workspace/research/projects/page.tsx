@@ -1,7 +1,12 @@
 "use client";
 
+import { pagesUIConfigurations } from "@/core/main/config/pagesUIConfigurations";
+import ProjectMediumCard from "@/features/research/projects/components/ProjectMediumCard";
 import { useSearchProjectsByUserId } from "@/features/research/projects/hooks/useSearchProjectsByUserId";
 import ListHeader from "@/shared/common/components/ListHeader";
+import NavigationMenu from "@/shared/common/components/NavigationMenu";
+import NavigationMenus from "@/shared/common/components/NavigationMenus";
+import PageSelector from "@/shared/common/components/PageSelector";
 import { UIItem } from "@/shared/common/models/UITypes";
 import { SearchParams } from "@/shared/search/models/Search";
 import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
@@ -9,13 +14,7 @@ import { useState } from "react";
 
 
 export default function ProjectsPage() {
-    const pageTitle: UIItem = { label: "Projects", value: "", icon: faBoxArchive };
-    const sortOptions: UIItem[] = [
-        { label: "Created At", value: "createdAt" },
-        { label: "Updated At", value: "updatedAt" },
-        { label: "Name", value: "Name" },
-    ];
-    const createNewButtonData: UIItem = { label: "New Project", value: "", link: "/workspace/research/projects/create" };
+    const pageUIConfiguration = pagesUIConfigurations["projects"];
 
     const userId = 1;
     const [searchParams, setSearchParams] = useState<SearchParams>({
@@ -45,28 +44,41 @@ export default function ProjectsPage() {
     const handleToggleDescending = () => {
         setSearchParams(prevParams => ({
             ...prevParams,
-            sortDescending: !prevParams.sortDescending
+            sortDescending: !prevParams?.sortDescending
+        }));
+    }
+
+    const handlePageChange = (page: number) => {
+        setSearchParams(prevParams => ({
+            ...prevParams,
+            page: page
         }));
     }
 
     return (
         <div className="text-2xl overflow-x-hidden">
             <ListHeader 
-                pageTitle={pageTitle}
-                sortOptions={sortOptions}
-                createNewButtonData={createNewButtonData}
-                addBorder={false}
+                pageTitle={pageUIConfiguration.pageTitle}
+                sortOptions={pageUIConfiguration.sortOptions}
+                createNewButtonData={pageUIConfiguration.createNewButtonData}
+                addBottom={false}
                 searchParams={searchParams}
                 onTermChange={handleTermChange}
                 onSortOptionChange={handleSortOptionChange}
                 onToggleDescending={handleToggleDescending}
             />
 
-            {!isLoading && data?.results && data?.results.map(project => (
-                <div key={project.id}>
-                    {project.name}
-                </div>
-            ))}
+            <NavigationMenus menus={pageUIConfiguration.menus ?? []} />
+
+            <div className="page-standard-horizontal-padding py-4">
+                {!isLoading && data?.results && data?.results.map(project => (
+                    <ProjectMediumCard key={project.id} project={project} />
+                ))}
+            </div>
+
+            <div className="flex justify-end page-standard-horizontal-padding">
+                <PageSelector currentPage={searchParams?.page} itemsPerPage={searchParams?.itemsPerPage} totalCount={data?.totalCount ?? 0} onPageChange={handlePageChange} />
+            </div>
 
         </div>
     );

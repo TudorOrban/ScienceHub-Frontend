@@ -7,7 +7,7 @@ import "/src/styles/forms.css";
 import "/src/styles/layout.css";
 import type { Metadata } from "next";
 import Sidebar from "@/core/main/components/sidebar/Sidebar";
-import Header from "@/core/main/components/Header";
+import Header from "@/core/main/components/header/Header";
 import Providers from "@/core/main/providers/Providers";
 import UserbarWrapper from "@/core/user/components/UserbarWrapper";
 

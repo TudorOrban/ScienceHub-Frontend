@@ -249,6 +249,7 @@ export const sidebarNavigationItems: Record<PageDirectory, NavigationItem[]> = {
     [PageDirectory.UserProfile]: [],
     [PageDirectory.Project]: [],
     [PageDirectory.NotFound]: [],
+    [PageDirectory.None]: [],
 }
 
 

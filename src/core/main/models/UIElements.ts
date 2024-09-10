@@ -8,7 +8,8 @@ export enum PageDirectory {
     Resources = "Resources",
     UserProfile = "User Profile",
     Project = "Project",
-    NotFound = "Not Found"
+    NotFound = "Not Found",
+    None = ""
 }
 
 export interface NavigationItem {

@@ -4,7 +4,7 @@ import { PageDirectory, NavigationItem } from "../models/UIElements";
 import { getNavigationItems } from "../config/sidebarNavigationItems";
 
 export const useSidebarNavigation = () => {
-    const [pageDirectory, setPageDirectory] = useState<PageDirectory>(PageDirectory.Home);
+    const [pageDirectory, setPageDirectory] = useState<PageDirectory>(PageDirectory.None);
     const [navigationItems, setNavigationItems] = useState<NavigationItem[]>([]);
     const [selectedItem, setSelectedItem] = useState<string>("");
 

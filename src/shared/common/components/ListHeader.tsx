@@ -9,7 +9,7 @@ export interface ListHeaderProps {
     pageTitle: UIItem;
     sortOptions?: UIItem[];
     createNewButtonData?: UIItem;
-    addBorder?: boolean;
+    addBottom?: boolean;
 
     searchParams: SearchParams;
     onTermChange?: (term: string) => void;
@@ -22,7 +22,7 @@ const ListHeader = ({
     pageTitle,
     sortOptions = [],
     createNewButtonData,
-    addBorder = true,
+    addBottom = true,
     searchParams,
     onTermChange,
     onSortOptionChange,
@@ -38,7 +38,7 @@ const ListHeader = ({
     };
     
     return (
-        <div className={`page-standard-horizontal-padding list-header ${addBorder ? "border-b border-gray-300 shadow-sm" : ""}`}>
+        <div className={`page-standard-horizontal-padding ${addBottom ? "border-b border-gray-300 shadow-sm py-4" : ""}`}>
             <div className="flex items-center py-4 space-x-2">
                 {pageTitle?.icon && (
                     <FontAwesomeIcon icon={pageTitle.icon} className="small-icon" />
