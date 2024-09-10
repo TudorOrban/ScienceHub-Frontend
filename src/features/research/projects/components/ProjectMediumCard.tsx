@@ -2,16 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { ProjectSearchDTO } from "../models/Project";
-import {
-    faBoxArchive,
-    faCaretDown,
-    faCaretUp,
-    faEllipsis,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Link from "next/link";
-import { faPlus, faQuoteRight, faShare, faUpLong, faUser } from "@fortawesome/free-solid-svg-icons";
-import UsersAndTeamsUI from "@/shared/common/components/UsersAndTeamsUI";
 import ProjectMediumCardExpansion from "./ProjectMediumCardExpansion";
 import ProjectMediumCardBase from "./ProjectMediumCardBase";
 

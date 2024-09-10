@@ -1,8 +1,9 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ProjectSearchDTO } from "../models/Project";
-import { faBoxArchive, faCaretDown, faCaretUp, faPlus, faUser } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
+import { faEllipsis, faPlus, faShare, faUpLong, faUser } from "@fortawesome/free-solid-svg-icons";
 import UsersAndTeamsUI from "@/shared/common/components/UsersAndTeamsUI";
+import SmallMetricsPanel from "./SmallMetricsPanel";
+import ProjectMediumCardTitle from "./ProjectMediumCardTitle";
 
 export interface ProjectMediumCardBaseProps {
     project?: ProjectSearchDTO;
@@ -19,55 +20,23 @@ const ProjectMediumCardBase = ({
     isLoading,
     disableViewMode,
 }: ProjectMediumCardBaseProps) => {
-    const userIds = (project?.projectUsers || []).map((user) => user.user.username);
-    const collaborationIds = (project?.collaborations || []).map((collaboration) => `T~${collaboration.name}`);
-    const identifier = [...userIds, ...collaborationIds].join("~");
 
     return (
         <div
-            className={`flex justify-between items-start flex-wrap sm:flex-nowrap px-6 py-3 bg-gray-50 border-b border-gray-300 ${
+            className={`flex justify-between items-start flex-wrap sm:flex-nowrap px-6 py-4 bg-gray-50 border-b border-gray-300 ${
                 localViewMode === "collapsed" ? "rounded-lg" : "rounded-t-lg"
             }`}
         >
             {/* Left side */}
-            <div className="">
+            <div className="space-y-4">
                 {/* Title and view mode */}
-                <div className="flex items-center">
-                    <FontAwesomeIcon
-                        icon={faBoxArchive}
-                        className="small-icon text-gray-700"
-                    />
-                    {!isLoading && !!project ? (
-                        <Link
-                            href={`/${identifier}/projects/${project.name}`}
-                            className="ml-2 hover:text-blue-600"
-                            style={{
-                                fontSize: "19px",
-                                fontWeight: 500,
-                            }}
-                        >
-                            {project.title}
-                        </Link>
-                    ) : (
-                        <div className="w-full h-10 bg-gray-100 rounded-md shadow-sm">
-                        </div>
-                    )}
-                    {!disableViewMode && (
-                        <button
-                            onClick={(e) => {
-                                setLocalViewMode(
-                                    localViewMode === "expanded" ? "collapsed" : "expanded"
-                                );
-                            }}
-                            className="ml-3"
-                        >
-                            <FontAwesomeIcon
-                                icon={localViewMode === "expanded" ? faCaretUp : faCaretDown}
-                                className="small-icon text-gray-700 mb-1"
-                            />
-                        </button>
-                    )}
-                </div>
+                <ProjectMediumCardTitle
+                    project={project}
+                    localViewMode={localViewMode}
+                    setLocalViewMode={setLocalViewMode}
+                    isLoading={isLoading}
+                    disableViewMode={disableViewMode}
+                />
 
                 {/* Authors */}
                 <div className="flex items-center text-base flex-wrap mt-3 text-gray-600 ">
@@ -88,26 +57,23 @@ const ProjectMediumCardBase = ({
             {/* Right side: metrics panel and action buttons */}
             <div className="flex flex-col pt-2 sm:pt-0">
                 <div className="flex justify-center sm:justify-end mr-1">
-                    {/* <SmallMetricsPanel
+                    <SmallMetricsPanel
                         researchScore={project?.researchScore}
                         hIndex={project?.hIndex}
                         citationsCount={project?.totalCitationsCount}
                         isLoading={isLoading}
-                    /> */}
+                    />
                 </div>
                 <div className="flex justify-end space-x-3 mt-3 mr-2">
-                    {/* <ActionButton
-                        icon={faEllipsis}
-                        tooltipText={"More Actions"}
-                        className="w-8 h-8"
-                    />
-                    <ActionButton icon={faUpLong} tooltipText={"Upvote"} className="w-8 h-8" />
-                    <ActionButton
-                        icon={faQuoteRight}
-                        tooltipText={"Cite"}
-                        className="w-8 h-8"
-                    />
-                    <ActionButton icon={faShare} tooltipText={"Share"} className="w-8 h-8" /> */}
+                    <button className="standard-button flex items-center justify-center w-9">
+                        <FontAwesomeIcon icon={faEllipsis} className="small-icon" />
+                    </button>
+                    <button className="standard-button flex items-center justify-center w-9">
+                        <FontAwesomeIcon icon={faUpLong} className="small-icon" />
+                    </button>
+                    <button className="standard-button flex items-center justify-center w-9">
+                        <FontAwesomeIcon icon={faShare} className="small-icon" />
+                    </button>
                     <button className="standard-write-button">
                         <FontAwesomeIcon icon={faPlus} className="small-icon-white" />
                     </button>
