@@ -32,5 +32,6 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
                 addBottom: false
             }
         ],
+        itemsPerPage: 20
     }
 }

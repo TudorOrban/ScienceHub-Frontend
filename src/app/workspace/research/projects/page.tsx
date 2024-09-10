@@ -40,29 +40,33 @@ export default function ProjectsPage() {
         sortBy: "createdAt",
         sortDescending: true,
         page: 1,
-        itemsPerPage: 2,
+        itemsPerPage: pageUIConfiguration.itemsPerPage,
     });
 
     const { data, error, isLoading } = useSearchProjectsByUserId(userId, searchParams, !!userId);
+    console.log("Data: ", data);
 
     const handleTermChange = (term: string) => {
         setSearchParams(prevParams => ({
             ...prevParams,
-            searchTerm: term
+            searchTerm: term,
+            page: 1
         }));
     }
 
     const handleSortOptionChange = (sortOption: string) => {
         setSearchParams(prevParams => ({
             ...prevParams,
-            sortBy: sortOption
+            sortBy: sortOption,
+            page: 1
         }));
     }
     
     const handleToggleDescending = () => {
         setSearchParams(prevParams => ({
             ...prevParams,
-            sortDescending: !prevParams?.sortDescending
+            sortDescending: !prevParams?.sortDescending,
+            page: 1
         }));
     }
 

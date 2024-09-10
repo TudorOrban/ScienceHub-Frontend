@@ -6,6 +6,7 @@ export interface PageUIConfiguration {
     createNewButtonData?: UIItem;
     addListHeaderBottom?: boolean;
     menus?: MenuConfiguration[];
+    itemsPerPage?: number;
 }
 
 export interface MenuConfiguration {
