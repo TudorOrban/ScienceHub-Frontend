@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ProjectSearchDTO } from "../models/Project";
 import { faBoxArchive, faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { constructProjectIdentifier } from "../utils/constructProjectIdentifier";
 
 export interface ProjectMediumCardTitleProps {
     project?: ProjectSearchDTO;
@@ -18,9 +19,7 @@ const ProjectMediumCardTitle = ({
     isLoading,
     disableViewMode,
 }: ProjectMediumCardTitleProps) => {
-    const userIds = (project?.projectUsers || []).map((user) => user.user.username);
-    const collaborationIds = (project?.collaborations || []).map((collaboration) => `T~${collaboration.name}`);
-    const identifier = [...userIds, ...collaborationIds].join("~");
+    const identifier = constructProjectIdentifier(project);
 
     return (
         <div className="flex items-center">

@@ -14,10 +14,9 @@ const PageSelector = ({
     onPageChange,
 }: PageSelectorProps) => {
     if (!totalCount || totalCount <= itemsPerPage || !onPageChange) {
-        console.log('PageSelector: Invalid props: ', { currentPage, itemsPerPage, totalCount, onPageChange });
         return null;
     }
-    console.log("Total Count: ", totalCount, "Items Per Page: ", itemsPerPage, "Current Page: ", currentPage);
+
     const numberOfPages = Math.ceil(totalCount / itemsPerPage);
     const pageNumbers: Array<number | string> = [];
 

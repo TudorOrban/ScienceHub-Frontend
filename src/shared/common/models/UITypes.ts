@@ -21,5 +21,6 @@ export interface UIItem {
     label: string;
     value: string;
     icon?: IconDefinition;
+    iconColor?: string;
     link?: string;
 }

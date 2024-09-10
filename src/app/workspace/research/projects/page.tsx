@@ -1,12 +1,13 @@
 "use client";
 
 import { pagesUIConfigurations } from "@/core/main/config/pagesUIConfigurations";
+import { useCurrentUser } from "@/core/user/contexts/CurrentUserContext";
 import ProjectMediumCard from "@/features/research/projects/components/ProjectMediumCard";
 import { useSearchProjectsByUserId } from "@/features/research/projects/hooks/useSearchProjectsByUserId";
 import ListHeader from "@/shared/common/components/ListHeader";
 import NavigationMenus from "@/shared/common/components/NavigationMenus";
 import PageSelector from "@/shared/common/components/PageSelector";
-import { useMenuHandlers } from "@/shared/common/hooks/UseMenuHandlers";
+import { useMenuHandlers } from "@/shared/common/hooks/useMenuHandlers";
 import { usePageSearchControls } from "@/shared/search/hooks/usePageSearchControls";
 
 
@@ -19,8 +20,8 @@ export default function ProjectsPage() {
         [menu.menuId]: (value: string) => setMenuState(menu.menuId, value)
     }), {});
 
-    const userId = 1;
-    const { data, error, isLoading } = useSearchProjectsByUserId(userId, pageUIConfiguration.initialSearchParams ?? {}, !!userId);
+    const { currentUser } = useCurrentUser();
+    const { data, error, isLoading } = useSearchProjectsByUserId(currentUser?.id ?? 0, pageUIConfiguration.initialSearchParams ?? {}, !!currentUser?.id);
     console.log("Data: ", data);
 
     const { 
