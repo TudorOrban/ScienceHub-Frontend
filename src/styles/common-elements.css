@@ -62,4 +62,10 @@
 
 .small-icon {
     height: var(--default-icon-height);
+    color: var(--default-icon-color);
+}
+
+.extra-small-icon {
+    height: 0.75rem;
+    color: var(--default-icon-color);
 }

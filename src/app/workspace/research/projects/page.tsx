@@ -93,11 +93,12 @@ export default function ProjectsPage() {
                 />
             </div>
 
-            <div className="page-standard-horizontal-padding py-4">
+            <div className="page-standard-horizontal-padding py-4 space-y-4">
                 {!isLoading && data?.results && data?.results.map(project => (
                     <ProjectMediumCard 
                         key={project.id} 
                         project={project} 
+                        viewMode={expandedCollapsedCurrentValue}
                     />
                 ))}
             </div>

@@ -1,4 +1,5 @@
 import { UserSmall } from "@/core/user/models/User";
+import { CollaborationSmall } from "@/features/community/collaborations/models/Collaboration";
 
 export interface ProjectSmall {
     id: number;
@@ -12,6 +13,7 @@ export interface ProjectMedium {
     name: string;
     currentProjectVersionId?: number;
     users?: UserSmall[];
+    collaborations?: CollaborationSmall[];
 }
 
 export interface ProjectSearchDTO {
@@ -22,6 +24,7 @@ export interface ProjectSearchDTO {
     currentProjectVersionId?: number;
     projectUsers?: ProjectUserSearchDTO[];
     users?: UserSmall[];
+    collaborations?: CollaborationSmall[];
 
     experimentsCount?: number;
     datasetsCount?: number;
