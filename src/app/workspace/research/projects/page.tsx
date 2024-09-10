@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function ProjectsPage() {
     const userId = 1;
     const [searchParams, setSearchParams] = useState<SearchParams>({
-        searchQuery: "",
+        searchTerm: "",
         sortBy: "createdAt",
         sortDescending: true,
         page: 1,
@@ -18,6 +18,12 @@ export default function ProjectsPage() {
 
     const { data, error, isLoading } = useSearchProjectsByUserId(userId, searchParams, !!userId);
 
+    const handleTermChange = (term: string) => {
+        setSearchParams(prevParams => ({
+            ...prevParams,
+            searchTerm: term
+        }));
+    }
     
     const handleToggleDescending = () => {
         setSearchParams(prevParams => ({
@@ -33,8 +39,15 @@ export default function ProjectsPage() {
             <ListHeader 
                 title="Projects"
                 searchParams={searchParams}
+                onTermChange={handleTermChange}
                 onToggleDescending={handleToggleDescending}
             />
+
+            {!isLoading && data?.results && data?.results.map(project => (
+                <div key={project.id}>
+                    {project.name}
+                </div>
+            ))}
 
         </div>
     );
