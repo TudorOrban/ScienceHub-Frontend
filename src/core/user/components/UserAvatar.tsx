@@ -1,7 +1,7 @@
 import { UserSmall } from "../models/User";
 
 export interface UserAvatarProps {
-    userSmall: UserSmall;
+    userSmall?: UserSmall;
     onClick?: () => void;
 }
 
@@ -10,7 +10,7 @@ const UserAvatar = (
 ) => {
 
     const getUserInitials = (fullName: string) => {
-        if (!fullName) return "";
+        if (!fullName) return "?";
         const names = fullName.split(" ");
         return names[0][0] + names[names.length - 1][0];
     }

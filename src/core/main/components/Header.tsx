@@ -10,12 +10,13 @@ import UserAvatar from "@/core/user/components/UserAvatar";
 import Userbar from "@/core/user/components/Userbar";
 import { UserSmall } from "@/core/user/models/User";
 import HeaderSearchInput from "./HeaderSearchInput";
+import { useFetchUserSmall } from "@/core/user/hooks/useFetchUserSmall";
 
 const Header = () => {
     const [isUserbarOpen, setIsUserbarOpen] = useState(false);
 
     const currentUserId = "1";
-    const userSmallData: UserSmall = { id: "1", username: "JohnDoe", fullName: "John A. Doe" };
+    const userSmallData = useFetchUserSmall(currentUserId, !!currentUserId)?.data;
 
     return (
         <div className="header">

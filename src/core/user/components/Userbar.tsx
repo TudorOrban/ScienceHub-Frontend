@@ -6,7 +6,7 @@ import { UserSmall } from "../models/User";
 import UserAvatar from "./UserAvatar";
 
 export interface UserbarProps {
-    userSmall: UserSmall;
+    userSmall?: UserSmall;
     setIsUserbarOpen?: (isOpen: boolean) => void;
 }
 
@@ -42,7 +42,7 @@ const Userbar = ({
             <div className="flex items-center space-x-2">
                 <UserAvatar userSmall={userSmall} />
 
-                <div className="font-semibold">{userSmall.username}</div>
+                <div className="font-semibold">{userSmall?.username}</div>
             </div>
 
             <div className="space-y-4 py-4">
