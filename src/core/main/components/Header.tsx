@@ -15,7 +15,7 @@ import { useFetchUserSmall } from "@/core/user/hooks/useFetchUserSmall";
 const Header = () => {
     const [isUserbarOpen, setIsUserbarOpen] = useState(false);
 
-    const currentUserId = "1";
+    const currentUserId = 1;
     const userSmallData = useFetchUserSmall(currentUserId, !!currentUserId)?.data;
 
     return (

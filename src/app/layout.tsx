@@ -4,6 +4,7 @@ import "/src/styles/header.css";
 import "/src/styles/common-elements.css";
 import "/src/styles/buttons.css";
 import "/src/styles/forms.css";
+import "/src/styles/layout.css";
 import type { Metadata } from "next";
 import Sidebar from "@/core/main/components/sidebar/Sidebar";
 import Header from "@/core/main/components/Header";

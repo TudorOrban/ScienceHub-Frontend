@@ -1,5 +1,22 @@
+.page-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+}
 
+.label-large {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
 
+.label-medium-large {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.label-medium {
+    font-size: 1rem;
+    font-weight: 600;
+}
 
 
 

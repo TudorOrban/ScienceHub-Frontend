@@ -7,7 +7,7 @@ export interface PaginatedResults<T> {
 export interface SearchParams {
     searchQuery?: string;
     sortBy?: string;
-    isDescending?: boolean;
+    sortDescending?: boolean;
     filters?: Record<string, string>;
     page?: number;
     itemsPerPage?: number;
