@@ -9,7 +9,8 @@ export interface PageUIConfiguration {
 }
 
 export interface MenuConfiguration {
-    menuLabel?: string;
+    menuId: string;
+    defaultItemValue?: string;
     items?: UIItem[];
     addBottom?: boolean;
 }

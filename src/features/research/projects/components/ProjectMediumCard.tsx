@@ -4,6 +4,7 @@ import { ProjectSearchDTO } from "../models/Project";
 
 export interface ProjectMediumCardProps {
     project?: ProjectSearchDTO;
+    
 }
 
 const ProjectMediumCard = ({

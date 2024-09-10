@@ -38,7 +38,7 @@ const ListHeader = ({
     };
     
     return (
-        <div className={`page-standard-horizontal-padding ${addBottom ? "border-b border-gray-300 shadow-sm py-4" : ""}`}>
+        <div className={`page-standard-horizontal-padding pt-2 ${addBottom ? "border-b border-gray-300 shadow-sm py-4" : ""}`}>
             <div className="flex items-center py-4 space-x-2">
                 {pageTitle?.icon && (
                     <FontAwesomeIcon icon={pageTitle.icon} className="small-icon" />

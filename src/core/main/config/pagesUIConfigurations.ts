@@ -14,19 +14,21 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
         addListHeaderBottom: false,
         menus: [
             {
-                menuLabel: "Expand/Collapse",
+                menuId: "Expand/Collapse",
                 items: [
                     { label: "Expanded", value: "expanded" },
                     { label: "Collapsed", value: "collapsed" },
                 ],
+                defaultItemValue: "expanded",
                 addBottom: false
             },
             {
-                menuLabel: "Main Author/Contributor",
+                menuId: "Main Author/Contributor",
                 items: [
                     { label: "Main Author", value: "mainAuthor" },
                     { label: "Contributor", value: "contributor" },
                 ],
+                defaultItemValue: "mainAuthor",
                 addBottom: false
             }
         ],

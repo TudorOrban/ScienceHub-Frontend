@@ -5,19 +5,21 @@ import NavigationMenu from "./NavigationMenu";
 
 export interface NavigationMenusProps {
     menus: MenuConfiguration[];
+    menuSelectHandlers?: Record<string, (itemValue: string) => void>;
 }
 
 const NavigationMenus = ({
-    menus
+    menus,
+    menuSelectHandlers,
 }: NavigationMenusProps) => {
     return (
-        <div className="flex items-center justify-between page-standard-horizontal-padding py-4 space-x-4 border-b border-gray-300">
-            {menus.map((menu, index) => (
+        <div className="flex items-center justify-between space-x-4 border-b border-gray-300">
+            {menus.map(menu => (
                 <NavigationMenu
-                    key={menu?.menuLabel ?? index}
+                    key={menu.menuId}
                     items={menu?.items ?? []}
-                    currentItemValue={"expanded"}
-                    setCurrentItem={() => {}}
+                    defaultItemValue={menu.defaultItemValue}
+                    onItemChange={menuSelectHandlers?.[menu.menuId] ?? (() => {})}
                 />
             ))}
         </div>
