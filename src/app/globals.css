@@ -22,13 +22,3 @@
     --default-button-height: 2.25rem;
     --default-icon-height: 1rem;
 }
-
-body {
-    font-family: Arial, sans-serif;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}

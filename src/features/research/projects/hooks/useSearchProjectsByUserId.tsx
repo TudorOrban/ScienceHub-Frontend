@@ -9,11 +9,12 @@ export const useSearchProjectsByUserId = (userId: number, searchParams: SearchPa
         queryKey: ["searchProjectsByUserId", userId, searchParams.searchTerm, searchParams.sortBy, searchParams.sortDescending, searchParams.page, searchParams.itemsPerPage],
         queryFn: () => searchProjectsByUserId(userId, searchParams),
         enabled: !!userId && enabled,
+        staleTime: 60 * 1000,
     });
 
     return {
         data: result.data?.data,
-        error: result.error ?? undefined,
+        error: result.error ?? result.data?.error ?? undefined,
         isLoading: result.isLoading,
     };
 };

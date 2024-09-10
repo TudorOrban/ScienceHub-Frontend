@@ -2,11 +2,10 @@
 
 import { pagesUIConfigurations } from "@/core/main/config/pagesUIConfigurations";
 import { useCurrentUser } from "@/core/user/contexts/CurrentUserContext";
-import ProjectMediumCard from "@/features/research/projects/components/ProjectMediumCard";
+import ProjectCardList from "@/features/research/projects/components/ProjectCardList";
 import { useSearchProjectsByUserId } from "@/features/research/projects/hooks/useSearchProjectsByUserId";
 import ListHeader from "@/shared/common/components/ListHeader";
 import NavigationMenus from "@/shared/common/components/NavigationMenus";
-import PageSelector from "@/shared/common/components/PageSelector";
 import { useMenuHandlers } from "@/shared/common/hooks/useMenuHandlers";
 import { usePageSearchControls } from "@/shared/search/hooks/usePageSearchControls";
 
@@ -22,7 +21,6 @@ export default function ProjectsPage() {
 
     const { currentUser } = useCurrentUser();
     const { data, error, isLoading } = useSearchProjectsByUserId(currentUser?.id ?? 0, pageUIConfiguration.initialSearchParams ?? {}, !!currentUser?.id);
-    console.log("Data: ", data);
 
     const { 
         searchParams, handleTermChange, handleSortOptionChange, handleToggleDescending, handlePageChange
@@ -48,19 +46,14 @@ export default function ProjectsPage() {
                 />
             </div>
 
-            <div className="page-standard-horizontal-padding py-4 space-y-4">
-                {!isLoading && data?.results && data?.results.map(project => (
-                    <ProjectMediumCard 
-                        key={project.id} 
-                        project={project} 
-                        viewMode={menuStates?.["Expand/Collapse"] === "expanded" ? "expanded" : "collapsed"}
-                    />
-                ))}
-            </div>
-
-            <div className="flex justify-end page-standard-horizontal-padding">
-                <PageSelector currentPage={searchParams?.page} itemsPerPage={searchParams?.itemsPerPage} totalCount={data?.totalCount ?? 0} onPageChange={handlePageChange} />
-            </div>
+            <ProjectCardList
+                data={data}
+                error={error}
+                searchParams={searchParams}
+                isLoading={isLoading}
+                menuStates={menuStates}
+                handlePageChange={handlePageChange}
+            />
 
         </div>
     );

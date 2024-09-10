@@ -7,4 +7,5 @@
     padding: 16px;
     background-color: var(--header-bg-color);
     color: var(--header-text-color);
+    border-bottom: 1px solid #183775;
 }

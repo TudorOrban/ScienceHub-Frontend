@@ -74,8 +74,8 @@ const ProjectMediumCardExpansion = ({
             </div>
             {/* Fields of research (to be added) */}
             <div className="flex space-x-2 px-6 pb-2">
-                <span className="text-sm bg-blue-200 p-1 rounded">Molecular biology</span>
-                <span className="text-sm bg-blue-200 p-1 rounded">Machine learning</span>
+                <span className="text-sm bg-blue-200 px-2 py-1 border border-gray-100 rounded">Molecular biology</span>
+                <span className="text-sm bg-blue-200 px-2 py-1 border border-gray-100 rounded">Machine learning</span>
             </div>
             <div className="flex items-center border-t border-gray-300 px-6 py-2">
                 <span className="text-gray-800 text-base font-semibold">

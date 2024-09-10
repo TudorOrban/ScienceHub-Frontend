@@ -2,12 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faMessage } from "@fortawesome/free-solid-svg-icons";
 
 import UserAvatar from "@/core/user/components/UserAvatar";
-import Userbar from "@/core/user/components/Userbar";
 import HeaderSearchInput from "./HeaderSearchInput";
 import { useFetchUserSmall } from "@/core/user/hooks/useFetchUserSmall";
 import { useCurrentUser } from "@/core/user/contexts/CurrentUserContext";
@@ -34,7 +33,7 @@ const Header = () => {
             />
 
             {/* Navigation Links */}
-            <div className="hidden md:flex md:space-x-12 lg:space-x-16 text-lg text-gray-50 mr-2 sm:mr-6 lg:mr-8 xl:mr-16">
+            <div className="hidden md:flex md:space-x-12 lg:space-x-16 text-xl font-medium text-gray-50 mr-2 sm:mr-6 lg:mr-8 xl:mr-16">
                 <Link href="/" className="hidden lg:inline-block">
                     Home
                 </Link>
