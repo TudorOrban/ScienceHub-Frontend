@@ -32,6 +32,12 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
                 addBottom: false
             }
         ],
-        itemsPerPage: 20
+        initialSearchParams: {
+            searchTerm: "",
+            sortBy: "createdAt",
+            sortDescending: true,
+            page: 1,
+            itemsPerPage: 20,
+        },
     }
 }

@@ -1,3 +1,4 @@
+import { SearchParams } from "@/shared/search/models/Search";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 
 export interface PageUIConfiguration {
@@ -6,7 +7,7 @@ export interface PageUIConfiguration {
     createNewButtonData?: UIItem;
     addListHeaderBottom?: boolean;
     menus?: MenuConfiguration[];
-    itemsPerPage?: number;
+    initialSearchParams?: SearchParams;
 }
 
 export interface MenuConfiguration {

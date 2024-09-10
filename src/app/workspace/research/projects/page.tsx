@@ -6,76 +6,26 @@ import { useSearchProjectsByUserId } from "@/features/research/projects/hooks/us
 import ListHeader from "@/shared/common/components/ListHeader";
 import NavigationMenus from "@/shared/common/components/NavigationMenus";
 import PageSelector from "@/shared/common/components/PageSelector";
-import { SearchParams } from "@/shared/search/models/Search";
-import { useState } from "react";
+import { useMenuHandlers } from "@/shared/common/hooks/UseMenuHandlers";
+import { usePageSearchControls } from "@/shared/search/hooks/usePageSearchControls";
 
 
 export default function ProjectsPage() {
     const pageUIConfiguration = pagesUIConfigurations["projects"];
-    const [expandedCollapsedCurrentValue, setExpandedCollapsedCurrentValue] = useState<"expanded" | "collapsed">("expanded");
-    const [mainAuthorContributorCurrentValue, setMainAuthorContributorCurrentValue] = useState<"mainAuthor" | "contributor">("mainAuthor");
+    const { menuStates, setMenuState } = useMenuHandlers(pageUIConfiguration.menus ?? []);
 
-    const handleChangeExpandedCollapsed = (value: string) => {
-        if (value === "expanded" || value === "collapsed") {
-            console.log(value);
-            setExpandedCollapsedCurrentValue(value);
-        }
-    }
-
-    const handleChangeMainAuthorContributor = (value: string) => {
-        if (value === "mainAuthor" || value === "contributor") {
-            console.log(value);
-            setMainAuthorContributorCurrentValue(value);
-        }
-    }
-
-    const handleMenuSelectHandlers = {
-        "Expand/Collapse": handleChangeExpandedCollapsed,
-        "Main Author/Contributor": handleChangeMainAuthorContributor
-    };
+    const menuSelectHandlers = (pageUIConfiguration.menus ?? []).reduce((acc, menu) => ({
+        ...acc,
+        [menu.menuId]: (value: string) => setMenuState(menu.menuId, value)
+    }), {});
 
     const userId = 1;
-    const [searchParams, setSearchParams] = useState<SearchParams>({
-        searchTerm: "",
-        sortBy: "createdAt",
-        sortDescending: true,
-        page: 1,
-        itemsPerPage: pageUIConfiguration.itemsPerPage,
-    });
-
-    const { data, error, isLoading } = useSearchProjectsByUserId(userId, searchParams, !!userId);
+    const { data, error, isLoading } = useSearchProjectsByUserId(userId, pageUIConfiguration.initialSearchParams ?? {}, !!userId);
     console.log("Data: ", data);
 
-    const handleTermChange = (term: string) => {
-        setSearchParams(prevParams => ({
-            ...prevParams,
-            searchTerm: term,
-            page: 1
-        }));
-    }
-
-    const handleSortOptionChange = (sortOption: string) => {
-        setSearchParams(prevParams => ({
-            ...prevParams,
-            sortBy: sortOption,
-            page: 1
-        }));
-    }
-    
-    const handleToggleDescending = () => {
-        setSearchParams(prevParams => ({
-            ...prevParams,
-            sortDescending: !prevParams?.sortDescending,
-            page: 1
-        }));
-    }
-
-    const handlePageChange = (page: number) => {
-        setSearchParams(prevParams => ({
-            ...prevParams,
-            page: page
-        }));
-    }
+    const { 
+        searchParams, handleTermChange, handleSortOptionChange, handleToggleDescending, handlePageChange
+     } = usePageSearchControls(pageUIConfiguration.initialSearchParams ?? {});
 
     return (
         <div className="text-2xl overflow-x-hidden">
@@ -93,7 +43,7 @@ export default function ProjectsPage() {
             <div className="page-standard-horizontal-padding pt-4">
                 <NavigationMenus 
                     menus={pageUIConfiguration.menus ?? []} 
-                    menuSelectHandlers={handleMenuSelectHandlers}
+                    menuSelectHandlers={menuSelectHandlers}
                 />
             </div>
 
@@ -102,7 +52,7 @@ export default function ProjectsPage() {
                     <ProjectMediumCard 
                         key={project.id} 
                         project={project} 
-                        viewMode={expandedCollapsedCurrentValue}
+                        viewMode={menuStates?.["Expand/Collapse"] === "expanded" ? "expanded" : "collapsed"}
                     />
                 ))}
             </div>
