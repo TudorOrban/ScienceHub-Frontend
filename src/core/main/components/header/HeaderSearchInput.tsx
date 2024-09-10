@@ -18,7 +18,7 @@ const HeaderSearchInput = () => {
                 className="search-button w-10 h-10 rounded-l-none rounded-r-md"
                 onClick={() => {}}
             >
-                <FontAwesomeIcon icon={faSearch} className="small-icon" />
+                <FontAwesomeIcon icon={faSearch} className="small-icon-white" />
             </button>
         </div>
     );

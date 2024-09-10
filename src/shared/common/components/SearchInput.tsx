@@ -45,7 +45,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ searchTerm, onTermChange, sea
                 className="search-button rounded-l-none rounded-r-md"
                 onClick={handleSearchClick}
             >
-                <FontAwesomeIcon icon={faSearch} className="small-icon" />
+                <FontAwesomeIcon icon={faSearch} className="small-icon-white" />
             </button>
         </div>
     );

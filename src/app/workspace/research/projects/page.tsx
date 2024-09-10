@@ -40,7 +40,7 @@ export default function ProjectsPage() {
         sortBy: "createdAt",
         sortDescending: true,
         page: 1,
-        itemsPerPage: 1,
+        itemsPerPage: 2,
     });
 
     const { data, error, isLoading } = useSearchProjectsByUserId(userId, searchParams, !!userId);

@@ -18,6 +18,16 @@
     font-weight: 600;
 }
 
+.pseudo-link {
+    color: rgb(37 99 235);
+    cursor: pointer;
+}
+
+.pseudo-link:hover {
+    color: rgb(29 78 216);
+    text-decoration: underline;
+}
+
 .custom-select {
     height: var(--default-button-height);
     padding: 0.5em 1em;
@@ -63,6 +73,11 @@
 .small-icon {
     height: var(--default-icon-height);
     color: var(--default-icon-color);
+}
+
+.small-icon-white {
+    height: var(--default-icon-height);
+    color: white;
 }
 
 .extra-small-icon {

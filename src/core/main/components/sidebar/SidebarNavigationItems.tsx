@@ -27,7 +27,7 @@ const SidebarNavigationItems = ({
                         <Link href={item?.link ?? ""} className="flex items-center space-x-3">
                             <FontAwesomeIcon
                                 icon={item?.icon ?? faQuestion}
-                                className="small-icon"
+                                className="small-icon-white"
                             />
                             <div 
                                 className={`${selectedItem === item.label ? "text-blue-600" : ""} hover:text-blue-600`}
@@ -40,7 +40,7 @@ const SidebarNavigationItems = ({
                             <button onClick={() => handleExpandItem(item.label)}>
                                 <FontAwesomeIcon
                                     icon={!collapsedItems[item.label] ? faCaretUp : faCaretDown}
-                                    className="small-icon"
+                                    className="small-icon-white"
                                 />
                             </button>
                         )}
@@ -58,7 +58,7 @@ const SidebarNavigationItems = ({
                                 >
                                     <FontAwesomeIcon
                                         icon={subItem?.icon ?? faQuestion}
-                                        className="small-icon"
+                                        className="small-icon-white"
                                     />
                                     <div 
                                         className={`${selectedItem === subItem.label ? "text-blue-600" : ""} hover:text-blue-600`}
