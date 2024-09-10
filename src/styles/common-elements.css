@@ -18,7 +18,33 @@
     font-weight: 600;
 }
 
+.custom-select {
+    height: var(--default-button-height);
+    padding: 0.5em 1em;
+    border: 1px solid var(--default-border-color);
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 0 1px 2px rgba(41, 41, 41, 0.1);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
 
+.custom-select:focus {
+    outline: none;
+    border-color: #0056b3;
+    box-shadow: 0 0 0 0.2rem rgba(0,86,179,0.25);
+}
+
+.custom-search-input {
+    height: var(--default-button-height);
+    padding: 0.5em 1em;
+    border: 1px solid var(--default-border-color);
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 1rem;
+    font-weight: 600;
+}
 
 
 .user-avatar {
@@ -35,6 +61,5 @@
 }
 
 .small-icon {
-    width: 15px;
-    font-size: 15px;
+    height: var(--default-icon-height);
 }

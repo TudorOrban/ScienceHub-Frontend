@@ -2,24 +2,31 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faMessage, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faBell, faMessage } from "@fortawesome/free-solid-svg-icons";
 
 import UserAvatar from "@/core/user/components/UserAvatar";
 import Userbar from "@/core/user/components/Userbar";
-import { UserSmall } from "@/core/user/models/User";
 import HeaderSearchInput from "./HeaderSearchInput";
 import { useFetchUserSmall } from "@/core/user/hooks/useFetchUserSmall";
+import { useCurrentUser } from "@/core/user/contexts/CurrentUserContext";
 
 const Header = () => {
     const [isUserbarOpen, setIsUserbarOpen] = useState(false);
 
+    const { setCurrentUser } = useCurrentUser();
+
     const currentUserId = 1;
     const userSmallData = useFetchUserSmall(currentUserId, !!currentUserId)?.data;
 
+    useEffect(() => {
+        if (!userSmallData) return;
+        setCurrentUser(userSmallData);
+    }, [userSmallData]);
+
     return (
-        <div className="header">
+        <div className="header overflow-hidden">
             <Image
                 src="/images/science-logo.jpg"
                 width={36}
@@ -65,13 +72,13 @@ const Header = () => {
             <div className="hidden sm:flex items-center space-x-4">
                 {currentUserId ? (
                     <div className="flex items-center mx-4 relative">
-                        <UserAvatar 
-                            userSmall={userSmallData} 
+                        <UserAvatar
+                            userSmall={userSmallData}
                             onClick={() => setIsUserbarOpen(!isUserbarOpen)}
                         />
 
                         {isUserbarOpen && (
-                            <div className="absolute top-12 right-0 z-50 shadow-lg">
+                            <div className="absolute top-12 right-0 shadow-lg overflow-auto">
                                 <Userbar
                                     setIsUserbarOpen={setIsUserbarOpen}
                                     userSmall={userSmallData}
@@ -80,7 +87,7 @@ const Header = () => {
                         )}
                     </div>
                 ) : (
-                    <div className="flex items-center space-x-4 pr-4">    
+                    <div className="flex items-center space-x-4 pr-4">
                         <button
                             className="auth-button"
                             // onClick={() => setIsAuthModalOpen(!isAuthModalOpen)}

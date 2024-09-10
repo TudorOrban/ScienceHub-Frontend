@@ -12,7 +12,7 @@ const HeaderSearchInput = () => {
                 onChange={() => {}}
                 // onFocus={() => setIsPopoverOpen(true)}
                 placeholder={"Search ScienceHub"}
-                className="h-10 w-64 px-2 border border-gray-300 rounded-l-md focus:outline-none"
+                className="custom-search-input w-64 px-2 border border-gray-300 rounded-l-md focus:outline-none"
             />
             <button
                 className="search-button w-10 h-10 rounded-l-none rounded-r-md"

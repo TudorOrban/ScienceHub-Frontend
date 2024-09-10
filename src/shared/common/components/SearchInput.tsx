@@ -39,13 +39,13 @@ const SearchInput: React.FC<SearchInputProps> = ({ searchTerm, onTermChange, sea
                 onChange={handleInputChange}
                 onKeyDown={handleKeyPress}
                 placeholder="Search ScienceHub"
-                className="h-10 w-64 px-2 border border-gray-300 rounded-l-md focus:outline-none"
+                className="custom-search-input w-64 rounded-l-md"
             />
             <button
-                className="search-button w-10 h-10 bg-blue-500 text-white rounded-l-none rounded-r-md"
+                className="search-button rounded-l-none rounded-r-md"
                 onClick={handleSearchClick}
             >
-                <FontAwesomeIcon icon={faSearch} />
+                <FontAwesomeIcon icon={faSearch} className="small-icon" />
             </button>
         </div>
     );

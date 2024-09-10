@@ -29,7 +29,7 @@ export default function RootLayout({
                         
                         <div className="flex flex-row flex-grow overflow-hidden bg-white">
                             <div
-                                className="fixed inset-y-0 left-0 z-50 md:static md:flex-none rounded-r-md"
+                                className="fixed inset-y-0 left-0 md:static md:flex-none rounded-r-md"
                                 style={{
                                     height: "calc(100vh - 4rem)",
                                     top: "4rem",
@@ -41,7 +41,7 @@ export default function RootLayout({
 
 
                             <div
-                                className="flex-grow overflow-y-auto overflow-x-none ml-12 md:ml-0 relative z-30"
+                                className="flex-grow overflow-y-auto overflow-x-none ml-12 md:ml-0 relative"
                                 style={{ height: "calc(100vh - 4rem)" }}
                             >
                                 {children}
