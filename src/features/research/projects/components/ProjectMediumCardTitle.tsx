@@ -3,6 +3,7 @@ import { ProjectSearchDTO } from "../models/Project";
 import { faBoxArchive, faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { constructProjectIdentifier } from "../utils/constructProjectIdentifier";
+import LoadingSkeleton from "@/shared/error/components/LoadingSkeleton";
 
 export interface ProjectMediumCardTitleProps {
     project?: ProjectSearchDTO;
@@ -39,8 +40,7 @@ const ProjectMediumCardTitle = ({
                     {project.title}
                 </Link>
             ) : (
-                <div className="w-full h-10 bg-gray-100 rounded-md shadow-sm">
-                </div>
+                <LoadingSkeleton isLoading={isLoading} />
             )}
             {!disableViewMode && (
                 <button

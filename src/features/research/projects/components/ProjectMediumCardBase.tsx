@@ -4,6 +4,7 @@ import { faEllipsis, faPlus, faShare, faUpLong, faUser } from "@fortawesome/free
 import UsersAndTeamsUI from "@/shared/common/components/UsersAndTeamsUI";
 import SmallMetricsPanel from "./SmallMetricsPanel";
 import ProjectMediumCardTitle from "./ProjectMediumCardTitle";
+import LoadingSkeleton from "@/shared/error/components/LoadingSkeleton";
 
 export interface ProjectMediumCardBaseProps {
     project?: ProjectSearchDTO;
@@ -23,7 +24,7 @@ const ProjectMediumCardBase = ({
 
     return (
         <div
-            className={`flex justify-between items-start flex-wrap sm:flex-nowrap px-6 py-4 bg-gray-50 border-b border-gray-300 ${
+            className={`flex justify-between items-start flex-wrap sm:flex-nowrap px-6 py-4 space-x-4 bg-gray-50 border-b border-gray-300 ${
                 localViewMode === "collapsed" ? "rounded-lg" : "rounded-t-lg"
             }`}
         >
@@ -48,8 +49,7 @@ const ProjectMediumCardBase = ({
                             collaborations={project.collaborations}
                         />
                     ) : (
-                        <div className="w-full h-10 bg-gray-100 rounded-md shadow-sm">
-                        </div>
+                        <LoadingSkeleton isLoading={isLoading}/>
                     )}
                 </div>
             </div>

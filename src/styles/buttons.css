@@ -26,14 +26,11 @@
 
 .standard-write-button {
     display: flex;
-    height: var(--default-button-height);
     align-items: center;
+    height: var(--default-button-height);
     padding-left: 1rem;
     padding-right: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
     background-color: rgb(20, 120, 230);
-
     color: white;
     border: 1px solid var(--default-border-color);
     border-radius: 0.375rem;

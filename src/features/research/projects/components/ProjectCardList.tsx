@@ -4,6 +4,7 @@ import ProjectMediumCard from "./ProjectMediumCard";
 import PageSelector from "@/shared/common/components/PageSelector";
 import { StandardAPIError } from "@/shared/http/Http";
 import ErrorFallback from "@/shared/error/components/ErrorFallback";
+import NoResultsFallback from "@/shared/error/components/NoResultsFallback";
 
 export interface ProjectCardListProps {
     data?: PaginatedResults<ProjectSearchDTO>;
@@ -11,6 +12,7 @@ export interface ProjectCardListProps {
     isLoading?: boolean;
     searchParams?: SearchParams;
     menuStates?: Record<string, string>;
+    disableViewMode?: boolean;
 
     handlePageChange: (page: number) => void;
 }
@@ -21,6 +23,7 @@ const ProjectCardList = ({
     searchParams,
     isLoading,
     menuStates,
+    disableViewMode,
     handlePageChange,
 }: ProjectCardListProps) => {
     if (!!error) {
@@ -29,14 +32,22 @@ const ProjectCardList = ({
         )
     }
 
+    if (data?.results.length === 0) {
+        return (
+            <NoResultsFallback />
+        );
+    }
+
     return (
         <div>
             <div className="page-standard-horizontal-padding py-4 space-y-4">
-                {!isLoading && data?.results && data?.results.map(project => (
+                {data?.results && data?.results.map(project => (
                     <ProjectMediumCard
                         key={project.id} 
                         project={project} 
                         viewMode={menuStates?.["Expand/Collapse"] === "expanded" ? "expanded" : "collapsed"}
+                        isLoading={isLoading}
+                        disableViewMode={disableViewMode}
                     />
                 ))}
             </div>

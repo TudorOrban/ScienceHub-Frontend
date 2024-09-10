@@ -1,3 +1,4 @@
+import LoadingSkeleton from "@/shared/error/components/LoadingSkeleton";
 import { faBookJournalWhills, faClipboardCheck, faTableList } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -18,7 +19,7 @@ const SmallMetricsPanel: React.FC<SmallMetricsPanelProps> = ({
     isLoading,
 }) => {
     if (isLoading) {
-        return <div className="w-full h-10 bg-gray-200 animate-pulse"></div>;
+        return <LoadingSkeleton isLoading={isLoading} />;
     }
 
     return (

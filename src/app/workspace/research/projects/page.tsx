@@ -19,12 +19,12 @@ export default function ProjectsPage() {
         [menu.menuId]: (value: string) => setMenuState(menu.menuId, value)
     }), {});
 
-    const { currentUser } = useCurrentUser();
-    const { data, error, isLoading } = useSearchProjectsByUserId(currentUser?.id ?? 0, pageUIConfiguration.initialSearchParams ?? {}, !!currentUser?.id);
-
     const { 
         searchParams, handleTermChange, handleSortOptionChange, handleToggleDescending, handlePageChange
      } = usePageSearchControls(pageUIConfiguration.initialSearchParams ?? {});
+
+    const { currentUser } = useCurrentUser();
+    const { data, error, isLoading } = useSearchProjectsByUserId(currentUser?.id ?? 0, searchParams ?? {}, !!currentUser?.id);
 
     return (
         <div className="text-2xl overflow-x-hidden">
@@ -53,6 +53,7 @@ export default function ProjectsPage() {
                 isLoading={isLoading}
                 menuStates={menuStates}
                 handlePageChange={handlePageChange}
+                disableViewMode={false}
             />
 
         </div>

@@ -5,8 +5,10 @@ import { PaginatedResults, SearchParams } from "@/shared/search/models/Search";
 import { ProjectSearchDTO } from "../models/Project";
 
 export const useSearchProjectsByUserId = (userId: number, searchParams: SearchParams, enabled?: boolean): Result<PaginatedResults<ProjectSearchDTO>> => {
+    const queryKey = ["searchProjectsByUserId", userId, searchParams.searchTerm, searchParams.sortBy, searchParams.sortDescending, searchParams.page, searchParams.itemsPerPage];
+
     const result = useQuery<Result<PaginatedResults<ProjectSearchDTO>>, StandardAPIError>({
-        queryKey: ["searchProjectsByUserId", userId, searchParams.searchTerm, searchParams.sortBy, searchParams.sortDescending, searchParams.page, searchParams.itemsPerPage],
+        queryKey: queryKey,
         queryFn: () => searchProjectsByUserId(userId, searchParams),
         enabled: !!userId && enabled,
         staleTime: 60 * 1000,
@@ -15,6 +17,6 @@ export const useSearchProjectsByUserId = (userId: number, searchParams: SearchPa
     return {
         data: result.data?.data,
         error: result.error ?? result.data?.error ?? undefined,
-        isLoading: result.isLoading,
+        isLoading: result?.isFetching,
     };
 };
