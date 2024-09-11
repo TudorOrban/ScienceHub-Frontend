@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ProjectSearchDTO } from "../models/Project";
 import { faEllipsis, faPlus, faShare, faUpLong, faUser } from "@fortawesome/free-solid-svg-icons";
-import UsersAndTeamsUI from "@/shared/common/components/UsersAndTeamsUI";
+import UsersAndCollaborationsUI from "@/shared/common/components/UsersAndTeamsUI";
 import SmallMetricsPanel from "./SmallMetricsPanel";
 import ProjectMediumCardTitle from "./ProjectMediumCardTitle";
 import LoadingSkeleton from "@/shared/error/components/LoadingSkeleton";
@@ -44,7 +44,7 @@ const ProjectMediumCardBase = ({
                     <FontAwesomeIcon className="extra-small-icon mr-2" icon={faUser} />
                     <span className="whitespace-nowrap block">Main Authors:</span>
                     {!isLoading && !!project ? (
-                        <UsersAndTeamsUI
+                        <UsersAndCollaborationsUI
                             users={project.users}
                             collaborations={project.collaborations}
                         />

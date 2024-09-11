@@ -2,6 +2,7 @@
 
 import { pagesUIConfigurations } from "@/core/main/config/pagesUIConfigurations";
 import { useCurrentUser } from "@/core/user/contexts/CurrentUserContext";
+import WorksTable from "@/features/research/works/components/WorksTable";
 import { useSearchWorksByUserIdAndWorkType } from "@/features/research/works/hooks/useSearchWorksByUserIdAndWorkType";
 import { WorkType } from "@/features/research/works/models/Work";
 import ListHeader from "@/shared/common/components/ListHeader";
@@ -24,7 +25,7 @@ export default function WorksPage() {
      } = usePageSearchControls(pageUIConfiguration.initialSearchParams ?? {});
 
     const { currentUser } = useCurrentUser();
-    const { data, error, isLoading } = useSearchWorksByUserIdAndWorkType(currentUser?.id ?? 0, WorkType.Paper, searchParams ?? {}, !!currentUser?.id);
+    const { data, error, isLoading } = useSearchWorksByUserIdAndWorkType(currentUser?.id ?? 0, menuStates?.["Work Type"] as WorkType, searchParams ?? {}, !!currentUser?.id);
 
     return (
         <div className="text-2xl overflow-x-hidden">
@@ -46,20 +47,15 @@ export default function WorksPage() {
                 />
             </div>
 
-            {/* <WorkCardList
+            <WorksTable
                 data={data}
                 error={error}
-                searchParams={searchParams}
                 isLoading={isLoading}
+                searchParams={searchParams}
                 menuStates={menuStates}
                 handlePageChange={handlePageChange}
-                disableViewMode={false}
-            /> */}
-            {data?.results.map((work) => (
-                <div key={work.id}>
-                    <p>{work.title}</p>
-                </div>
-            ))}
+            />
+
 
         </div>
     );

@@ -55,6 +55,26 @@
     font-size: 1rem;
 }
 
+.custom-table {
+    width: 100%;
+    border-collapse: collapse;
+    white-space: nowrap;
+}
+
+.custom-table thead {
+    height: 3rem;
+    width: 100%;
+    background-color: rgb(245, 245, 245);
+    border-bottom: 1px solid var(--default-border-color);
+}
+
+.custom-table tr {
+    border-bottom: 1px solid var(--default-border-color);
+}
+
+.custom-table td {
+    padding: 1rem;
+}
 
 .user-avatar {
     width: 2.5rem;

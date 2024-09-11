@@ -45,7 +45,7 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
         sortOptions: [
             { label: "Created At", value: "createdAt" },
             { label: "Updated At", value: "updatedAt" },
-            { label: "Name", value: "name" },
+            { label: "Title", value: "Title" },
         ],
         createNewButtonData: { label: "New Work", value: "", link: "/workspace/research/works/create" },
         addListHeaderBottom: false,

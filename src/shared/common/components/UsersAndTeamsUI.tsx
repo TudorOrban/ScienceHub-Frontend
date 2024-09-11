@@ -5,15 +5,19 @@ import Link from "next/link";
 export interface UsersAndTeamsUIProps {
     users?: UserSmall[];
     collaborations?: CollaborationSmall[];
+    small?: boolean;
 }
 
-const UsersAndTeamsUI = ({
+const UsersAndCollaborationsUI = ({
     users,
     collaborations,
+    small,
 }: UsersAndTeamsUIProps) => {
     return (
         <>
-            {(users || []).map((user, index) => (
+            {(users || [])
+                .filter((_, index) => small ? index < 3 : index < 20)
+                .map((user, index) => (
                 <Link
                     key={index}
                     href={`/${user.username}/profile`}
@@ -23,7 +27,9 @@ const UsersAndTeamsUI = ({
                     {((index !== (users || []).length - 1) || collaborations?.length) ? ", " : ""}
                 </Link>
             ))}
-            {(collaborations || []).map((collaboration, index) => (
+            {(collaborations || [])
+                .filter((_, index) => small ? index < 3 : index < 20)
+                .map((collaboration, index) => (
                 <Link
                     key={index}
                     href={`/${collaboration.name}/profile`}
@@ -37,4 +43,4 @@ const UsersAndTeamsUI = ({
     );
 }
 
-export default UsersAndTeamsUI;
+export default UsersAndCollaborationsUI;

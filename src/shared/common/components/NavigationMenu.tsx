@@ -22,7 +22,7 @@ const NavigationMenu = ({
     };
 
     return (
-        <div className="flex items-center">
+        <div className="flex items-center border-b border-gray-200">
             {items.map(item => (
                 <button 
                     key={item.value} 
