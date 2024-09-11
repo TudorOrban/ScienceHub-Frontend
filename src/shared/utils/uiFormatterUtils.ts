@@ -10,7 +10,9 @@ export const truncateString = (str?: string, maxLength?: number) => {
     return str;
 }
 
-export const formatDate = (dateIsoString: string) => {
+export const formatDate = (dateIsoString?: string) => {
+    if (!dateIsoString) return "";
+    
     const date = parseISO(dateIsoString);
     const now = new Date();
     const oneMonthAgo = new Date(now.getFullYear(), now.getMonth() - 1, now.getDate());

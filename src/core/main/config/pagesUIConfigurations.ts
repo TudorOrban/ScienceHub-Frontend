@@ -1,5 +1,5 @@
 import { PageUIConfiguration } from "@/shared/common/models/UITypes";
-import { faBoxArchive, faFile } from "@fortawesome/free-solid-svg-icons";
+import { faBoxArchive, faFile, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 
 export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
@@ -61,6 +61,43 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
                     { label: "Code Blocks", value: "CodeBlock" },
                 ],
                 defaultItemValue: "Paper",
+                addBottom: false
+            },
+            {
+                menuId: "Main Author/Contributor",
+                items: [
+                    { label: "Main Author", value: "mainAuthor" },
+                    { label: "Contributor", value: "contributor" },
+                ],
+                defaultItemValue: "mainAuthor",
+                addBottom: false
+            }
+        ],
+        initialSearchParams: {
+            searchTerm: "",
+            sortBy: "createdAt",
+            sortDescending: false,
+            page: 1,
+            itemsPerPage: 20,
+        },
+    },
+    "issues": {
+        pageTitle: { label: "Issues", value: "", icon: faInfoCircle },
+        sortOptions: [
+            { label: "Created At", value: "createdAt" },
+            { label: "Updated At", value: "updatedAt" },
+            { label: "Title", value: "Title" },
+        ],
+        createNewButtonData: { label: "New Issue", value: "", link: "/workspace/research/issues/create" },
+        addListHeaderBottom: false,
+        menus: [
+            {
+                menuId: "Issue Type",
+                items: [
+                    { label: "ProjectIssue", value: "ProjectIssue" },
+                    { label: "WorkIssue", value: "WorkIssue" },
+                ],
+                defaultItemValue: "WorkIssue",
                 addBottom: false
             },
             {
