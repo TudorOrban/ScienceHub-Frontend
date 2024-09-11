@@ -13,7 +13,7 @@ const NavigationMenus = ({
     menuSelectHandlers,
 }: NavigationMenusProps) => {
     return (
-        <div className="flex items-center justify-between space-x-4 border-b border-gray-300">
+        <div className="flex items-center justify-between flex-wrap xl:flex-nowrap xl:space-x-4 border-b border-gray-300">
             {menus.map(menu => (
                 <NavigationMenu
                     key={menu.menuId}

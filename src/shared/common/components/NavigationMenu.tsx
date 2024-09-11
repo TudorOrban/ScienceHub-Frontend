@@ -26,7 +26,7 @@ const NavigationMenu = ({
             {items.map(item => (
                 <button 
                     key={item.value} 
-                    className={`px-6 py-4 text-lg font-semibold ${currentItemValue === item.value ? "border-b-2 border-gray-600" : ""}`} 
+                    className={`px-6 py-4 text-lg font-semibold whitespace-nowrap ${currentItemValue === item.value ? "border-b-2 border-gray-600" : ""}`} 
                     onClick={() => handleItemChange(item.value)}
                 >
                     {item.label}

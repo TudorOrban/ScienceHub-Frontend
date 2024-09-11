@@ -1,4 +1,4 @@
-import ProjectFeatureBox from "../../works/components/WorkItemSmallBox";
+import ProjectFeatureBox from "./ProjectFeatureBox";
 import { ProjectSearchDTO } from "../models/Project";
 import { constructProjectIdentifier } from "../utils/constructProjectIdentifier";
 import { getProjectCardManagementItems } from "../utils/getProjectCardManagementItems";

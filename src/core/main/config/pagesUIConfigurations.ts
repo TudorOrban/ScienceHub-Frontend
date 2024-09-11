@@ -1,5 +1,5 @@
 import { PageUIConfiguration } from "@/shared/common/models/UITypes";
-import { faBoxArchive } from "@fortawesome/free-solid-svg-icons";
+import { faBoxArchive, faFile } from "@fortawesome/free-solid-svg-icons";
 
 
 export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
@@ -20,6 +20,47 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
                     { label: "Collapsed", value: "collapsed" },
                 ],
                 defaultItemValue: "expanded",
+                addBottom: false
+            },
+            {
+                menuId: "Main Author/Contributor",
+                items: [
+                    { label: "Main Author", value: "mainAuthor" },
+                    { label: "Contributor", value: "contributor" },
+                ],
+                defaultItemValue: "mainAuthor",
+                addBottom: false
+            }
+        ],
+        initialSearchParams: {
+            searchTerm: "",
+            sortBy: "createdAt",
+            sortDescending: false,
+            page: 1,
+            itemsPerPage: 20,
+        },
+    },
+    "works": {
+        pageTitle: { label: "Works", value: "", icon: faFile },
+        sortOptions: [
+            { label: "Created At", value: "createdAt" },
+            { label: "Updated At", value: "updatedAt" },
+            { label: "Name", value: "name" },
+        ],
+        createNewButtonData: { label: "New Work", value: "", link: "/workspace/research/works/create" },
+        addListHeaderBottom: false,
+        menus: [
+            {
+                menuId: "Work Type",
+                items: [
+                    { label: "Papers", value: "Paper" },
+                    { label: "Experiments", value: "Experiment" },
+                    { label: "Datasets", value: "Dataset" },
+                    { label: "Data Analyses", value: "DataAnalysis" },
+                    { label: "AI Models", value: "AIModel" },
+                    { label: "Code Blocks", value: "CodeBlock" },
+                ],
+                defaultItemValue: "Paper",
                 addBottom: false
             },
             {
