@@ -26,7 +26,7 @@ export default function IssuesPage() {
 
     const { currentUser } = useCurrentUser();
     const { data, error, isLoading } = useSearchIssuesByUserIdAndIssueType(currentUser?.id ?? 0, menuStates?.["Issue Type"] as IssueType, searchParams ?? {}, !!currentUser?.id);
-     console.log("Error", error);
+
     return (
         <div className="text-2xl overflow-x-hidden">
             <ListHeader 
@@ -55,8 +55,6 @@ export default function IssuesPage() {
                 menuStates={menuStates}
                 handlePageChange={handlePageChange}
             />
-
-
         </div>
     );
 }

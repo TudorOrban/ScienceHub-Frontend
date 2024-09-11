@@ -117,5 +117,43 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             page: 1,
             itemsPerPage: 20,
         },
+    },
+    
+    "reviews": {
+        pageTitle: { label: "Reviews", value: "", icon: faInfoCircle },
+        sortOptions: [
+            { label: "Created At", value: "createdAt" },
+            { label: "Updated At", value: "updatedAt" },
+            { label: "Title", value: "Title" },
+        ],
+        createNewButtonData: { label: "New Review", value: "", link: "/workspace/research/reviews/create" },
+        addListHeaderBottom: false,
+        menus: [
+            {
+                menuId: "Review Type",
+                items: [
+                    { label: "ProjectReview", value: "ProjectReview" },
+                    { label: "WorkReview", value: "WorkReview" },
+                ],
+                defaultItemValue: "WorkReview",
+                addBottom: false
+            },
+            {
+                menuId: "Main Author/Contributor",
+                items: [
+                    { label: "Main Author", value: "mainAuthor" },
+                    { label: "Contributor", value: "contributor" },
+                ],
+                defaultItemValue: "mainAuthor",
+                addBottom: false
+            }
+        ],
+        initialSearchParams: {
+            searchTerm: "",
+            sortBy: "createdAt",
+            sortDescending: false,
+            page: 1,
+            itemsPerPage: 20,
+        },
     }
 }

@@ -1,9 +1,9 @@
 import { UserSmall } from "@/core/user/models/User";
 import { WorkType } from "@/features/research/works/models/Work";
 
-export interface IssueSearchDTO {
+export interface ReviewSearchDTO {
     id: number;
-    issueType: IssueType;
+    reviewType: ReviewType;
     projectId?: number;
     workId?: number;
     workType?: WorkType;
@@ -11,16 +11,16 @@ export interface IssueSearchDTO {
     description?: string;
     createdAt?: string;
     isPublic?: boolean;
-    status?: IssueStatus;
+    status?: ReviewStatus;
     users?: UserSmall[];
 }
 
-export enum IssueType {
-    ProjectIssue = "ProjectIssue",
-    WorkIssue = "WorkIssue",
+export enum ReviewType {
+    ProjectReview = "ProjectReview",
+    WorkReview = "WorkReview",
 }
 
-export enum IssueStatus {
-    Open = "Open",
-    Closed = "Closed",
+export enum ReviewStatus {
+    InProgress = "InProgress",
+    Submitted = "Submitted",
 }
