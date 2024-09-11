@@ -5,6 +5,7 @@ export interface WorkSearchDTO {
     createdAt: Date;
     updatedAt: Date;
     workType: WorkType;
+    name: string;
     title: string;
     description?: string;
     researchScore?: number;

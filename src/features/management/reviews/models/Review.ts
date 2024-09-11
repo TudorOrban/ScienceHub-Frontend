@@ -7,6 +7,7 @@ export interface ReviewSearchDTO {
     projectId?: number;
     workId?: number;
     workType?: WorkType;
+    name: string;
     title: string;
     description?: string;
     createdAt?: string;

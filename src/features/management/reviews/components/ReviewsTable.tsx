@@ -9,6 +9,9 @@ import LoadingSkeleton from "@/shared/error/components/LoadingSkeleton";
 import StandardTag from "@/shared/common/components/simple/StandardTag";
 import { faGlobe, faLock } from "@fortawesome/free-solid-svg-icons";
 import { ReviewSearchDTO } from "../models/Review";
+import Link from "next/link";
+import { constructFeatureURL } from "@/shared/utils/featureURLConstructor";
+import { Feature } from "@/shared/common/models/Features";
 
 export interface ReviewsTableProps {
     data?: PaginatedResults<ReviewSearchDTO>;
@@ -55,7 +58,9 @@ const ReviewsTable = ({
                     {data?.results && !isLoading && data?.results.map(review => (
                         <tr key={review.id}>
                             <td>
-                                {truncateString(review.title, 28)}
+                                <Link href={constructFeatureURL(Feature.Review, review?.title, review?.users, [])} className="pseudo-link font-medium">
+                                    {truncateString(review.title, 28)}
+                                </Link>
                             </td>
                             <td>
                                 <UsersAndCollaborationsUI users={review.users} collaborations={[]} />

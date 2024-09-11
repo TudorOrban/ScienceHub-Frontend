@@ -9,6 +9,9 @@ import PageSelector from "@/shared/common/components/PageSelector";
 import LoadingSkeleton from "@/shared/error/components/LoadingSkeleton";
 import StandardTag from "@/shared/common/components/simple/StandardTag";
 import { faGlobe, faLock } from "@fortawesome/free-solid-svg-icons";
+import { Feature } from "@/shared/common/models/Features";
+import { constructFeatureURL } from "@/shared/utils/featureURLConstructor";
+import Link from "next/link";
 
 export interface WorksTableProps {
     data?: PaginatedResults<WorkSearchDTO>;
@@ -55,7 +58,9 @@ const WorksTable = ({
                     {data?.results && !isLoading && data?.results.map(work => (
                         <tr key={work.id}>
                             <td>
-                                {truncateString(work.title, 28)}
+                                <Link href={constructFeatureURL(Feature.Work, work?.name, work?.users, [])} className="pseudo-link font-medium">
+                                    {truncateString(work.title, 28)}
+                                </Link>
                             </td>
                             <td>
                                 <UsersAndCollaborationsUI users={work.users} collaborations={[]} />

@@ -94,10 +94,10 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             {
                 menuId: "Issue Type",
                 items: [
-                    { label: "ProjectIssue", value: "ProjectIssue" },
-                    { label: "WorkIssue", value: "WorkIssue" },
+                    { label: "Project Issues", value: "ProjectIssue" },
+                    { label: "Work Issues", value: "WorkIssue" },
                 ],
-                defaultItemValue: "WorkIssue",
+                defaultItemValue: "ProjectIssue",
                 addBottom: false
             },
             {
@@ -132,10 +132,10 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             {
                 menuId: "Review Type",
                 items: [
-                    { label: "ProjectReview", value: "ProjectReview" },
-                    { label: "WorkReview", value: "WorkReview" },
+                    { label: "Project Reviews", value: "ProjectReview" },
+                    { label: "Work Reviews", value: "WorkReview" },
                 ],
-                defaultItemValue: "WorkReview",
+                defaultItemValue: "ProjectReview",
                 addBottom: false
             },
             {

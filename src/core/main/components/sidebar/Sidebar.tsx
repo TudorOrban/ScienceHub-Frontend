@@ -37,6 +37,10 @@ const Sidebar = () => {
 
     return (
         <div className="sidebar shadow-md">
+            {isSidebarExpanded && (
+                <div className="fixed inset-0 left-64 top-16 bg-black bg-opacity-50 z-30 md:hidden"></div>
+            )}
+
             <SidebarDropdown 
                 pageDirectory={pageDirectory} 
                 isSidebarExpanded={isSidebarExpanded}

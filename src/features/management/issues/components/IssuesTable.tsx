@@ -9,6 +9,9 @@ import LoadingSkeleton from "@/shared/error/components/LoadingSkeleton";
 import StandardTag from "@/shared/common/components/simple/StandardTag";
 import { faGlobe, faLock } from "@fortawesome/free-solid-svg-icons";
 import { IssueSearchDTO } from "../models/Issue";
+import Link from "next/link";
+import { constructFeatureURL } from "@/shared/utils/featureURLConstructor";
+import { Feature } from "@/shared/common/models/Features";
 
 export interface IssuesTableProps {
     data?: PaginatedResults<IssueSearchDTO>;
@@ -55,7 +58,9 @@ const IssuesTable = ({
                     {data?.results && !isLoading && data?.results.map(issue => (
                         <tr key={issue.id}>
                             <td>
-                                {truncateString(issue.title, 28)}
+                                <Link href={constructFeatureURL(Feature.Issue, issue?.title, issue?.users, [])} className="pseudo-link font-medium">
+                                    {truncateString(issue.title, 28)}
+                                </Link>
                             </td>
                             <td>
                                 <UsersAndCollaborationsUI users={issue.users} collaborations={[]} />

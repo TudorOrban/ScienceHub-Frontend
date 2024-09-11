@@ -2,8 +2,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ProjectSearchDTO } from "../models/Project";
 import { faBoxArchive, faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { constructProjectIdentifier } from "../utils/constructProjectIdentifier";
 import LoadingSkeleton from "@/shared/error/components/LoadingSkeleton";
+import { constructFeatureURL } from "@/shared/utils/featureURLConstructor";
+import { Feature } from "@/shared/common/models/Features";
 
 export interface ProjectMediumCardTitleProps {
     project?: ProjectSearchDTO;
@@ -20,7 +21,7 @@ const ProjectMediumCardTitle = ({
     isLoading,
     disableViewMode,
 }: ProjectMediumCardTitleProps) => {
-    const identifier = constructProjectIdentifier(project);
+    const featureURL = constructFeatureURL(Feature.Project, project?.name, project?.users, project?.collaborations);
 
     return (
         <div className="flex items-center">
@@ -30,7 +31,7 @@ const ProjectMediumCardTitle = ({
             />
             {!isLoading && !!project ? (
                 <Link
-                    href={`/${identifier}/projects/${project.name}`}
+                    href={featureURL}
                     className="ml-2 hover:text-blue-600"
                     style={{
                         fontSize: "19px",

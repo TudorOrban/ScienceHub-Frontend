@@ -1,8 +1,9 @@
 import ProjectFeatureBox from "./ProjectFeatureBox";
 import { ProjectSearchDTO } from "../models/Project";
-import { constructProjectIdentifier } from "../utils/constructProjectIdentifier";
 import { getProjectCardManagementItems } from "../utils/getProjectCardManagementItems";
 import { getProjectCardWorkItems } from "../utils/getProjectCardWorkItems";
+import { Feature } from "@/shared/common/models/Features";
+import { constructFeatureURL } from "@/shared/utils/featureURLConstructor";
 
 export interface ProjectMediumCardExpansionProps {
     project: ProjectSearchDTO;
@@ -11,7 +12,7 @@ export interface ProjectMediumCardExpansionProps {
 const ProjectMediumCardExpansion = ({
     project,
 }: ProjectMediumCardExpansionProps) => {
-    const identifier = constructProjectIdentifier(project);
+    const identifier = constructFeatureURL(Feature.Project, project?.name, project?.users, project?.collaborations);
 
     const layoutItems = getProjectCardWorkItems(
         identifier ?? "",
