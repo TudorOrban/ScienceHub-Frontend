@@ -29,7 +29,7 @@ const PageSelector = ({
     }
 
     return (
-        <div className="custom-page-selector space-x-4 font-medium">
+        <div className="custom-page-selector space-x-4 font-medium text-lg">
             {pageNumbers.map((page, index) =>
                 typeof page === 'number' ? (
                     <button

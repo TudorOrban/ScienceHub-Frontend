@@ -48,14 +48,14 @@ const WorksTable = ({
                         <th className="label-large">Title</th>
                         <th className="label-large">Authors</th>
                         <th className="label-large">Created At</th>
-                        <th className="label-large">Public</th>
+                        <th className="label-large">Visibility</th>
                     </tr>
                 </thead>
-                <tbody className="text-base text-center">
+                <tbody className="">
                     {data?.results && !isLoading && data?.results.map(work => (
                         <tr key={work.id}>
                             <td>
-                                {truncateString(work.title, 20)}
+                                {truncateString(work.title, 28)}
                             </td>
                             <td>
                                 <UsersAndCollaborationsUI users={work.users} collaborations={[]} />
