@@ -78,7 +78,7 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             sortBy: "createdAt",
             sortDescending: false,
             page: 1,
-            itemsPerPage: 20,
+            itemsPerPage: 1,
         },
     }
 }

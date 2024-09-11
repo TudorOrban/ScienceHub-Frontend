@@ -29,18 +29,18 @@ const PageSelector = ({
     }
 
     return (
-        <div className="flex items-center space-x-4 bg-gray-50 border border-gray-300 rounded-md shadow-sm p-2">
+        <div className="custom-page-selector space-x-4 font-medium">
             {pageNumbers.map((page, index) =>
                 typeof page === 'number' ? (
                     <button
                         key={index}
-                        className={`px-3 py-1 border border-gray-200 rounded-md ${currentPage === page ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'}`}
+                        className={`w-10 h-10 border border-gray-200 rounded-md ${currentPage === page ? 'bg-blue-600 text-white' : 'bg-white text-gray-700'}`}
                         onClick={() => onPageChange(page)}
                     >
                         {page}
                     </button>
                 ) : (
-                    <span key={index} className="px-3 py-1">
+                    <span key={index} className="w-10 h-10 border border-gray-200">
                         {page}
                     </span>
                 )
