@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { UserSmall } from "../models/User";
 
 export interface UserAvatarProps {
@@ -20,7 +21,11 @@ const UserAvatar = (
             className="user-avatar"
             onClick={() => (onClick && onClick())}
         >
-            <p>{getUserInitials(userSmall?.fullName || "")}</p>
+            {userSmall?.avatarUrl ? (
+                <Image src={userSmall.avatarUrl} alt="User Avatar" className="rounded-full w-10 h-10" />
+            ) : (
+                <p>{getUserInitials(userSmall?.fullName || "")}</p>
+            )}
         </button>
     )
 }

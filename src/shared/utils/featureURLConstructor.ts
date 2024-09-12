@@ -8,6 +8,8 @@ export const constructFeatureURL = (feature: Feature, name?: string, users?: Use
     const identifier = constructIdentifier(users, collaborations);
 
     switch (feature) {
+        case Feature.UserProfile:
+            return `/${name}/profile`;
         case Feature.Project:
             return `/${identifier}/research/projects/${name}`;
         case Feature.Work:
@@ -16,6 +18,8 @@ export const constructFeatureURL = (feature: Feature, name?: string, users?: Use
             return `/${identifier}/management/issues/${name}`;
         case Feature.Review:
             return `/${identifier}/management/reviews/${name}`;
+        case Feature.Discussion:
+            return `/${identifier}/community/discussions/${name}`;
         default:
             return "/not-found";
     }

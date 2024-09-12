@@ -41,7 +41,7 @@ const DiscussionCardList = ({
         return (
             <div className="w-full overflow-x-hidden page-standard-horizontal-padding py-4 space-y-4">
                 {isLoading && [...Array(6).keys()].map((key) => (
-                    <LoadingSkeleton key={key} isLoading={isLoading} className="h-20"/>
+                    <LoadingSkeleton key={key} isLoading={isLoading} className="h-24"/>
                 ))}
             </div>
         );

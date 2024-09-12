@@ -23,4 +23,5 @@ export interface UIItem {
     icon?: IconDefinition;
     iconColor?: string;
     link?: string;
+    onClick?: () => void;
 }

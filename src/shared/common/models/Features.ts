@@ -4,5 +4,6 @@ export enum Feature {
     Work,
     Issue,
     Review,
-    Discussion
+    Discussion,
+    UserProfile
 }
