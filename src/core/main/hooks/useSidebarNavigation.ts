@@ -2,11 +2,17 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { PageDirectory, NavigationItem } from "../models/UIElements";
 import { getNavigationItems } from "../config/sidebarNavigationItems";
+import { useSidebarStateContext } from "../contexts/SidebarStateContext";
 
 export const useSidebarNavigation = () => {
-    const [pageDirectory, setPageDirectory] = useState<PageDirectory>(PageDirectory.None);
-    const [navigationItems, setNavigationItems] = useState<NavigationItem[]>([]);
-    const [selectedItem, setSelectedItem] = useState<string>("");
+    const { 
+        pageDirectory, 
+        setPageDirectory, 
+        navigationItems, 
+        setNavigationItems, 
+        selectedItem, 
+        setSelectedItem
+    } = useSidebarStateContext();
 
     const pathname = usePathname();
 
@@ -35,12 +41,8 @@ const determinePageDirectory = (path: string[]): PageDirectory => {
             return PageDirectory.Browse;
         case "resources":
             return PageDirectory.Resources;
-        case "user":
-            return PageDirectory.UserProfile;
-        case "project":
-            return PageDirectory.Project;
         default:
-            return PageDirectory.NotFound;
+            return PageDirectory.NotFound; // Delegate dynamic routes to the CurrentRouteIdentifierParser
     }
 };
 

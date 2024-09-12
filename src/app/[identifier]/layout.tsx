@@ -1,3 +1,5 @@
+import IdentifierParser from "@/core/user/components/IdentifierParser";
+import { CurrentRouteIdentifierProvider } from "@/core/user/contexts/CurrentRouteIdentifierContext";
 
 export default async function IdentifierLayout({
     children,
@@ -10,8 +12,10 @@ export default async function IdentifierLayout({
 }) {
     return (
         <div>
-            <h1>{identifier}</h1>
-            {children}
+            <CurrentRouteIdentifierProvider>
+                <IdentifierParser />
+                {children}
+            </CurrentRouteIdentifierProvider>
         </div>
     )
 }
