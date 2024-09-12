@@ -14,7 +14,7 @@ import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@/components/ui/popover";
+} from "@/shared/shadcn-ui/components/ui/popover";
 
 export interface DiscussionMediumCardProps {
     discussion: DiscussionSearchDTO;
