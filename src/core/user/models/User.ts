@@ -13,3 +13,7 @@ export interface IdentifierUsersAndCollaborations {
     users?: UserSmall[];
     collaborations?: CollaborationSmall[];
 }
+
+export interface UserDetails extends UserSmall {
+    
+}
