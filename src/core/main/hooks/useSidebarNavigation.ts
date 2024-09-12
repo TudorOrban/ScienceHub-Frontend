@@ -25,8 +25,7 @@ export const useSidebarNavigation = () => {
         
     }, [pathname]);
 
-    useEffect(() => {
-        console.log("pageDirectory: ", pageDirectory, "currentRouteUsername: ", currentRouteUsername);
+    useEffect(() => { // Can get trigerred by IdentifierParser.tsx
         const navigationItems = determineNavigationItems(pageDirectory, currentRouteUsername);
         setNavigationItems(navigationItems);
 
@@ -53,7 +52,6 @@ const determinePageDirectory = (path: string[]): PageDirectory => {
 };
 
 const determineNavigationItems = (currentPageDirectory: PageDirectory, currentRouteUsername?: string): NavigationItem[] => {
-    console.log("currentPageDirectory: ", currentPageDirectory, "currentRouteUsername: ", currentRouteUsername);
     if (currentPageDirectory === PageDirectory.UserProfile) {
         return getNavigationItems(currentPageDirectory, currentRouteUsername, false);
     }

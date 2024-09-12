@@ -75,9 +75,13 @@ const IdentifierParser = () => {
             collaborations: [],
         });
 
-        setPageDirectory(PageDirectory.UserProfile);
-        setCurrentRouteUsername(usersResult?.data?.[0]?.username);
-        console.log("Page Directory: ", pageDirectory);
+        if (usersResult?.data?.length === 1) {    
+            setPageDirectory(PageDirectory.UserProfile);
+            setCurrentRouteUsername(usersResult?.data?.[0]?.username);
+        } else {
+            setPageDirectory(PageDirectory.Workspace);
+            setCurrentRouteUsername(undefined);
+        }
     }
 
     return <div></div>;

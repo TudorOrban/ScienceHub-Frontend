@@ -12,9 +12,10 @@ export const parseFeatureURLToIdentifier = (url: string): string => {
 export const parseIdentifier = (identifier?: string): IdentifierUsersAndCollaborations => {
     if (!identifier) return { usernames: [], collaborationNames: [] };
 
-    const ids = identifier.split("~");
-    const usernames = ids.filter((id) => !id.startsWith("T")).map((username) => username);
-    const collaborationNames = ids.filter((id) => id.startsWith("T")).map((name) => name.slice(2));
+    const parts = identifier.split("~");
+    const collaborationMarkerIndex = parts.indexOf("T");
+    const usernames = collaborationMarkerIndex !== -1 ? parts.slice(0, collaborationMarkerIndex) : parts;
+    const collaborationNames = collaborationMarkerIndex !== -1 ? parts.slice(collaborationMarkerIndex + 1) : [];
 
     return { usernames, collaborationNames };
 }
