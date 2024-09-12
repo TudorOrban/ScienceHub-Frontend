@@ -4,4 +4,5 @@ export enum Feature {
     Work,
     Issue,
     Review,
+    Discussion
 }

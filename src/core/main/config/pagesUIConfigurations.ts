@@ -118,7 +118,6 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             itemsPerPage: 20,
         },
     },
-    
     "reviews": {
         pageTitle: { label: "Reviews", value: "", icon: faInfoCircle },
         sortOptions: [
@@ -155,5 +154,24 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             page: 1,
             itemsPerPage: 20,
         },
-    }
+    },
+    "discussions": {
+        pageTitle: { label: "Discussions", value: "", icon: faInfoCircle },
+        sortOptions: [
+            { label: "Created At", value: "createdAt" },
+            { label: "Updated At", value: "updatedAt" },
+            { label: "Title", value: "Title" },
+        ],
+        createNewButtonData: { label: "New Issue", value: "", link: "/workspace/research/discussions/create" },
+        addListHeaderBottom: false,
+        menus: [],
+        initialSearchParams: {
+            searchTerm: "",
+            sortBy: "createdAt",
+            sortDescending: false,
+            page: 1,
+            itemsPerPage: 20,
+        },
+    },
+    
 }
