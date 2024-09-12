@@ -26,5 +26,6 @@ export interface DiscussionSearchDTO {
     totalUpvotes?: number;
     totalShares?: number;
     totalViews?: number;
+    totalComments?: number;
     isPublic?: boolean;
 }

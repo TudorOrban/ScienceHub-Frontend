@@ -160,9 +160,9 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
         sortOptions: [
             { label: "Created At", value: "createdAt" },
             { label: "Updated At", value: "updatedAt" },
-            { label: "Title", value: "Title" },
+            { label: "Title", value: "title" },
         ],
-        createNewButtonData: { label: "New Issue", value: "", link: "/workspace/research/discussions/create" },
+        createNewButtonData: { label: "New Discussion", value: "", link: "/workspace/research/discussions/create" },
         addListHeaderBottom: false,
         menus: [],
         initialSearchParams: {
