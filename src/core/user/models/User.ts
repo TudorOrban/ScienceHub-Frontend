@@ -8,8 +8,8 @@ export interface UserSmall {
 }
 
 export interface IdentifierUsersAndCollaborations {
-    userIds?: string[];
-    collaborationIds?: string[];
+    usernames?: string[];
+    collaborationNames?: string[];
     users?: UserSmall[];
     collaborations?: CollaborationSmall[];
 }

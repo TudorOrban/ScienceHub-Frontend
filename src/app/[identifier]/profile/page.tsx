@@ -5,6 +5,5 @@ export default function UserProfilePage({
 }: {
     params: { identifier: string; };
 }) {
-    console.log(identifier);
 
 }

@@ -11,7 +11,9 @@ export const useSidebarNavigation = () => {
         navigationItems, 
         setNavigationItems, 
         selectedItem, 
-        setSelectedItem
+        setSelectedItem,
+        currentRouteUsername,
+        setCurrentRouteUsername,
     } = useSidebarStateContext();
 
     const pathname = usePathname();
@@ -21,12 +23,16 @@ export const useSidebarNavigation = () => {
         const currentPageDirectory = determinePageDirectory(path);
         setPageDirectory(currentPageDirectory);
         
-        const navigationItems = determineNavigationItems(currentPageDirectory);
+    }, [pathname]);
+
+    useEffect(() => {
+        console.log("pageDirectory: ", pageDirectory, "currentRouteUsername: ", currentRouteUsername);
+        const navigationItems = determineNavigationItems(pageDirectory, currentRouteUsername);
         setNavigationItems(navigationItems);
 
         const selectedItem = determineSelectedItem(pathname, navigationItems);
         setSelectedItem(selectedItem);
-    }, [pathname]);
+    }, [pageDirectory]);
 
     return { pageDirectory, navigationItems, selectedItem };
 };
@@ -46,9 +52,10 @@ const determinePageDirectory = (path: string[]): PageDirectory => {
     }
 };
 
-const determineNavigationItems = (currentPageDirectory: PageDirectory): NavigationItem[] => {
+const determineNavigationItems = (currentPageDirectory: PageDirectory, currentRouteUsername?: string): NavigationItem[] => {
+    console.log("currentPageDirectory: ", currentPageDirectory, "currentRouteUsername: ", currentRouteUsername);
     if (currentPageDirectory === PageDirectory.UserProfile) {
-        return [];
+        return getNavigationItems(currentPageDirectory, currentRouteUsername, false);
     }
     if (currentPageDirectory === PageDirectory.Project) {
         return [];

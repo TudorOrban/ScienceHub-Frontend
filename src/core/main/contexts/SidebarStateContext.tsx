@@ -10,6 +10,8 @@ export interface SidebarStateContextType {
     setNavigationItems: (navigationItems: NavigationItem[]) => void;
     selectedItem: string;
     setSelectedItem: (selectedItem: string) => void;
+    currentRouteUsername?: string;
+    setCurrentRouteUsername: (routeUsername?: string) => void;
 }
 
 const SidebarStateContext = createContext<SidebarStateContextType | undefined>(undefined);
@@ -26,6 +28,7 @@ export const SidebarStateProvider: React.FC<{ children: ReactNode }> = ({ childr
     const [pageDirectory, setPageDirectory] = useState<PageDirectory>(PageDirectory.None);
     const [navigationItems, setNavigationItems] = useState<NavigationItem[]>([]);
     const [selectedItem, setSelectedItem] = useState<string>("");
+    const [currentRouteUsername, setCurrentRouteUsername] = useState<string | undefined>(undefined);
 
     return (
         <SidebarStateContext.Provider value={{ 
@@ -34,7 +37,9 @@ export const SidebarStateProvider: React.FC<{ children: ReactNode }> = ({ childr
             navigationItems,
             setNavigationItems,
             selectedItem,
-            setSelectedItem
+            setSelectedItem,
+            currentRouteUsername,
+            setCurrentRouteUsername,
         }}>
             {children}
         </SidebarStateContext.Provider>

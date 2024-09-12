@@ -10,11 +10,11 @@ export const parseFeatureURLToIdentifier = (url: string): string => {
 }
 
 export const parseIdentifier = (identifier?: string): IdentifierUsersAndCollaborations => {
-    if (!identifier) return { userIds: [], collaborationIds: [] };
+    if (!identifier) return { usernames: [], collaborationNames: [] };
 
     const ids = identifier.split("~");
-    const userIds = ids.filter((id) => !id.startsWith("T")).map((username) => username);
-    const collaborationIds = ids.filter((id) => id.startsWith("T")).map((name) => name.slice(2));
+    const usernames = ids.filter((id) => !id.startsWith("T")).map((username) => username);
+    const collaborationNames = ids.filter((id) => id.startsWith("T")).map((name) => name.slice(2));
 
-    return { userIds, collaborationIds };
+    return { usernames, collaborationNames };
 }

@@ -5,6 +5,5 @@ export default function WorkPage({
 }: {
     params: { identifier: string; workName: string };
 }) {
-    console.log(identifier, workName);
 
 }

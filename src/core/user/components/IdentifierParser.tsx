@@ -4,32 +4,81 @@ import { parseFeatureURLToIdentifier, parseIdentifier } from "@/shared/utils/fea
 import { useCurrentRouteIdentifierContext } from "../contexts/CurrentRouteIdentifierContext";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { useSidebarNavigation } from "@/core/main/hooks/useSidebarNavigation";
 import { useSidebarStateContext } from "@/core/main/contexts/SidebarStateContext";
+import { fetchUsersSmallByUsernames } from "../services/fetchUsersSmallByUsernames";
+import { Result } from "@/shared/http/Http";
+import { UserSmall } from "../models/User";
+import { PageDirectory } from "@/core/main/models/UIElements";
 
 const IdentifierParser = () => {
     const pathname = usePathname();
     
-    const context = useCurrentRouteIdentifierContext();
     const {
         currentRouteIdentifier,
         setCurrentRouteIdentifier,
         usersAndCollaborations,
         setUsersAndCollaborations,
-    } = context;
+    } = useCurrentRouteIdentifierContext();
     
     const {
         pageDirectory,
         setPageDirectory,
+        currentRouteUsername,
+        setCurrentRouteUsername,
     } = useSidebarStateContext();
 
     useEffect(() => {
-        const identifier = parseFeatureURLToIdentifier(pathname);
-        setCurrentRouteIdentifier(identifier);
-        const usersAndCollaborations = parseIdentifier(identifier);
-        setUsersAndCollaborations(usersAndCollaborations);
-        
+        handlePathnameChange();
     }, [pathname]);
+
+    const handlePathnameChange = async () => {
+        const usersResult = await determineIdentifierUsers();
+
+        const isInvalid = isResultInvalid(usersResult);
+        if (isInvalid) {
+            return;
+        }
+
+        handleValidUsers(usersResult);
+    }
+
+    const determineIdentifierUsers = async () => {
+        const newIdentifier = parseFeatureURLToIdentifier(pathname);
+        setCurrentRouteIdentifier(newIdentifier);
+        const newUsersAndCollaborations = parseIdentifier(newIdentifier);
+        setUsersAndCollaborations(newUsersAndCollaborations);
+
+        if (!newUsersAndCollaborations?.usernames || ((newUsersAndCollaborations?.usernames?.length ?? 0) === 0)) {
+            return;
+        }
+        return await fetchUsersSmallByUsernames(newUsersAndCollaborations.usernames);
+    }
+
+    const isResultInvalid = (usersResult?: Result<UserSmall[]>): boolean => {
+        if (!usersResult) {
+            console.error("Invalid identifier");
+            return true;
+        }
+        if (usersResult.error || !usersResult.data) {
+            console.error("Error: ", usersResult.error);
+            return true;
+        }
+
+        return false;
+    }
+
+    const handleValidUsers = (usersResult?: Result<UserSmall[]>) => {
+        console.log("Users: ", usersResult?.data);
+        setUsersAndCollaborations({
+            ...usersAndCollaborations,
+            users: usersResult?.data ?? [],
+            collaborations: [],
+        });
+
+        setPageDirectory(PageDirectory.UserProfile);
+        setCurrentRouteUsername(usersResult?.data?.[0]?.username);
+        console.log("Page Directory: ", pageDirectory);
+    }
 
     return <div></div>;
 };
