@@ -3,13 +3,18 @@
 import UserAvatar from "@/core/user/components/UserAvatar";
 import { DiscussionSearchDTO } from "../models/Discussion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faComment, faEllipsis, faEye, faQuestion, faShare, faUpLong } from "@fortawesome/free-solid-svg-icons";
+import { faComment, faEllipsis, faEye, faInfoCircle, faPaperPlane, faQuestion, faShare, faUpLong } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/navigation";
 import { constructFeatureURL } from "@/shared/utils/featureURLConstructor";
 import { Feature } from "@/shared/common/models/Features";
 import Link from "next/link";
 import { UIItem } from "@/shared/common/models/UITypes";
 import { useEffect, useState } from "react";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";
 
 export interface DiscussionMediumCardProps {
     discussion: DiscussionSearchDTO;
@@ -18,8 +23,6 @@ export interface DiscussionMediumCardProps {
 const DiscussionMediumCard = ({
     discussion,
 }: DiscussionMediumCardProps) => {
-    const [isMoreActionsOpen, setIsMoreActionsOpen] = useState<boolean>(false);
-
     const router = useRouter();
 
     const discussionUrl = constructFeatureURL(Feature.Discussion, discussion.title.toString());
@@ -27,10 +30,6 @@ const DiscussionMediumCard = ({
     const handleAvatarClick = () => {
         const userProfileUrl = constructFeatureURL(Feature.UserProfile, discussion.user?.username ?? "");
         router.push(userProfileUrl);
-    }
-
-    const handleOpenMoreActions = () => {
-        setIsMoreActionsOpen(!isMoreActionsOpen);
     }
 
     const handleUpvoteClick = () => {
@@ -85,22 +84,25 @@ const DiscussionMediumCard = ({
                     </Link>
                 </div>
 
-                <div className="relative">
-                    <button
-                        onClick={handleOpenMoreActions} 
-                        className="standard-button"
-                    >
-                        <FontAwesomeIcon icon={faEllipsis} />
-                    </button>
-
-                    {isMoreActionsOpen && (
-                        <div className="absolute right-0 top-10 w-32 h-64 z-40 bg-white border border-gray-300 rounded-md shadow-md">
-                            <button>
-                                <span className="text-base">Report</span>
+                <Popover>
+                    <PopoverTrigger>
+                        <button className="standard-button">
+                            <FontAwesomeIcon icon={faEllipsis} />
+                        </button>
+                    </PopoverTrigger>
+                    <PopoverContent className="mr-12 w-40 bg-white border border-gray-300 rounded-md shadow-md">
+                        <div className="flex flex-col items-start space-y-4">
+                            <button className="flex items-center space-x-2">
+                                <FontAwesomeIcon icon={faPaperPlane} className="small-icon"/>
+                                <span className="text-base font-semibold">Report</span>
                             </button>
-                        </div>    
-                    )}
-                </div>
+                            <button className="flex items-center space-x-2">
+                                <FontAwesomeIcon icon={faInfoCircle} className="small-icon"/>
+                                <span className="text-base font-semibold">Info</span>
+                            </button>
+                        </div>
+                    </PopoverContent>
+                </Popover>
             </div>
 
             <div className="px-4">
