@@ -3,6 +3,11 @@
     font-weight: 600;
 }
 
+.label-large-xl {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
 .label-large {
     font-size: 1.25rem;
     font-weight: 600;
@@ -98,8 +103,6 @@
 }
 
 .user-avatar {
-    width: 2.5rem;
-    height: 2.5rem;
     background-color: #171717; 
     color: white;
     border-radius: 9999px;

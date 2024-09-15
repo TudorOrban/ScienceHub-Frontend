@@ -14,6 +14,19 @@ export interface IdentifierUsersAndCollaborations {
     collaborations?: CollaborationSmall[];
 }
 
-export interface UserDetails extends UserSmall {
-    
+export interface UserDetailsDTO extends UserSmall {
+    bio?: string;
+    userDetails?: UserDetails;
+}
+
+export interface UserDetails {
+    qualifications?: string[];
+    affiliations?: string[];
+    researchInterests?: string[];
+    fieldsOfResearch?: string[];
+    education?: string[];
+    contactInformation?: string[];
+    socialMediaLinks?: string[];
+    location?: string;
+    status?: string;
 }

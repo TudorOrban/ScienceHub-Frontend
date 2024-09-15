@@ -3,12 +3,15 @@ import { UserSmall } from "../models/User";
 
 export interface UserAvatarProps {
     userSmall?: UserSmall;
+    size?: "small" | "medium" | "large";
     onClick?: () => void;
 }
 
-const UserAvatar = (
-    { userSmall, onClick }: UserAvatarProps
-) => {
+const UserAvatar = ({ 
+    userSmall, 
+    size = "medium",
+    onClick 
+}: UserAvatarProps) => {
 
     const getUserInitials = (fullName: string) => {
         if (!fullName) return "?";
@@ -16,9 +19,15 @@ const UserAvatar = (
         return names[0][0] + names[names.length - 1][0];
     }
 
+    const getTailwindCSSBySize = () => {
+        if (size === "small") return "w-8 h-8 text-sm";
+        if (size === "medium") return "w-10 h-10 text-base";
+        return "w-14 h-14 text-lg";
+    }
+
     return (
         <button
-            className="user-avatar"
+            className={`user-avatar ${getTailwindCSSBySize()}`}
             onClick={() => (onClick && onClick())}
         >
             {userSmall?.avatarUrl ? (
