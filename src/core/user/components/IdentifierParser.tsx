@@ -3,88 +3,66 @@
 import { parseFeatureURLToIdentifier, parseIdentifier } from "@/shared/utils/featureURLParser";
 import { useCurrentRouteIdentifierContext } from "../contexts/CurrentRouteIdentifierContext";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useSidebarStateContext } from "@/core/main/contexts/SidebarStateContext";
-import { fetchUsersSmallByUsernames } from "../services/fetchUsersSmallByUsernames";
-import { Result } from "@/shared/http/Http";
-import { UserSmall } from "../models/User";
+import { IdentifierUsersAndCollaborations, UserSmall } from "../models/User";
 import { PageDirectory } from "@/core/main/models/UIElements";
+import { useFetchUsersSmallByUsernames } from "../hooks/useFetchUsersSmallByUsernames";
 
 const IdentifierParser = () => {
     const pathname = usePathname();
     
     const {
-        currentRouteIdentifier,
         setCurrentRouteIdentifier,
         usersAndCollaborations,
         setUsersAndCollaborations,
     } = useCurrentRouteIdentifierContext();
     
     const {
-        pageDirectory,
         setPageDirectory,
-        currentRouteUsername,
         setCurrentRouteUsername,
     } = useSidebarStateContext();
 
+    const newIdentifier = useMemo(() => parseFeatureURLToIdentifier(pathname), [pathname]);
+    
+    // Update currentRouteIdentifier and usersAndCollaborations based on newIdentifier
     useEffect(() => {
-        handlePathnameChange();
-    }, [pathname]);
-
-    const handlePathnameChange = async () => {
-        const usersResult = await determineIdentifierUsers();
-
-        const isInvalid = isResultInvalid(usersResult);
-        if (isInvalid) {
-            return;
-        }
-
-        handleValidUsers(usersResult);
-    }
-
-    const determineIdentifierUsers = async () => {
-        const newIdentifier = parseFeatureURLToIdentifier(pathname);
         setCurrentRouteIdentifier(newIdentifier);
-        const newUsersAndCollaborations = parseIdentifier(newIdentifier);
-        setUsersAndCollaborations(newUsersAndCollaborations);
+        
+        const details = parseIdentifier(newIdentifier);
+        setUsersAndCollaborations(details);
+    }, [newIdentifier, setCurrentRouteIdentifier, setUsersAndCollaborations]);
 
-        if (!newUsersAndCollaborations?.usernames || ((newUsersAndCollaborations?.usernames?.length ?? 0) === 0)) {
+    const usernames = usersAndCollaborations?.usernames || [];
+
+    // Use React Query hook to fetch the users
+    const { data: users, isLoading, error } = useFetchUsersSmallByUsernames(usernames, usernames.length > 0);
+
+    useEffect(() => {
+        handleValidUsers();
+    }, [users, isLoading, error, setPageDirectory, setCurrentRouteUsername, setUsersAndCollaborations]);
+
+    const handleValidUsers = () => {
+        if (isLoading || !users) {
             return;
         }
-        return await fetchUsersSmallByUsernames(newUsersAndCollaborations.usernames);
-    }
 
-    const isResultInvalid = (usersResult?: Result<UserSmall[]>): boolean => {
-        if (!usersResult) {
-            console.error("Invalid identifier");
-            return true;
-        }
-        if (usersResult.error || !usersResult.data) {
-            console.error("Error: ", usersResult.error);
-            return true;
-        }
-
-        return false;
-    }
-
-    const handleValidUsers = (usersResult?: Result<UserSmall[]>) => {
-        console.log("Users: ", usersResult?.data);
-        setUsersAndCollaborations({
+        const updatedUsersAndCollaborations: IdentifierUsersAndCollaborations = {
             ...usersAndCollaborations,
-            users: usersResult?.data ?? [],
-            collaborations: [],
-        });
+            users: users as UserSmall[],
+        };
+        setUsersAndCollaborations(updatedUsersAndCollaborations);
 
-        if (usersResult?.data?.length === 1) {    
+        if (users.length === 1) {
             setPageDirectory(PageDirectory.UserProfile);
-            setCurrentRouteUsername(usersResult?.data?.[0]?.username);
+            setCurrentRouteUsername(users[0].username);
         } else {
             setPageDirectory(PageDirectory.Workspace);
             setCurrentRouteUsername(undefined);
         }
     }
 
-    return <div></div>;
+    return <div />;
 };
 
 export default IdentifierParser;
