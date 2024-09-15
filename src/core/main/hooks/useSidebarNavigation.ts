@@ -3,6 +3,7 @@ import { usePathname } from "next/navigation";
 import { PageDirectory, NavigationItem } from "../models/UIElements";
 import { getNavigationItems } from "../config/sidebarNavigationItems";
 import { useSidebarStateContext } from "../contexts/SidebarStateContext";
+import { useCurrentRouteIdentifierContext } from "@/core/user/contexts/CurrentRouteIdentifierContext";
 
 export const useSidebarNavigation = () => {
     const { 
@@ -16,12 +17,20 @@ export const useSidebarNavigation = () => {
         setCurrentRouteUsername,
     } = useSidebarStateContext();
 
+    const {
+        currentRouteIdentifier,
+        usersAndCollaborations,
+    } = useCurrentRouteIdentifierContext();
+
     const pathname = usePathname();
 
     useEffect(() => {
         const path = pathname.split("/");
         const currentPageDirectory = determinePageDirectory(path);
-        setPageDirectory(currentPageDirectory);
+        
+        if (usersAndCollaborations?.users?.length === 1) { // Delegate to IdentifierParser.tsx
+            setPageDirectory(currentPageDirectory);
+        }
         
     }, [pathname]);
 

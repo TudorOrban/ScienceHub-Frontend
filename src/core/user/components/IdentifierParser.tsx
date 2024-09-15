@@ -44,7 +44,15 @@ const IdentifierParser = () => {
     }, [users, isLoading, error, setPageDirectory, setCurrentRouteUsername, setUsersAndCollaborations]);
 
     const handleValidUsers = () => {
-        if (isLoading || !users) {
+        if (isLoading) {
+            return;
+        }
+        if (!users || users?.length != 1) {
+            setCurrentRouteUsername(undefined);
+            setUsersAndCollaborations({
+                ...usersAndCollaborations,
+                users: [],
+            });
             return;
         }
 
@@ -59,7 +67,6 @@ const IdentifierParser = () => {
             setPageDirectory(PageDirectory.UserProfile);
             setCurrentRouteUsername(users[0].username);
         } else {
-            setPageDirectory(PageDirectory.Workspace);
             setCurrentRouteUsername(undefined);
         }
     }
