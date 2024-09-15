@@ -8,6 +8,7 @@ export const useFetchUserSmall = (userId: number, enabled?: boolean): Result<Use
         queryKey: ["fetchUserSmall", userId],
         queryFn: () => fetchUserSmall(userId),
         enabled: !!userId && enabled,
+        staleTime: 60 * 1000,
     });
 
     return {

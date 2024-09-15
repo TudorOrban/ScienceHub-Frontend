@@ -8,9 +8,9 @@ export const useFetchUserDetails = (userId: number, enabled?: boolean): Result<U
         queryKey: ["fetchUserDetails", userId],
         queryFn: () => fetchUserDetails(userId),
         enabled: !!userId && enabled,
+        staleTime: 60 * 1000,
     });
 
-    console.log("Result: ", result?.data);
     return {
         data: result.data?.data,
         error: result.error ?? undefined,

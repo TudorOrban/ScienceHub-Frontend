@@ -4,5 +4,6 @@ import { Result } from "@/shared/http/Http";
 import apiClient from "@/shared/http/ApiClient";
 
 export const fetchUserDetails = async (userId: number): Promise<Result<UserDetailsDTO>> => {
+    console.log("Fetching user details for user: ", userId);
     return await handleAPIRequest<UserDetailsDTO>(apiClient.get<UserDetailsDTO>(`users/${userId}/details`));
 };

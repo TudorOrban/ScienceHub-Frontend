@@ -19,7 +19,10 @@ const UserProfileHeader = ({
 
     if (result?.isLoading) {
         return (
+            <div className="w-96 h-96 bg-red-500">
+                
             <LoadingSkeleton isLoading={result?.isLoading} />
+            </div>
         );
     }
 
@@ -36,7 +39,7 @@ const UserProfileHeader = ({
                     <UserAvatar userSmall={result?.data} size="large"/>
 
                     <div className="space-y-2">
-                        <h2 className="label-large-xl">{result?.data?.username}</h2>
+                        <h2 className="label-large-xl">{result?.data?.username ?? ""}</h2>
                         
                         <StandardLabelValueText label="Bio" value={result?.data?.bio} />
                     </div>

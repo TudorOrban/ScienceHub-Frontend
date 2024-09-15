@@ -24,10 +24,6 @@ export default function UserProfilePage({
 
     const userDetailsResult = useFetchUserDetails(usersAndCollaborations?.users?.[0]?.id ?? 0, isUserProfilePage);
 
-    if (!isUserProfilePage) {
-        return <div>Invalid user profile page</div>
-    }
-
     return (
         <div>
             <UserProfileHeader result={userDetailsResult} />

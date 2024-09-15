@@ -5,9 +5,10 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useFetchUsersSmallByUsernames = (usernames: string[], enabled?: boolean): Result<UserSmall[]> => {
     const result = useQuery<Result<UserSmall[]>, StandardAPIError>({
-        queryKey: ["fetchUsersSmall", usernames.join(",")],
+        queryKey: ["fetchUsersSmall", usernames],
         queryFn: () => fetchUsersSmallByUsernames(usernames),
         enabled: !!usernames && enabled,
+        staleTime: 60 * 1000,
     });
 
     return {
