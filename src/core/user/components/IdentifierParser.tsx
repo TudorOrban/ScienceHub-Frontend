@@ -27,6 +27,7 @@ const IdentifierParser = () => {
     
     // Update currentRouteIdentifier and usersAndCollaborations based on newIdentifier
     useEffect(() => {
+        console.log("New identifier: ", newIdentifier);
         setCurrentRouteIdentifier(newIdentifier);
         
         const details = parseIdentifier(newIdentifier);
@@ -35,7 +36,7 @@ const IdentifierParser = () => {
 
     const usernames = usersAndCollaborations?.usernames || [];
 
-    // Use React Query hook to fetch the users
+    // Fetch the users
     const { data: users, isLoading, error } = useFetchUsersSmallByUsernames(usernames, usernames.length > 0);
 
     useEffect(() => {
@@ -54,6 +55,7 @@ const IdentifierParser = () => {
         setUsersAndCollaborations(updatedUsersAndCollaborations);
 
         if (users.length === 1) {
+            console.log("User found");
             setPageDirectory(PageDirectory.UserProfile);
             setCurrentRouteUsername(users[0].username);
         } else {
