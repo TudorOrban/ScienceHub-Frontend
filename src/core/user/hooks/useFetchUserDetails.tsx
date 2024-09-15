@@ -10,6 +10,7 @@ export const useFetchUserDetails = (userId: number, enabled?: boolean): Result<U
         enabled: !!userId && enabled,
     });
 
+    console.log("Result: ", result?.data);
     return {
         data: result.data?.data,
         error: result.error ?? undefined,

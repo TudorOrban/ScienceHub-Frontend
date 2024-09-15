@@ -9,7 +9,6 @@ import { constructFeatureURL } from "@/shared/utils/featureURLConstructor";
 import { Feature } from "@/shared/common/models/Features";
 import Link from "next/link";
 import { UIItem } from "@/shared/common/models/UITypes";
-import { useEffect, useState } from "react";
 import {
     Popover,
     PopoverContent,
@@ -55,24 +54,6 @@ const DiscussionMediumCard = ({
         { icon: faComment, label: "", value: (discussion?.totalComments ?? 0).toString(), onClick: handleCommentClick },
     ];
 
-    const getPortalDiv = () => {
-        let portalDiv = document.getElementById('portal-root');
-        if (!portalDiv) {
-            portalDiv = document.createElement('div');
-            portalDiv.id = 'portal-root';
-            document.body.appendChild(portalDiv);
-        }
-        return portalDiv;
-    };
-
-    useEffect(() => {
-        return () => {
-            const portalDiv = document.getElementById('portal-root');
-            if (portalDiv && portalDiv.childNodes.length === 0) {
-                portalDiv.parentNode?.removeChild(portalDiv);
-            }
-        };
-    }, []);
     return (
         <div className="w-full relative space-y-4 pt-4 border border-gray-300 rounded-md shadow-md text-base">
             <div className="flex items-start justify-between px-4">
@@ -85,7 +66,7 @@ const DiscussionMediumCard = ({
                 </div>
 
                 <Popover>
-                    <PopoverTrigger>
+                    <PopoverTrigger asChild>
                         <button className="standard-button">
                             <FontAwesomeIcon icon={faEllipsis} />
                         </button>
