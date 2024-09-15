@@ -173,5 +173,24 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             itemsPerPage: 20,
         },
     },
+
+    // Dynamic pages
+    "userProfile": {
+        pageTitle: { label: "", value: "" },
+        addListHeaderBottom: false,
+        menus: [
+            {
+                menuId: "User Data",
+                items: [
+                    { label: "Overview", value: "overview" },
+                    { label: "Research", value: "research" },
+                    { label: "Management", value: "management" },
+                    { label: "Community", value: "community" },
+                ],
+                defaultItemValue: "overview",
+                addBottom: false
+            },
+        ],
+    }
     
 }

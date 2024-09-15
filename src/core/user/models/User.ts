@@ -4,6 +4,7 @@ export interface UserSmall {
     id: number;
     username: string;
     fullName: string;
+    createdAt?: string;
     avatarUrl?: string;
 }
 

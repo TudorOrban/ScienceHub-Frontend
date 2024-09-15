@@ -15,7 +15,6 @@ export const useMenuHandlers = (menus: MenuConfiguration[]): UseMenuHandlersRetu
     const [menuStates, setMenuStates] = useState<Record<string, string>>(initialStates);
 
     const setMenuState = (menuId: string, newValue: string) => {
-        console.log("Setting menu state: ", menuId, newValue);
         setMenuStates(prevStates => ({
             ...prevStates,
             [menuId]: newValue

@@ -4,15 +4,17 @@ import ErrorFallback from "@/shared/error/components/ErrorFallback";
 import LoadingSkeleton from "@/shared/error/components/LoadingSkeleton";
 import UserAvatar from "./UserAvatar";
 import StandardLabelValueText from "@/shared/common/components/simple/StandardLabelValueText";
+import UserMetricsPanel from "./UserMetricsPanel";
+import { UserProfileActionsPanel } from "./UserProfileActionsPanel";
 
 export interface UserProfileHeaderProps {
     result?: Result<UserDetailsDTO>;
-    error?: StandardAPIError;
-    isLoading?: boolean;
+    addBottom?: boolean;
 }
 
 const UserProfileHeader = ({
     result,
+    addBottom = false
 }: UserProfileHeaderProps) => {
 
     if (result?.isLoading) {
@@ -28,8 +30,8 @@ const UserProfileHeader = ({
     }
 
     return (
-        <div className="flex items-center justify-between w-full border-b border-gray-300 shadow-sm page-standard-horizontal-padding py-6">
-            <div>
+        <div className={`flex items-center justify-between w-full page-standard-horizontal-padding pt-6 ${addBottom ? "border-b border-gray-300 shadow-sm py-4" : ""}`}>
+            <div className="space-y-4">
                 <div className="flex items-center space-x-4">
                     <UserAvatar userSmall={result?.data} size="large"/>
 
@@ -41,16 +43,16 @@ const UserProfileHeader = ({
 
                 </div>
 
-                <div className="space-y-4">
-                    <div>
-
-                    </div>
-
+                <div className="space-y-2">
+                    <StandardLabelValueText label="Location" value={result?.data?.userDetails?.location} />
+                    <StandardLabelValueText label="Joined At" value={result?.data?.createdAt} />
                 </div>
             </div>
 
-            <div>
-                <button className="standard-button">Follow</button>
+            <div>            
+                <UserMetricsPanel result={result} />
+
+                <UserProfileActionsPanel result={result} />
             </div>
         </div>
     );

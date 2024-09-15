@@ -27,7 +27,7 @@ export default function ProjectsPage() {
     const { data, error, isLoading } = useSearchProjectsByUserId(currentUser?.id ?? 0, searchParams ?? {}, !!currentUser?.id);
 
     return (
-        <div className="text-2xl overflow-x-hidden">
+        <div className="overflow-x-hidden">
             <ListHeader 
                 pageTitle={pageUIConfiguration.pageTitle}
                 sortOptions={pageUIConfiguration.sortOptions}
