@@ -35,7 +35,7 @@ const UserProfileHeader = ({
                 <div className="flex items-center space-x-4">
                     <UserAvatar userSmall={result?.data} size="large"/>
 
-                    <div className="space-y-4">
+                    <div className="space-y-2">
                         <h2 className="label-large-xl">{result?.data?.username}</h2>
                         
                         <StandardLabelValueText label="Bio" value={result?.data?.bio} />

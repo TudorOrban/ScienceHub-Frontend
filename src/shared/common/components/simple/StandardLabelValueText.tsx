@@ -10,7 +10,7 @@ const StandardLabelValueText = ({
 }: StandardLabelValueTextProps) => {
     return (
         <div className="flex items-center space-x-2">
-            <span className="label-medium-large text-gray-800">{label}</span>
+            <span className="label-medium-large text-gray-800">{label + ":"}</span>
             <p className="label-medium">{value}</p>
         </div>
     );

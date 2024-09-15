@@ -1,4 +1,4 @@
-import { PageUIConfiguration } from "@/shared/common/models/UITypes";
+import { MenuConfiguration, PageUIConfiguration, UIItem } from "@/shared/common/models/UITypes";
 import { faBoxArchive, faFile, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 
 
@@ -173,24 +173,20 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             itemsPerPage: 20,
         },
     },
+}
 
-    // Dynamic pages
-    "userProfile": {
-        pageTitle: { label: "", value: "" },
-        addListHeaderBottom: false,
-        menus: [
-            {
-                menuId: "User Data",
-                items: [
-                    { label: "Overview", value: "overview" },
-                    { label: "Research", value: "research" },
-                    { label: "Management", value: "management" },
-                    { label: "Community", value: "community" },
-                ],
-                defaultItemValue: "overview",
-                addBottom: false
-            },
-        ],
+export const getUserProfileNavigationItems = (username: string, currentPage: string): MenuConfiguration => {
+    const items: UIItem[] = [
+        { label: "Overview", value: "overview", link: `/${username}/profile` },
+        { label: "Research", value: "research", link: `/${username}/research` },
+        { label: "Management", value: "management", link: `/${username}/management` },
+        { label: "Community", value: "community", link: `/${username}/community` },
+    ];
+
+    return {
+        menuId: "User Data",
+        items: items,
+        defaultItemValue: currentPage,
+        addBottom: false
     }
-    
 }
