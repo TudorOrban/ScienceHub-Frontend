@@ -25,9 +25,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Providers>
-                    <IdentifierParser />
-                    
+                <Providers>                    
                     <div>
                         <Header />
                         <UserbarWrapper />

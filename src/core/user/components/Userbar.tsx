@@ -15,7 +15,7 @@ const Userbar = ({
     const navigationOptions = [
         {
             label: "Profile",
-            link: `/${userSmall?.username || ""}/profile`,
+            link: `/${userSmall?.username || ""}/overview`,
             icon: faUser,
         },
         {

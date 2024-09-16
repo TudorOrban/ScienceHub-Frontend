@@ -10,6 +10,7 @@ export const useFetchUsersSmallByUsernames = (usernames: string[], enabled?: boo
         enabled: !!usernames && enabled,
         staleTime: 60 * 1000,
     });
+    console.log("result", result.data);
 
     return {
         data: result.data?.data,

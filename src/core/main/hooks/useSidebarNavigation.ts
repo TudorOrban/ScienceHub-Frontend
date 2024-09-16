@@ -4,6 +4,9 @@ import { PageDirectory, NavigationItem } from "../models/UIElements";
 import { getNavigationItems } from "../config/sidebarNavigationItems";
 import { useSidebarStateContext } from "../contexts/SidebarStateContext";
 import { useCurrentRouteIdentifierContext } from "@/core/user/contexts/CurrentRouteIdentifierContext";
+import { parseFeatureURLToIdentifier, parseIdentifier } from "@/shared/utils/featureURLParser";
+import { useFetchUsersSmallByUsernames } from "@/core/user/hooks/useFetchUsersSmallByUsernames";
+import { IdentifierUsersAndCollaborations, UserSmall } from "@/core/user/models/User";
 
 export const useSidebarNavigation = () => {
     const { 
@@ -19,7 +22,9 @@ export const useSidebarNavigation = () => {
 
     const {
         currentRouteIdentifier,
+        setCurrentRouteIdentifier,
         usersAndCollaborations,
+        setUsersAndCollaborations,
     } = useCurrentRouteIdentifierContext();
 
     const pathname = usePathname();
@@ -28,19 +33,69 @@ export const useSidebarNavigation = () => {
         const path = pathname.split("/");
         const currentPageDirectory = determinePageDirectory(path);
         
-        if (usersAndCollaborations?.users?.length === 1) { // Delegate to IdentifierParser.tsx
+        if (currentPageDirectory !== PageDirectory.None) {
             setPageDirectory(currentPageDirectory);
+
+            const navigationItems = determineNavigationItems(currentPageDirectory, currentRouteUsername);
+            setNavigationItems(navigationItems);
+    
+            const selectedItem = determineSelectedItem(pathname, navigationItems);
+            setSelectedItem(selectedItem);
+
+            setCurrentRouteIdentifier(undefined);
+        } else {
+            const newIdentifier = parseFeatureURLToIdentifier(pathname);
+            if (newIdentifier === currentRouteIdentifier) {
+                return;
+            }
+            const baseUsersAndCollaborations = parseIdentifier(newIdentifier);
+            setUsersAndCollaborations(baseUsersAndCollaborations);
         }
-        
     }, [pathname]);
 
-    useEffect(() => { // Can get trigerred by IdentifierParser.tsx
-        const navigationItems = determineNavigationItems(pageDirectory, currentRouteUsername);
-        setNavigationItems(navigationItems);
+    const { data: users, isLoading, error } = useFetchUsersSmallByUsernames(
+        usersAndCollaborations.usernames || [], 
+        usersAndCollaborations.usernames && usersAndCollaborations.usernames.length > 0
+    );
 
-        const selectedItem = determineSelectedItem(pathname, navigationItems);
-        setSelectedItem(selectedItem);
-    }, [pageDirectory]);
+    useEffect(() => {
+        handleValidUsers();
+    }, [users, isLoading, error]);
+
+    const handleValidUsers = () => {
+        if (isLoading) {
+            return;
+        }
+        if (!users || users?.length != 1) {
+            setCurrentRouteUsername(undefined);
+            setCurrentRouteIdentifier(undefined);
+            setPageDirectory(PageDirectory.NotFound);
+            setUsersAndCollaborations({
+                ...usersAndCollaborations,
+                users: [],
+            });
+            return;
+        }
+
+        const updatedUsersAndCollaborations: IdentifierUsersAndCollaborations = {
+            ...usersAndCollaborations,
+            users: users as UserSmall[],
+        };
+        setUsersAndCollaborations(updatedUsersAndCollaborations);
+
+        if (users.length === 1) {
+            console.log("User found");
+            setPageDirectory(PageDirectory.UserProfile);
+            setCurrentRouteUsername(users[0].username);
+            const navigationItems = determineNavigationItems(PageDirectory.UserProfile, currentRouteUsername);
+            setNavigationItems(navigationItems);
+    
+            const selectedItem = determineSelectedItem(pathname, navigationItems);
+            setSelectedItem(selectedItem);
+        } else {
+            setCurrentRouteUsername(undefined);
+        }
+    }
 
     return { pageDirectory, navigationItems, selectedItem };
 };
@@ -56,7 +111,7 @@ const determinePageDirectory = (path: string[]): PageDirectory => {
         case "resources":
             return PageDirectory.Resources;
         default:
-            return PageDirectory.NotFound; // Delegate dynamic routes to the CurrentRouteIdentifierParser
+            return PageDirectory.None;
     }
 };
 

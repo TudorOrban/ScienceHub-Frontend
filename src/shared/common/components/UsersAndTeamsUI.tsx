@@ -20,7 +20,7 @@ const UsersAndCollaborationsUI = ({
                 .map((user, index) => (
                 <Link
                     key={index}
-                    href={`/${user.username}/profile`}
+                    href={`/${user.username}/overview`}
                     className="pseudo-link ml-1 block"
                 >
                     {user.fullName}
@@ -32,7 +32,7 @@ const UsersAndCollaborationsUI = ({
                 .map((collaboration, index) => (
                 <Link
                     key={index}
-                    href={`/${collaboration.name}/profile`}
+                    href={`/${collaboration.name}/overview`}
                     className="pseudo-link ml-1 block"
                 >
                     {index !== (collaborations || []).length ? ", " : ""}

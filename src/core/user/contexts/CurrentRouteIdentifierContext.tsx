@@ -4,8 +4,8 @@ import { createContext, ReactNode, useContext, useState } from "react";
 import { IdentifierUsersAndCollaborations } from "../models/User";
 
 export interface CurrentRouteIdentifierContextType {
-    currentRouteIdentifier: string;
-    setCurrentRouteIdentifier: (user: string) => void;
+    currentRouteIdentifier: string | undefined;
+    setCurrentRouteIdentifier: (identifier: string | undefined) => void;
     usersAndCollaborations: IdentifierUsersAndCollaborations;
     setUsersAndCollaborations: (usersAndCollaborations: IdentifierUsersAndCollaborations) => void;
 }
@@ -21,7 +21,7 @@ export const useCurrentRouteIdentifierContext = () => {
 }
 
 export const CurrentRouteIdentifierProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-    const [currentRouteIdentifier, setCurrentRouteIdentifier] = useState<string>("");
+    const [currentRouteIdentifier, setCurrentRouteIdentifier] = useState<string | undefined>(undefined);
     const [usersAndCollaborations, setUsersAndCollaborations] = useState<IdentifierUsersAndCollaborations>({});
 
     return (

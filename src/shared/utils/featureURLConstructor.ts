@@ -9,7 +9,7 @@ export const constructFeatureURL = (feature: Feature, name?: string, users?: Use
 
     switch (feature) {
         case Feature.UserProfile:
-            return `/${name}/profile`;
+            return `/${name}/overview`;
         case Feature.Project:
             return `/${identifier}/research/projects/${name}`;
         case Feature.Work:

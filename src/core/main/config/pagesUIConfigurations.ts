@@ -177,7 +177,7 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
 
 export const getUserProfileNavigationItems = (username: string, currentPage: string): MenuConfiguration => {
     const items: UIItem[] = [
-        { label: "Overview", value: "overview", link: `/${username}/profile` },
+        { label: "Overview", value: "overview", link: `/${username}/overview` },
         { label: "Research", value: "research", link: `/${username}/research` },
         { label: "Management", value: "management", link: `/${username}/management` },
         { label: "Community", value: "community", link: `/${username}/community` },
