@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { PageDirectory, NavigationItem } from "../models/UIElements";
 import { getNavigationItems } from "../config/sidebarNavigationItems";
@@ -6,7 +6,7 @@ import { useSidebarStateContext } from "../contexts/SidebarStateContext";
 import { useCurrentRouteIdentifierContext } from "@/core/user/contexts/CurrentRouteIdentifierContext";
 import { parseFeatureURLToIdentifier, parseIdentifier } from "@/shared/utils/featureURLParser";
 import { useFetchUsersSmallByUsernames } from "@/core/user/hooks/useFetchUsersSmallByUsernames";
-import { IdentifierUsersAndCollaborations, UserSmall } from "@/core/user/models/User";
+import { IdentifierUsersAndCollaborations } from "@/core/user/models/User";
 
 export const useSidebarNavigation = () => {
     const { 
@@ -18,6 +18,8 @@ export const useSidebarNavigation = () => {
         setSelectedItem,
         currentRouteUsername,
         setCurrentRouteUsername,
+        isDynamicRoute,
+        setIsDynamicRoute,
     } = useSidebarStateContext();
 
     const {
@@ -34,6 +36,7 @@ export const useSidebarNavigation = () => {
         const currentPageDirectory = determinePageDirectory(path);
         
         if (currentPageDirectory !== PageDirectory.None) {
+            setIsDynamicRoute(false);
             setPageDirectory(currentPageDirectory);
 
             const navigationItems = determineNavigationItems(currentPageDirectory, currentRouteUsername);
@@ -43,22 +46,34 @@ export const useSidebarNavigation = () => {
             setSelectedItem(selectedItem);
 
             setCurrentRouteIdentifier(undefined);
+            setCurrentRouteUsername(undefined);
+            setUsersAndCollaborations(undefined);
         } else {
+            setIsDynamicRoute(true);
+
             const newIdentifier = parseFeatureURLToIdentifier(pathname);
+            console.log("New identifier: ", newIdentifier);
+            console.log("Current identifier: ", currentRouteIdentifier);
             if (newIdentifier === currentRouteIdentifier) {
+                console.log("Identifier unchanged, skipping update.");
                 return;
             }
+            setCurrentRouteIdentifier(newIdentifier);
             const baseUsersAndCollaborations = parseIdentifier(newIdentifier);
             setUsersAndCollaborations(baseUsersAndCollaborations);
         }
     }, [pathname]);
 
     const { data: users, isLoading, error } = useFetchUsersSmallByUsernames(
-        usersAndCollaborations.usernames || [], 
-        usersAndCollaborations.usernames && usersAndCollaborations.usernames.length > 0
+        usersAndCollaborations?.usernames || [], 
+        usersAndCollaborations?.usernames && usersAndCollaborations.usernames.length > 0
     );
 
     useEffect(() => {
+        if (!isDynamicRoute) {
+            return;
+        }
+        
         handleValidUsers();
     }, [users, isLoading, error]);
 
@@ -66,7 +81,8 @@ export const useSidebarNavigation = () => {
         if (isLoading) {
             return;
         }
-        if (!users || users?.length != 1) {
+        if (!users || users?.length !== 1) {
+            console.log("No user found");
             setCurrentRouteUsername(undefined);
             setCurrentRouteIdentifier(undefined);
             setPageDirectory(PageDirectory.NotFound);
@@ -77,24 +93,20 @@ export const useSidebarNavigation = () => {
             return;
         }
 
+        console.log("User found");
         const updatedUsersAndCollaborations: IdentifierUsersAndCollaborations = {
             ...usersAndCollaborations,
-            users: users as UserSmall[],
+            users: users,
         };
         setUsersAndCollaborations(updatedUsersAndCollaborations);
 
-        if (users.length === 1) {
-            console.log("User found");
-            setPageDirectory(PageDirectory.UserProfile);
-            setCurrentRouteUsername(users[0].username);
-            const navigationItems = determineNavigationItems(PageDirectory.UserProfile, currentRouteUsername);
-            setNavigationItems(navigationItems);
-    
-            const selectedItem = determineSelectedItem(pathname, navigationItems);
-            setSelectedItem(selectedItem);
-        } else {
-            setCurrentRouteUsername(undefined);
-        }
+        setPageDirectory(PageDirectory.UserProfile);
+        setCurrentRouteUsername(users[0].username);
+        const navigationItems = determineNavigationItems(PageDirectory.UserProfile, users[0].username);
+        setNavigationItems(navigationItems);
+
+        const selectedItem = determineSelectedItem(pathname, navigationItems);
+        setSelectedItem(selectedItem);
     }
 
     return { pageDirectory, navigationItems, selectedItem };
@@ -117,7 +129,7 @@ const determinePageDirectory = (path: string[]): PageDirectory => {
 
 const determineNavigationItems = (currentPageDirectory: PageDirectory, currentRouteUsername?: string): NavigationItem[] => {
     if (currentPageDirectory === PageDirectory.UserProfile) {
-        return getNavigationItems(currentPageDirectory, currentRouteUsername, false);
+        return getNavigationItems(currentPageDirectory, currentRouteUsername);
     }
     if (currentPageDirectory === PageDirectory.Project) {
         return [];

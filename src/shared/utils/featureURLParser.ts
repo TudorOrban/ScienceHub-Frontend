@@ -10,6 +10,7 @@ export const parseFeatureURLToIdentifier = (url: string): string => {
 }
 
 export const parseIdentifier = (identifier?: string): IdentifierUsersAndCollaborations => {
+    console.log("Parsing identifier: ", identifier);
     if (!identifier) return { usernames: [], collaborationNames: [] };
 
     const parts = identifier.split("~");

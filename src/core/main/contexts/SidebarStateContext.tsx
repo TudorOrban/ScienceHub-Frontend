@@ -12,6 +12,8 @@ export interface SidebarStateContextType {
     setSelectedItem: (selectedItem: string) => void;
     currentRouteUsername?: string;
     setCurrentRouteUsername: (routeUsername?: string) => void;
+    isDynamicRoute?: boolean;
+    setIsDynamicRoute: (isDynamicRoute?: boolean) => void;
 }
 
 const SidebarStateContext = createContext<SidebarStateContextType | undefined>(undefined);
@@ -29,6 +31,7 @@ export const SidebarStateProvider: React.FC<{ children: ReactNode }> = ({ childr
     const [navigationItems, setNavigationItems] = useState<NavigationItem[]>([]);
     const [selectedItem, setSelectedItem] = useState<string>("");
     const [currentRouteUsername, setCurrentRouteUsername] = useState<string | undefined>(undefined);
+    const [isDynamicRoute, setIsDynamicRoute] = useState<boolean | undefined>(undefined);
 
     return (
         <SidebarStateContext.Provider value={{ 
@@ -40,6 +43,8 @@ export const SidebarStateProvider: React.FC<{ children: ReactNode }> = ({ childr
             setSelectedItem,
             currentRouteUsername,
             setCurrentRouteUsername,
+            isDynamicRoute,
+            setIsDynamicRoute
         }}>
             {children}
         </SidebarStateContext.Provider>

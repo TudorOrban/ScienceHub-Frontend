@@ -190,3 +190,19 @@ export const getUserProfileNavigationItems = (username: string, currentPage: str
         addBottom: false
     }
 }
+
+export const getUserProfileBaseNavigationItems = (): MenuConfiguration => {
+    const items: UIItem[] = [
+        { label: "Overview", value: "overview" },
+        { label: "Research", value: "research" },
+        { label: "Management", value: "management" },
+        { label: "Community", value: "community" },
+    ];
+
+    return {
+        menuId: "Base User Data",
+        items: items,
+        defaultItemValue: "overview",
+        addBottom: false
+    }
+}

@@ -35,12 +35,12 @@ import {
 
 import { NavigationItem, PageDirectory } from "../models/UIElements";
 
-export const getNavigationItems = (pageDirectory: PageDirectory, identifier?: string, isCurrentUser?: boolean, projectName?: string): NavigationItem[] => {
+export const getNavigationItems = (pageDirectory: PageDirectory, identifier?: string, projectName?: string): NavigationItem[] => {
     if (pageDirectory === PageDirectory.UserProfile) {
         if (!identifier) {
             return [];
         }
-        return getUserProfileNavItems(identifier, isCurrentUser);
+        return getUserProfileNavItems(identifier);
     }
 
     if (pageDirectory === PageDirectory.Project) {
@@ -253,8 +253,8 @@ export const sidebarNavigationItems: Record<PageDirectory, NavigationItem[]> = {
 }
 
 
-export const getUserProfileNavItems = (username: string, isCurrentUser?: boolean): NavigationItem[] => {
-    const profileNavItems: NavigationItem[] = [
+export const getUserProfileNavItems = (username: string): NavigationItem[] => {
+    return [
         {
             label: "Overview",
             icon: faGlobe,
@@ -342,16 +342,6 @@ export const getUserProfileNavItems = (username: string, isCurrentUser?: boolean
             ],
         },
     ];
-
-    if (isCurrentUser) {
-        profileNavItems.push({
-            label: "Settings",
-            icon: faGear,
-            link: `/${username}/settings`,
-        });
-    }
-
-    return profileNavItems;
 };
 
 export const getProjectNavItems = (identifier: string, projectName: string): NavigationItem[] => {
