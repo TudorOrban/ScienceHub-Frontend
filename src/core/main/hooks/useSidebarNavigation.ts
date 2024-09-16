@@ -10,23 +10,16 @@ import { IdentifierUsersAndCollaborations } from "@/core/user/models/User";
 
 export const useSidebarNavigation = () => {
     const { 
-        pageDirectory, 
-        setPageDirectory, 
-        navigationItems, 
-        setNavigationItems, 
-        selectedItem, 
-        setSelectedItem,
-        currentRouteUsername,
-        setCurrentRouteUsername,
-        isDynamicRoute,
-        setIsDynamicRoute,
+        pageDirectory, setPageDirectory, 
+        navigationItems, setNavigationItems, 
+        selectedItem, setSelectedItem,
+        currentRouteUsername, setCurrentRouteUsername,
+        isDynamicRoute, setIsDynamicRoute,
     } = useSidebarStateContext();
 
     const {
-        currentRouteIdentifier,
-        setCurrentRouteIdentifier,
-        usersAndCollaborations,
-        setUsersAndCollaborations,
+        currentRouteIdentifier, setCurrentRouteIdentifier,
+        usersAndCollaborations, setUsersAndCollaborations,
     } = useCurrentRouteIdentifierContext();
 
     const pathname = usePathname();
@@ -36,33 +29,46 @@ export const useSidebarNavigation = () => {
         const currentPageDirectory = determinePageDirectory(path);
         
         if (currentPageDirectory !== PageDirectory.None) {
-            setIsDynamicRoute(false);
-            setPageDirectory(currentPageDirectory);
-
-            const navigationItems = determineNavigationItems(currentPageDirectory, currentRouteUsername);
-            setNavigationItems(navigationItems);
-    
-            const selectedItem = determineSelectedItem(pathname, navigationItems);
-            setSelectedItem(selectedItem);
-
-            setCurrentRouteIdentifier(undefined);
-            setCurrentRouteUsername(undefined);
-            setUsersAndCollaborations(undefined);
+            handleStaticRoute(currentPageDirectory);
         } else {
-            setIsDynamicRoute(true);
-
-            const newIdentifier = parseFeatureURLToIdentifier(pathname);
-            console.log("New identifier: ", newIdentifier);
-            console.log("Current identifier: ", currentRouteIdentifier);
-            if (newIdentifier === currentRouteIdentifier) {
-                console.log("Identifier unchanged, skipping update.");
-                return;
-            }
-            setCurrentRouteIdentifier(newIdentifier);
-            const baseUsersAndCollaborations = parseIdentifier(newIdentifier);
-            setUsersAndCollaborations(baseUsersAndCollaborations);
+            handleDynamicRoute();
         }
     }, [pathname]);
+
+    // Static route handling
+    const handleStaticRoute = (currentPageDirectory: PageDirectory) => {
+        setPageDirectory(currentPageDirectory);
+
+        const navigationItems = determineNavigationItems(currentPageDirectory, currentRouteUsername);
+        setNavigationItems(navigationItems);
+
+        const selectedItem = determineSelectedItem(pathname, navigationItems);
+        setSelectedItem(selectedItem);
+
+        clearDynamicRouteContext();
+    }
+
+    const clearDynamicRouteContext = () => {
+        setIsDynamicRoute(false);
+        setCurrentRouteIdentifier(undefined);
+        setCurrentRouteUsername(undefined);
+        setUsersAndCollaborations(undefined);
+    }
+
+    // Dynamic route handling
+    const handleDynamicRoute = () => {
+        setIsDynamicRoute(true);
+
+        // Attempt to parse URL into usernames and collaboration names
+        const newIdentifier = parseFeatureURLToIdentifier(pathname);
+        if (newIdentifier === currentRouteIdentifier) {
+            return;
+        }
+        setCurrentRouteIdentifier(newIdentifier);
+
+        const baseUsersAndCollaborations = parseIdentifier(newIdentifier);
+        setUsersAndCollaborations(baseUsersAndCollaborations); // Triggers useFetchUsersSmallByUsernames hook
+    }
 
     const { data: users, isLoading, error } = useFetchUsersSmallByUsernames(
         usersAndCollaborations?.usernames || [], 
@@ -70,30 +76,42 @@ export const useSidebarNavigation = () => {
     );
 
     useEffect(() => {
+        handleUsersSmallResponse();
+    }, [users, isLoading, error]);
+
+    const handleUsersSmallResponse = () => {
         if (!isDynamicRoute) {
             return;
         }
-        
-        handleValidUsers();
-    }, [users, isLoading, error]);
-
-    const handleValidUsers = () => {
         if (isLoading) {
             return;
         }
-        if (!users || users?.length !== 1) {
-            console.log("No user found");
-            setCurrentRouteUsername(undefined);
-            setCurrentRouteIdentifier(undefined);
-            setPageDirectory(PageDirectory.NotFound);
-            setUsersAndCollaborations({
-                ...usersAndCollaborations,
-                users: [],
-            });
+        if (!users || users?.length === 0) {
+            handleInvalidUsers();
             return;
         }
+        if (users?.length !== 1) {
+            handleMultipleUsers();
+        }
+        
+        handleValidUser();
+    }
 
-        console.log("User found");
+    const handleInvalidUsers = () => {
+        setCurrentRouteUsername(undefined);
+        setCurrentRouteIdentifier(undefined);
+        setPageDirectory(PageDirectory.NotFound);
+        setUsersAndCollaborations({
+            ...usersAndCollaborations,
+            users: [],
+        });
+    }
+
+    const handleMultipleUsers = () => {
+        handleInvalidUsers(); // To be replaced once project/work/.. dynamic routes are added
+    }
+
+    const handleValidUser = () => {
         const updatedUsersAndCollaborations: IdentifierUsersAndCollaborations = {
             ...usersAndCollaborations,
             users: users,
@@ -101,8 +119,8 @@ export const useSidebarNavigation = () => {
         setUsersAndCollaborations(updatedUsersAndCollaborations);
 
         setPageDirectory(PageDirectory.UserProfile);
-        setCurrentRouteUsername(users[0].username);
-        const navigationItems = determineNavigationItems(PageDirectory.UserProfile, users[0].username);
+        setCurrentRouteUsername(users?.[0].username);
+        const navigationItems = determineNavigationItems(PageDirectory.UserProfile, users?.[0].username);
         setNavigationItems(navigationItems);
 
         const selectedItem = determineSelectedItem(pathname, navigationItems);
