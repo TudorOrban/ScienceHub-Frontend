@@ -2,15 +2,17 @@
 
 import { getUserProfileBaseMenuConfiguration, pagesUIConfigurations } from "@/core/main/config/pagesUIConfigurations";
 import { useUserProfileDetails } from "@/core/user/hooks/useUserProfileDetails";
-import ProjectCardList from "@/features/research/projects/components/ProjectCardList";
-import { useSearchProjectsByUserId } from "@/features/research/projects/hooks/useSearchProjectsByUserId";
+import WorksTable from "@/features/research/works/components/WorksTable";
+import { useSearchWorksByUserIdAndWorkType } from "@/features/research/works/hooks/useSearchWorksByUserIdAndWorkType";
+import { WorkType } from "@/features/research/works/models/Work";
 import ListHeader from "@/shared/common/components/ListHeader";
 import NavigationMenus from "@/shared/common/components/NavigationMenus";
 import { useMenuHandlers } from "@/shared/common/hooks/useMenuHandlers";
 import { usePageSearchControls } from "@/shared/search/hooks/usePageSearchControls";
 
-export default function UserProjectsPage() {
-    const pageUIConfiguration = pagesUIConfigurations["projects"];
+
+export default function WorksPage() {
+    const pageUIConfiguration = pagesUIConfigurations["works"];
     const { menuStates, setMenuState } = useMenuHandlers(pageUIConfiguration.menus ?? []);
 
     const menuSelectHandlers = (pageUIConfiguration.menus ?? []).reduce((acc, menu) => ({
@@ -20,30 +22,20 @@ export default function UserProjectsPage() {
 
     const { 
         searchParams, handleTermChange, handleSortOptionChange, handleToggleDescending, handlePageChange
-    } = usePageSearchControls(pageUIConfiguration.initialSearchParams ?? {});
+     } = usePageSearchControls(pageUIConfiguration.initialSearchParams ?? {});
 
-    
-    const {
+     const {
         userDetailsResult,
         isUserProfilePage
     } = useUserProfileDetails(getUserProfileBaseMenuConfiguration(), false);
-
-    const { data, error, isLoading } = useSearchProjectsByUserId(
-        userDetailsResult?.data?.id ?? 0, 
+    const { data, error, isLoading } = useSearchWorksByUserIdAndWorkType(
+        userDetailsResult?.data?.id ?? 0, menuStates?.["Work Type"] as WorkType, 
         searchParams ?? {}, 
         !!userDetailsResult?.data?.id
     );
 
-    if (!isUserProfilePage) {
-        return (
-            <div>
-                Not Found.
-            </div>
-        );
-    }
-
     return (
-        <div className="overflow-x-hidden">
+        <div className="text-2xl overflow-x-hidden">
             <ListHeader 
                 pageTitle={pageUIConfiguration.pageTitle}
                 sortOptions={pageUIConfiguration.sortOptions}
@@ -62,15 +54,15 @@ export default function UserProjectsPage() {
                 />
             </div>
 
-            <ProjectCardList
+            <WorksTable
                 data={data}
                 error={error}
-                searchParams={searchParams}
                 isLoading={isLoading}
+                searchParams={searchParams}
                 menuStates={menuStates}
                 handlePageChange={handlePageChange}
-                disableViewMode={false}
             />
+
 
         </div>
     );
