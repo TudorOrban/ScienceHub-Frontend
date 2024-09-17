@@ -10,7 +10,7 @@ const UserMetricsPanel = ({
 }: UserMetricsPanelProps) => {
 
     return (
-        <div className="flex items-center space-x-12 pl-6 px-12 py-4 bg-gray-50 border border-gray-300 rounded-md shadow-sm">
+        <div className="flex items-center space-x-12 pl-6 px-12 py-4 bg-white border border-gray-300 rounded-md shadow-sm">
             {metrics?.map((metricGroup, index) => (
                 <div key={index} className="space-y-4">
                     {Object.keys(metricGroup).map((key) => (

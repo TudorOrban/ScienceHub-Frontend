@@ -17,7 +17,7 @@ const StandardButton = ({
     onClick,
 }: StandardButtonProps) => {
     const buttonClass = `flex items-center justify-center standard-button ${
-        isSelected ? "bg-gray-50" : "bg-transparent"
+        isSelected ? "bg-gray-50" : "bg-white"
     }`;
 
     const iconClass = `small-icon hover:text-blue-700 ${

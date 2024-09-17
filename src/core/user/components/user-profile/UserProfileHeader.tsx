@@ -46,7 +46,7 @@ const UserProfileHeader = ({
     }
 
     return (
-        <div className={`flex items-center justify-between w-full page-standard-horizontal-padding pt-6 ${addBottom ? "border-b border-gray-300 shadow-sm py-4" : ""}`}>
+        <div className={`flex items-center justify-between w-full page-standard-horizontal-padding page-header-bg pt-6 ${addBottom ? "border-b border-gray-300 shadow-sm py-4" : ""}`}>
             <div className="space-y-6">
                 <div className="flex items-center space-x-4">
                     <UserAvatar userSmall={result?.data} size="large"/>

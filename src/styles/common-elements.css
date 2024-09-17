@@ -127,3 +127,23 @@
     height: 0.75rem;
     color: var(--default-icon-color);
 }
+
+.page-header-bg {
+    background-color: var(--page-header-bg-color);
+}
+
+.selected-item-color {
+    color: var(--selected-item-color);
+}
+
+.selected-item-color-hover:hover {
+    color: var(--selected-item-color);
+}
+
+.selected-border {
+    border-bottom: 3px solid var(--selected-border-color);
+}
+
+.selected-border-hover:hover {
+    border-bottom: 3px solid var(--selected-border-color);
+}

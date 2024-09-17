@@ -11,12 +11,15 @@
     --sidebar-text-color: rgb(234, 234, 234);
     --sidebar-button-bg-color: #272727;
     --sidebar-button-text-color: white;
+    --page-header-bg-color: rgb(245, 246, 249);
     --selected-tab-text-color: #0f6ada;
 
     --auth-button-bg-color: rgb(26, 34, 45);
     --auth-button-text-color: white;
 
     --default-border-color: rgb(209 213 219);
+    --selected-item-color: #477af0;
+    --selected-border-color: #0f6ada;
     --default-icon-color: rgb(55 65 81);
     
     --default-button-height: 2.25rem;

@@ -30,7 +30,7 @@ const SidebarNavigationItems = ({
                                 className="small-icon-white"
                             />
                             <div 
-                                className={`${selectedItem === item.label ? "text-blue-600" : ""} hover:text-blue-600`}
+                                className={`${selectedItem === item.label ? "selected-item-color" : ""} selected-item-color-hover`}
                             >
                                 {item.label}
                             </div>
@@ -61,7 +61,7 @@ const SidebarNavigationItems = ({
                                         className="small-icon-white"
                                     />
                                     <div 
-                                        className={`${selectedItem === subItem.label ? "text-blue-600" : ""} hover:text-blue-600`}
+                                        className={`${selectedItem === subItem.label ? "selected-item-color" : ""} selected-item-color-hover`}
                                     >
                                         {subItem.label}
                                     </div>

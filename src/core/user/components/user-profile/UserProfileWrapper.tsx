@@ -40,7 +40,7 @@ const UserProfileWrapper = ({
         <div className="overflow-x-hidden">
             <UserProfileHeader result={userDetailsResult} />
 
-            <div className="page-standard-horizontal-padding pt-4">
+            <div className="page-standard-horizontal-padding pt-4 page-header-bg">
                 <NavigationMenu items={menuConfiguration?.items ?? []} defaultItemValue={currentMenuItemValue} useLinks={true} />
             </div>
 

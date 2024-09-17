@@ -32,13 +32,13 @@ const NavigationMenu = ({
                 >
                     {!useLinks ? (
                         <button 
-                            className={`px-6 py-4 text-lg font-semibold whitespace-nowrap ${currentItemValue === item.value ? "border-b-2 border-gray-600" : ""}`} 
+                            className={`px-6 py-4 text-lg font-semibold whitespace-nowrap ${currentItemValue === item.value ? "selected-border" : ""} selected-border-hover`} 
                             onClick={() => handleItemChange(item.value)}
                         >
                             {item.label}
                         </button>
                     ) : (
-                        <div className={`px-6 py-4 text-lg font-semibold whitespace-nowrap ${currentItemValue === item.value ? "border-b-2 border-gray-600" : ""}`}>
+                        <div className={`px-6 py-4 text-lg font-semibold whitespace-nowrap ${currentItemValue === item.value ? "selected-border" : ""} selected-border-hover`}>
                             <Link href={item.link ?? "not-found"}>
                                 {item.label}
                             </Link>
