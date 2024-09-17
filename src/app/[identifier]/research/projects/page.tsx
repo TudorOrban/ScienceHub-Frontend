@@ -1,18 +1,25 @@
 "use client";
 
-import { pagesUIConfigurations } from "@/core/main/config/pagesUIConfigurations";
+import { getUserProfileBaseMenuConfiguration, pagesUIConfigurations } from "@/core/main/config/pagesUIConfigurations";
+import { useCurrentRouteIdentifierContext } from "@/core/user/contexts/CurrentRouteIdentifierContext";
 import { useCurrentUser } from "@/core/user/contexts/CurrentUserContext";
+import { useUserProfileDetails } from "@/core/user/hooks/useUserProfileDetails";
 import ProjectCardList from "@/features/research/projects/components/ProjectCardList";
 import { useSearchProjectsByUserId } from "@/features/research/projects/hooks/useSearchProjectsByUserId";
 import ListHeader from "@/shared/common/components/ListHeader";
 import NavigationMenus from "@/shared/common/components/NavigationMenus";
 import { useMenuHandlers } from "@/shared/common/hooks/useMenuHandlers";
 import { usePageSearchControls } from "@/shared/search/hooks/usePageSearchControls";
-
+import { useState } from "react";
 
 export default function UserProjectsPage() {
     const pageUIConfiguration = pagesUIConfigurations["projects"];
     const { menuStates, setMenuState } = useMenuHandlers(pageUIConfiguration.menus ?? []);
+
+    const {
+        userDetailsResult,
+        isUserProfilePage
+    } = useUserProfileDetails(getUserProfileBaseMenuConfiguration(), false);
 
     const menuSelectHandlers = (pageUIConfiguration.menus ?? []).reduce((acc, menu) => ({
         ...acc,
@@ -21,10 +28,17 @@ export default function UserProjectsPage() {
 
     const { 
         searchParams, handleTermChange, handleSortOptionChange, handleToggleDescending, handlePageChange
-     } = usePageSearchControls(pageUIConfiguration.initialSearchParams ?? {});
+    } = usePageSearchControls(pageUIConfiguration.initialSearchParams ?? {});
 
-    const { currentUser } = useCurrentUser();
-    const { data, error, isLoading } = useSearchProjectsByUserId(currentUser?.id ?? 0, searchParams ?? {}, !!currentUser?.id);
+    const { data, error, isLoading } = useSearchProjectsByUserId(userDetailsResult?.data?.id ?? 0, searchParams ?? {}, !!userDetailsResult?.data?.id);
+
+    if (!isUserProfilePage) {
+        return (
+            <div>
+                Not Found.
+            </div>
+        );
+    }
 
     return (
         <div className="overflow-x-hidden">

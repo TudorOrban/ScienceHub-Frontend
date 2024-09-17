@@ -41,7 +41,6 @@ export const useSidebarNavigation = () => {
 
         const navigationItems = determineNavigationItems(currentPageDirectory, currentRouteUsername);
         setNavigationItems(navigationItems);
-
         const selectedItem = determineSelectedItem(pathname, navigationItems);
         setSelectedItem(selectedItem);
 
@@ -62,6 +61,8 @@ export const useSidebarNavigation = () => {
         // Attempt to parse URL into usernames and collaboration names
         const newIdentifier = parseFeatureURLToIdentifier(pathname);
         if (newIdentifier === currentRouteIdentifier) {
+            const selectedItem = determineSelectedItem(pathname, navigationItems);
+            setSelectedItem(selectedItem);
             return;
         }
         setCurrentRouteIdentifier(newIdentifier);
@@ -123,9 +124,9 @@ export const useSidebarNavigation = () => {
 
         setPageDirectory(PageDirectory.UserProfile);
         setCurrentRouteUsername(users?.[0].username);
+
         const navigationItems = determineNavigationItems(PageDirectory.UserProfile, users?.[0].username);
         setNavigationItems(navigationItems);
-
         const selectedItem = determineSelectedItem(pathname, navigationItems);
         setSelectedItem(selectedItem);
     }

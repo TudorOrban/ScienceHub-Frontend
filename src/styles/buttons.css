@@ -30,7 +30,7 @@
     height: var(--default-button-height);
     padding-left: 1rem;
     padding-right: 1rem;
-    background-color: rgb(20, 120, 230);
+    background-color: var(--standard-write-button-bg-color);
     color: white;
     border: 1px solid var(--default-border-color);
     border-radius: 0.375rem;
@@ -41,7 +41,7 @@
 }
 
 .standard-write-button:hover {
-    background-color: rgb(20, 117, 219);
+    background-color: rgb(5, 97, 196);
     border-color: rgb(156 163 175);
 }
 

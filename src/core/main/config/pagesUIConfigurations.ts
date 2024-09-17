@@ -175,7 +175,7 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
     },
 }
 
-export const getUserProfileNavigationItems = (username: string, currentPage: string): MenuConfiguration => {
+export const getUserProfileMenuConfiguration = (username: string): MenuConfiguration => {
     const items: UIItem[] = [
         { label: "Overview", value: "overview", link: `/${username}/overview` },
         { label: "Research", value: "research", link: `/${username}/research` },
@@ -186,12 +186,12 @@ export const getUserProfileNavigationItems = (username: string, currentPage: str
     return {
         menuId: "User Data",
         items: items,
-        defaultItemValue: currentPage,
+        defaultItemValue: "overview",
         addBottom: false
     }
 }
 
-export const getUserProfileBaseNavigationItems = (): MenuConfiguration => {
+export const getUserProfileBaseMenuConfiguration = (): MenuConfiguration => {
     const items: UIItem[] = [
         { label: "Overview", value: "overview" },
         { label: "Research", value: "research" },
