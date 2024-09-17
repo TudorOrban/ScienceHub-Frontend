@@ -33,7 +33,7 @@ export default function UserProfilePage({
     const userDetailsResult = useFetchUserDetails(usersAndCollaborations?.users?.[0]?.id ?? 0, isUserProfilePage);
 
     return (
-        <div>
+        <div className="overflow-x-hidden">
             <UserProfileHeader result={userDetailsResult} />
 
             <div className="page-standard-horizontal-padding pt-4">

@@ -18,6 +18,15 @@ export interface IdentifierUsersAndCollaborations {
 export interface UserDetailsDTO extends UserSmall {
     bio?: string;
     userDetails?: UserDetails;
+
+    researchScore?: number;
+    hIndex?: number;
+    totalCitations?: number;
+    totalViews?: number;
+    totalUpvotes?: number;
+    totalShares?: number;
+    totalFollowers?: number;
+    totalFollowing?: number;
 }
 
 export interface UserDetails {
