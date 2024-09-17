@@ -1,10 +1,10 @@
 import { Result, StandardAPIError } from "@/shared/http/Http";
-import { UserDetailsDTO } from "../models/User";
+import { UserDetailsDTO } from "../../models/User";
 import ErrorFallback from "@/shared/error/components/ErrorFallback";
 import LoadingSkeleton from "@/shared/error/components/LoadingSkeleton";
-import UserAvatar from "./UserAvatar";
+import UserAvatar from "../UserAvatar";
 import StandardLabelValueText from "@/shared/common/components/simple/StandardLabelValueText";
-import UserMetricsPanel from "./UserMetricsPanel";
+import UserMetricsPanel from "./MetricsPanel";
 import { UserProfileActionsPanel } from "./UserProfileActionsPanel";
 import { UIItem } from "@/shared/common/models/UITypes";
 import { faBookAtlas, faEye, faPaperclip, faShare, faTableList, faUpLong } from "@fortawesome/free-solid-svg-icons";
@@ -65,7 +65,7 @@ const UserProfileHeader = ({
                 </div>
             </div>
 
-            <div>            
+            <div className="space-y-4">            
                 <UserMetricsPanel metrics={metrics} />
 
                 <UserProfileActionsPanel result={result} />

@@ -14,7 +14,7 @@ const UserMetricsPanel = ({
             {metrics?.map((metricGroup, index) => (
                 <div key={index} className="space-y-4">
                     {Object.keys(metricGroup).map((key) => (
-                        <StandardIconLabelValue item={metricGroup[key]} size="small"/>
+                        <StandardIconLabelValue key={key} item={metricGroup[key]} size="small"/>
                     ))}
                 </div>
             ))}

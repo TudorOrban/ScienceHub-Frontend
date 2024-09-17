@@ -1,5 +1,5 @@
 import { Result } from "@/shared/http/Http";
-import { UserDetailsDTO } from "../models/User";
+import { UserDetailsDTO } from "../../models/User";
 import StandardLabelValues from "@/shared/common/components/simple/StandardLabelValues";
 
 export interface UserDetailsPanelProps {

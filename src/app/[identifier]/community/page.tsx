@@ -1,8 +1,8 @@
 "use client";
 
 import { getUserProfileBaseNavigationItems, getUserProfileNavigationItems } from "@/core/main/config/pagesUIConfigurations";
-import UserDetailsPanel from "@/core/user/components/UserDetailsPanel";
-import UserProfileHeader from "@/core/user/components/UserProfileHeader";
+import UserDetailsPanel from "@/core/user/components/user-profile/UserDetailsPanel";
+import UserProfileHeader from "@/core/user/components/user-profile/UserProfileHeader";
 import { useCurrentRouteIdentifierContext } from "@/core/user/contexts/CurrentRouteIdentifierContext";
 import { useFetchUserDetails } from "@/core/user/hooks/useFetchUserDetails";
 import NavigationMenu from "@/shared/common/components/NavigationMenu";
