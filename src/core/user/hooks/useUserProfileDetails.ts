@@ -10,10 +10,13 @@ export const useUserProfileDetails = (baseMenuConfiguration: MenuConfiguration, 
 
     const {
         usersAndCollaborations,
+        areUsersAndCollaborationsChecked
     } = useCurrentRouteIdentifierContext();
 
     useEffect(() => {
         const newIsUserProfilePage = usersAndCollaborations && (usersAndCollaborations?.users?.length ?? 0) == 1 && (usersAndCollaborations?.collaborations?.length ?? 0) === 0;
+        console.log("Is user profile page: ", newIsUserProfilePage);
+        console.log("Users and collabs in hook: ", usersAndCollaborations);
         setIsUserProfilePage(newIsUserProfilePage);
         if (newIsUserProfilePage && useMenu) {
             const newMenuConfiguration = getUserProfileMenuConfiguration(usersAndCollaborations?.users?.[0]?.username ?? "");
@@ -23,5 +26,5 @@ export const useUserProfileDetails = (baseMenuConfiguration: MenuConfiguration, 
 
     const userDetailsResult = useFetchUserDetails(usersAndCollaborations?.users?.[0]?.id ?? 0, isUserProfilePage);
 
-    return { usersAndCollaborations, isUserProfilePage, menuConfiguration, userDetailsResult };
+    return { usersAndCollaborations, areUsersAndCollaborationsChecked, isUserProfilePage, menuConfiguration, userDetailsResult };
 }

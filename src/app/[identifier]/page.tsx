@@ -2,22 +2,25 @@
 
 import { getUserProfileBaseMenuConfiguration } from "@/core/main/config/pagesUIConfigurations";
 import { useUserProfileDetails } from "@/core/user/hooks/useUserProfileDetails";
-import { notFound } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function IdentifierPage() {
+    const router = useRouter();
+
     const {
+        areUsersAndCollaborationsChecked,
         isUserProfilePage,
         menuConfiguration,
         userDetailsResult,
     } = useUserProfileDetails(getUserProfileBaseMenuConfiguration(), true);
 
-    if (!isUserProfilePage) {
-        notFound();
+    if (areUsersAndCollaborationsChecked && !isUserProfilePage) {
+        router.push("/user-not-found");
     }
 
     return (
         <div>
-            
+
         </div>
     );
 };

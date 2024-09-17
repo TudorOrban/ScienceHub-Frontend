@@ -1,7 +1,7 @@
 import UserProfileOverviewContent from "@/core/user/components/user-profile/UserProfileOverviewContent";
 import UserProfileWrapper from "@/core/user/components/user-profile/UserProfileWrapper";
 
-export default function UserProfilePage({
+export default function UserOverviewPage({
     params: { identifier },
 }: {
     params: { identifier: string; };

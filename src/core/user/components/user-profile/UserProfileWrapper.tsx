@@ -21,13 +21,15 @@ const UserProfileWrapper = ({
     children,
 }: UserProfileWrapperProps) => {
     const {
+        usersAndCollaborations,
+        areUsersAndCollaborationsChecked,
         isUserProfilePage,
         menuConfiguration,
         userDetailsResult,
     } = useUserProfileDetails(getUserProfileBaseMenuConfiguration(), true);
 
-    if (!isUserProfilePage) {
-        notFound();
+    if (areUsersAndCollaborationsChecked && !isUserProfilePage) {
+        console.log("Users and collabs: ", usersAndCollaborations);
     }
 
     return (

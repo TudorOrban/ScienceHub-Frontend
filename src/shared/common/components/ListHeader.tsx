@@ -71,7 +71,7 @@ const ListHeader = ({
                     </button>
                     
                 </div>
-                <Link href={createNewButtonData?.link ?? "/fallbacks/not-found"} className="standard-write-button space-x-2">
+                <Link href={createNewButtonData?.link ?? "/not-found"} className="standard-write-button space-x-2">
                     <FontAwesomeIcon icon={faPlus} className="small-icon-white"/>
                     <span>{createNewButtonData?.label}</span>
                 </Link>

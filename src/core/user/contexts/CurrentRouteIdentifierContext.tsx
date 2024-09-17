@@ -8,6 +8,8 @@ export interface CurrentRouteIdentifierContextType {
     setCurrentRouteIdentifier: (identifier: string | undefined) => void;
     usersAndCollaborations: IdentifierUsersAndCollaborations | undefined;
     setUsersAndCollaborations: (usersAndCollaborations: IdentifierUsersAndCollaborations | undefined) => void;
+    areUsersAndCollaborationsChecked?: boolean;
+    setAreUsersAndCollaborationsChecked: (areUsersAndCollaborationsLoaded?: boolean) => void;
 }
 
 const CurrentRouteIdentifierContext = createContext<CurrentRouteIdentifierContextType | undefined>(undefined);
@@ -23,13 +25,16 @@ export const useCurrentRouteIdentifierContext = () => {
 export const CurrentRouteIdentifierProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [currentRouteIdentifier, setCurrentRouteIdentifier] = useState<string | undefined>(undefined);
     const [usersAndCollaborations, setUsersAndCollaborations] = useState<IdentifierUsersAndCollaborations | undefined>({});
+    const [areUsersAndCollaborationsChecked, setAreUsersAndCollaborationsChecked] = useState<boolean | undefined>(undefined);
 
     return (
         <CurrentRouteIdentifierContext.Provider value={{ 
             currentRouteIdentifier, 
             setCurrentRouteIdentifier,
             usersAndCollaborations,
-            setUsersAndCollaborations
+            setUsersAndCollaborations,
+            areUsersAndCollaborationsChecked,
+            setAreUsersAndCollaborationsChecked
         }}>
             {children}
         </CurrentRouteIdentifierContext.Provider>

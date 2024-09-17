@@ -1,7 +1,7 @@
 import NotFoundFallback from "@/shared/error/components/NotFoundFallback";
 
-export default function NotFound() {
+export default function NotFoundPage() {
     return (
-        <NotFoundFallback message="User not found."/>
+        <NotFoundFallback message="Page not found."/>
     );
 };

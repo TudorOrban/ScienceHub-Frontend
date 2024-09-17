@@ -4,7 +4,7 @@ import { CollaborationSmall } from "@/features/community/collaborations/models/C
 
 
 export const constructFeatureURL = (feature: Feature, name?: string, users?: UserSmall[], collaborations?: CollaborationSmall[]): string => {
-    if (!name) return "/fallbacks/not-found";
+    if (!name) return "/not-found";
     const identifier = constructIdentifier(users, collaborations);
 
     switch (feature) {
@@ -21,12 +21,12 @@ export const constructFeatureURL = (feature: Feature, name?: string, users?: Use
         case Feature.Discussion:
             return `/${identifier}/community/discussions/${name}`;
         default:
-            return "/fallbacks/not-found";
+            return "/not-found";
     }
 }
 
 export const constructIdentifier = (users?: UserSmall[], collaborations?: CollaborationSmall[]): string => {
-    if (!users && !collaborations) return "/fallbacks/not-found";
+    if (!users && !collaborations) return "/not-found";
 
     const userIds = (users || []).map((user) => user.username);
     const collaborationIds = (collaborations || []).map((collaboration) => `T~${collaboration.name}`);
