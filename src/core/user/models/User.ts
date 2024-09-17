@@ -30,7 +30,7 @@ export interface UserDetailsDTO extends UserSmall {
 
     isFollowingCurrentUser?: boolean;
     isFollowedByCurrentUser?: boolean;
-    
+    isRecommendedByCurrentUser?: boolean;
 }
 
 export interface UserDetails {

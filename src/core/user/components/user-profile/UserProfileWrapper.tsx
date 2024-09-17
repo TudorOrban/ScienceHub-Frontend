@@ -47,14 +47,6 @@ const UserProfileWrapper = ({
             <div>
                 {children}
             </div>
-
-            {/* <div className="flex flex-row justify-between w-full">
-                <div>
-                    Content
-                </div>
-
-                <UserDetailsPanel result={userDetailsResult} />
-            </div> */}
         </div>
     );
 };

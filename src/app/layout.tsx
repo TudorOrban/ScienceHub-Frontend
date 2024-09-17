@@ -1,16 +1,15 @@
-import "./globals.css";
 import "/src/styles/sidebar.css";
 import "/src/styles/header.css";
 import "/src/styles/common-elements.css";
 import "/src/styles/buttons.css";
 import "/src/styles/forms.css";
 import "/src/styles/layout.css";
+import "./globals.css";
 import type { Metadata } from "next";
 import Sidebar from "@/core/main/components/sidebar/Sidebar";
 import Header from "@/core/main/components/header/Header";
 import Providers from "@/core/main/providers/Providers";
 import UserbarWrapper from "@/core/user/components/UserbarWrapper";
-import IdentifierParser from "@/core/user/components/IdentifierParser";
 
 export const metadata: Metadata = {
     title: "Create Next App",

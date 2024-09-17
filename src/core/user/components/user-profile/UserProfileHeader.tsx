@@ -47,7 +47,7 @@ const UserProfileHeader = ({
 
     return (
         <div className={`flex items-center justify-between w-full page-standard-horizontal-padding pt-6 ${addBottom ? "border-b border-gray-300 shadow-sm py-4" : ""}`}>
-            <div className="space-y-4">
+            <div className="space-y-6">
                 <div className="flex items-center space-x-4">
                     <UserAvatar userSmall={result?.data} size="large"/>
 
@@ -59,9 +59,15 @@ const UserProfileHeader = ({
 
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-3">
                     <StandardLabelValueText label="Location" value={result?.data?.userDetails?.location} />
                     <StandardLabelValueText label="Joined At" value={result?.data?.createdAt} />
+
+                    <div className="flex items-center space-x-2">
+                        <StandardLabelValueText label="Followers" value={(result?.data?.totalFollowers ?? 0).toString()} />
+                        <span className="text-gray-400">|</span>
+                        <StandardLabelValueText label="Following" value={(result?.data?.totalFollowing ?? 0).toString()} />
+                    </div>
                 </div>
             </div>
 
