@@ -1,21 +1,16 @@
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { UIItem } from "../../models/UITypes";
 
-export interface StandardLabelValueTextProps {
-    label: string;
-    value?: string;
-    icon?: IconDefinition;
-    hideUndefined?: boolean;
+export interface StandardIconLabelValueProps {
+    item: UIItem;    
     size?: "small" | "medium" | "large";
 }
 
-const StandardLabelValueText = ({ 
-    label, 
-    value,
-    icon,
-    hideUndefined = false,
+const StandardIconLabelValue = ({ 
+    item,
     size = "medium"
-}: StandardLabelValueTextProps) => {
+}: StandardIconLabelValueProps) => {
 
     const getCSSBySize = () => {
         if (size === "small") return "label-medium text-gray-800";
@@ -23,23 +18,23 @@ const StandardLabelValueText = ({
         return "label-large text-gray-800";
     }
 
-    if (hideUndefined && !value) {
+    if (!item) {
         return null;
     }
 
     return (
         <div className="flex items-center space-x-2">
-            {icon && (
-                <FontAwesomeIcon icon={icon} className="small-icon text-gray-800" />
+            {item?.icon && (
+                <FontAwesomeIcon icon={item?.icon} className="extra-small-icon text-gray-800" />
             )}
             <span 
                 className={getCSSBySize()}
             >
-                {label + ":"}
+                {item.label + ":"}
             </span>
-            <p className="label-medium">{value}</p>
+            <p className="label-medium">{item.value}</p>
         </div>
     );
 }
 
-export default StandardLabelValueText;
+export default StandardIconLabelValue;

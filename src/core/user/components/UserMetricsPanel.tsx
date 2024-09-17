@@ -1,28 +1,23 @@
-import { Result } from "@/shared/http/Http";
-import { UserDetailsDTO } from "../models/User";
-import StandardLabelValueText from "@/shared/common/components/simple/StandardLabelValueText";
+import { UIItem } from "@/shared/common/models/UITypes";
+import StandardIconLabelValue from "@/shared/common/components/simple/StandardIconLabelValue";
 
 export interface UserMetricsPanelProps {
-    result?: Result<UserDetailsDTO>;
+    metrics?: Record<string, UIItem>[];
 }
 
 const UserMetricsPanel = ({
-    result
+    metrics = []
 }: UserMetricsPanelProps) => {
+
     return (
-        <div className="flex items-center space-x-8 px-4 py-4 bg-gray-50 border border-gray-300 rounded-md shadow-sm">
-            <div className="space-y-4">
-                <StandardLabelValueText label="Research Score" value={(result?.data?.researchScore ?? 0).toString()} size="small"/>
-                <StandardLabelValueText label="H-Index" value={(result?.data?.hIndex ?? 0).toString()} size="small" />
-                <StandardLabelValueText label="Total Citations" value={(result?.data?.totalCitations ?? 0).toString()} size="small" />
-            </div>
-
-            <div className="space-y-4">
-                <StandardLabelValueText label="Total Views" value={(result?.data?.totalViews ?? 0).toString()} size="small" />
-                <StandardLabelValueText label="Total Upvotes" value={(result?.data?.totalUpvotes ?? 0).toString()} size="small" />
-                <StandardLabelValueText label="Total Shares" value={(result?.data?.totalShares ?? 0).toString()} size="small" />
-
-            </div>
+        <div className="flex items-center space-x-12 pl-6 px-12 py-4 bg-gray-50 border border-gray-300 rounded-md shadow-sm">
+            {metrics?.map((metricGroup, index) => (
+                <div key={index} className="space-y-4">
+                    {Object.keys(metricGroup).map((key) => (
+                        <StandardIconLabelValue item={metricGroup[key]} size="small"/>
+                    ))}
+                </div>
+            ))}
         </div>
     );
 };

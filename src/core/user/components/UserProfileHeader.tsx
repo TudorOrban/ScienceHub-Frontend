@@ -6,6 +6,8 @@ import UserAvatar from "./UserAvatar";
 import StandardLabelValueText from "@/shared/common/components/simple/StandardLabelValueText";
 import UserMetricsPanel from "./UserMetricsPanel";
 import { UserProfileActionsPanel } from "./UserProfileActionsPanel";
+import { UIItem } from "@/shared/common/models/UITypes";
+import { faBookAtlas, faEye, faPaperclip, faShare, faTableList, faUpLong } from "@fortawesome/free-solid-svg-icons";
 
 export interface UserProfileHeaderProps {
     result?: Result<UserDetailsDTO>;
@@ -16,12 +18,23 @@ const UserProfileHeader = ({
     result,
     addBottom = false
 }: UserProfileHeaderProps) => {
+    const metrics: Record<string, UIItem>[] = [
+        {
+            "researchScore": { label: "Research Score", value: (result?.data?.researchScore ?? 0).toString(), icon: faBookAtlas },
+            "hIndex": { label: "H-Index", value: (result?.data?.hIndex ?? 0).toString(), icon: faTableList },
+            "totalCitations": { label: "Total Citations", value: (result?.data?.totalCitations ?? 0).toString(), icon: faPaperclip },
+        }, 
+        {
+            "totalViews": { label: "Total Views", value: (result?.data?.totalViews ?? 0).toString(), icon: faEye },
+            "totalUpvotes": { label: "Total Upvotes", value: (result?.data?.totalUpvotes ?? 0).toString(), icon: faUpLong },
+            "totalShares": { label: "Total Shares", value: (result?.data?.totalShares ?? 0).toString(), icon: faShare },
+        }
+    ];
 
     if (result?.isLoading) {
         return (
-            <div className="w-96 h-96 bg-red-500">
-                
-            <LoadingSkeleton isLoading={result?.isLoading} />
+            <div className="w-full h-96 p-12">
+                <LoadingSkeleton isLoading={result?.isLoading} className="w-full"/>
             </div>
         );
     }
@@ -53,7 +66,7 @@ const UserProfileHeader = ({
             </div>
 
             <div>            
-                <UserMetricsPanel result={result} />
+                <UserMetricsPanel metrics={metrics} />
 
                 <UserProfileActionsPanel result={result} />
             </div>

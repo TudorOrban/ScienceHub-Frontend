@@ -27,6 +27,10 @@ export interface UserDetailsDTO extends UserSmall {
     totalShares?: number;
     totalFollowers?: number;
     totalFollowing?: number;
+
+    isFollowingCurrentUser?: boolean;
+    isFollowedByCurrentUser?: boolean;
+    
 }
 
 export interface UserDetails {
