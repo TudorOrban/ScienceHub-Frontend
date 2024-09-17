@@ -258,7 +258,7 @@ export const getUserProfileNavItems = (username: string): NavigationItem[] => {
         {
             label: "Overview",
             icon: faGlobe,
-            link: `/${username}`,
+            link: `/${username}/overview`,
         },
         {
             label: "Research",
@@ -271,34 +271,9 @@ export const getUserProfileNavItems = (username: string): NavigationItem[] => {
                     link: `/${username}/research/projects`,
                 },
                 {
-                    label: "Papers",
-                    icon: faClipboard,
-                    link: `/${username}/research/papers`,
-                },
-                {
-                    label: "Experiments",
-                    icon: faFlask,
-                    link: `/${username}/research/experiments`,
-                },
-                {
-                    label: "Datasets",
-                    icon: faDatabase,
-                    link: `/${username}/research/datasets`,
-                },
-                {
-                    label: "Data Analyses",
-                    icon: faChartSimple,
-                    link: `/${username}/research/data-analyses`,
-                },
-                {
-                    label: "AI Models",
-                    icon: faMicrochip,
-                    link: `/${username}/research/ai-models`,
-                },
-                {
-                    label: "Code Blocks",
-                    icon: faCode,
-                    link: `/${username}/research/code-blocks`,
+                    label: "Works",
+                    icon: faFile,
+                    link: `/${username}/research/works`,
                 },
             ],
         },

@@ -92,6 +92,7 @@ export const useSidebarNavigation = () => {
         }
         if (users?.length !== 1) {
             handleMultipleUsers();
+            return;
         }
         
         handleValidUser();
@@ -108,7 +109,9 @@ export const useSidebarNavigation = () => {
     }
 
     const handleMultipleUsers = () => {
-        handleInvalidUsers(); // To be replaced once project/work/.. dynamic routes are added
+        // handleInvalidUsers(); // To be replaced once project/work/.. dynamic routes are added
+        setCurrentRouteUsername(undefined);
+        console.log("Multiple users found");
     }
 
     const handleValidUser = () => {
