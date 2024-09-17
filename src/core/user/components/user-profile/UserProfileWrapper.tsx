@@ -9,6 +9,7 @@ import NavigationMenu from "@/shared/common/components/NavigationMenu";
 import { MenuConfiguration } from "@/shared/common/models/UITypes";
 import { useEffect, useState } from "react";
 import { useUserProfileDetails } from "../../hooks/useUserProfileDetails";
+import { notFound } from "next/navigation";
 
 export interface UserProfileWrapperProps {
     currentMenuItemValue: string;
@@ -20,9 +21,14 @@ const UserProfileWrapper = ({
     children,
 }: UserProfileWrapperProps) => {
     const {
-        userDetailsResult,
+        isUserProfilePage,
         menuConfiguration,
+        userDetailsResult,
     } = useUserProfileDetails(getUserProfileBaseMenuConfiguration(), true);
+
+    if (!isUserProfilePage) {
+        notFound();
+    }
 
     return (
         <div className="overflow-x-hidden">

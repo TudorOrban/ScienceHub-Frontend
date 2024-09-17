@@ -23,5 +23,5 @@ export const useUserProfileDetails = (baseMenuConfiguration: MenuConfiguration, 
 
     const userDetailsResult = useFetchUserDetails(usersAndCollaborations?.users?.[0]?.id ?? 0, isUserProfilePage);
 
-    return { userDetailsResult, isUserProfilePage, menuConfiguration };
+    return { usersAndCollaborations, isUserProfilePage, menuConfiguration, userDetailsResult };
 }
