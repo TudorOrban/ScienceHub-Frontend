@@ -45,7 +45,7 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
         sortOptions: [
             { label: "Created At", value: "createdAt" },
             { label: "Updated At", value: "updatedAt" },
-            { label: "Title", value: "Title" },
+            { label: "Title", value: "title" },
         ],
         createNewButtonData: { label: "New Work", value: "", link: "/workspace/research/works/create" },
         addListHeaderBottom: false,
@@ -86,7 +86,7 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
         sortOptions: [
             { label: "Created At", value: "createdAt" },
             { label: "Updated At", value: "updatedAt" },
-            { label: "Title", value: "Title" },
+            { label: "Title", value: "title" },
         ],
         createNewButtonData: { label: "New Issue", value: "", link: "/workspace/research/issues/create" },
         addListHeaderBottom: false,
@@ -123,7 +123,7 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
         sortOptions: [
             { label: "Created At", value: "createdAt" },
             { label: "Updated At", value: "updatedAt" },
-            { label: "Title", value: "Title" },
+            { label: "Title", value: "title" },
         ],
         createNewButtonData: { label: "New Review", value: "", link: "/workspace/research/reviews/create" },
         addListHeaderBottom: false,
