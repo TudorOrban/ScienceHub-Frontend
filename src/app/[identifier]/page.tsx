@@ -8,13 +8,12 @@ export default function IdentifierPage() {
     const router = useRouter();
 
     const {
-        areUsersAndCollaborationsChecked,
         isUserProfilePage,
         menuConfiguration,
         userDetailsResult,
     } = useUserProfileDetails(getUserProfileBaseMenuConfiguration(), true);
 
-    if (areUsersAndCollaborationsChecked && !isUserProfilePage) {
+    if (!isUserProfilePage) {
         router.push("/user-not-found");
     }
 

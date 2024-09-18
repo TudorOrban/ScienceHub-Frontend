@@ -20,7 +20,6 @@ export const useSidebarNavigation = () => {
     const {
         currentRouteIdentifier, setCurrentRouteIdentifier,
         usersAndCollaborations, setUsersAndCollaborations,
-        areUsersAndCollaborationsChecked, setAreUsersAndCollaborationsChecked,
     } = useCurrentRouteIdentifierContext();
 
     const pathname = usePathname();
@@ -82,7 +81,7 @@ export const useSidebarNavigation = () => {
     }, [users, isLoading, error]);
 
     const handleUsersSmallResponse = () => {
-        if (!isDynamicRoute || isLoading || areUsersAndCollaborationsChecked) {
+        if (!isDynamicRoute || isLoading) {
             return;
         }
         
@@ -103,7 +102,6 @@ export const useSidebarNavigation = () => {
         setCurrentRouteUsername(undefined);
         setCurrentRouteIdentifier(undefined);
         setPageDirectory(PageDirectory.NotFound);
-        setAreUsersAndCollaborationsChecked(true);
         setUsersAndCollaborations({
             ...usersAndCollaborations,
             users: [],
@@ -112,7 +110,6 @@ export const useSidebarNavigation = () => {
 
     const handleMultipleUsers = () => {
         setCurrentRouteUsername(undefined);
-        setAreUsersAndCollaborationsChecked(true);
         console.log("Multiple users found");
     }
 
@@ -122,7 +119,6 @@ export const useSidebarNavigation = () => {
             users: users,
         };
         setUsersAndCollaborations(updatedUsersAndCollaborations);
-        setAreUsersAndCollaborationsChecked(true);
 
         setPageDirectory(PageDirectory.UserProfile);
         setCurrentRouteUsername(users?.[0].username);

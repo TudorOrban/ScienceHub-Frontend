@@ -17,13 +17,12 @@ const UserProfileWrapper = ({
     children,
 }: UserProfileWrapperProps) => {
     const {
-        areUsersAndCollaborationsChecked,
         isUserProfilePage,
         menuConfiguration,
         userDetailsResult,
     } = useUserProfileDetails(getUserProfileBaseMenuConfiguration(), true);
 
-    if (areUsersAndCollaborationsChecked && !isUserProfilePage) {
+    if (!isUserProfilePage) {
         return (
             <NotFoundFallback message="User not found" />
         );

@@ -5,12 +5,12 @@ import { getUserProfileMenuConfiguration } from "@/core/main/config/pagesUIConfi
 import { useFetchUserDetails } from "./useFetchUserDetails";
 
 export const useUserProfileDetails = (baseMenuConfiguration: MenuConfiguration, useMenu?: boolean, userId?: number) => {
-    const [isUserProfilePage, setIsUserProfilePage] = useState<boolean | undefined>(undefined);
     const [menuConfiguration, setMenuConfiguration] = useState<MenuConfiguration>(baseMenuConfiguration);
 
     const {
         usersAndCollaborations,
-        areUsersAndCollaborationsChecked
+        isUserProfilePage,
+        setIsUserProfilePage
     } = useCurrentRouteIdentifierContext();
 
     useEffect(() => {
@@ -28,5 +28,5 @@ export const useUserProfileDetails = (baseMenuConfiguration: MenuConfiguration, 
     const userDetailsResult = useFetchUserDetails(usedUserId, isUserProfilePage && !!usedUserId);
     console.log("userDetailsResult", userDetailsResult);
 
-    return { usersAndCollaborations, areUsersAndCollaborationsChecked, isUserProfilePage, menuConfiguration, userDetailsResult };
+    return { usersAndCollaborations, isUserProfilePage, menuConfiguration, userDetailsResult };
 }

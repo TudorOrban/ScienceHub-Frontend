@@ -39,17 +39,17 @@ const UserProjectsPage = ({
         usersAndCollaborations,
         userDetailsResult,
         isUserProfilePage,
-        areUsersAndCollaborationsChecked
     } = useUserProfileDetails(getUserProfileBaseMenuConfiguration(), false, usedId);
 
-    usedId = usedId ? usedId : usersAndCollaborations?.users?.[0]?.id ?? 0;
+    usedId = usedId ? usedId : usersAndCollaborations?.users?.[0]?.id ?? undefined;
     const { data, error, isLoading } = useSearchProjectsByUserId(
-        usedId, 
+        usedId ?? 0, 
         searchParams ?? {}, 
         !!usedId
     );
 
-    if (areUsersAndCollaborationsChecked && !isUserProfilePage) {
+    if (!isUserProfilePage && currentRoute) {
+        console.log("User not found: ", usedId);
         return (
             <NotFoundFallback message="User not found" />
         );
