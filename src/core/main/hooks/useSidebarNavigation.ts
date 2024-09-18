@@ -82,16 +82,10 @@ export const useSidebarNavigation = () => {
     }, [users, isLoading, error]);
 
     const handleUsersSmallResponse = () => {
-        if (!isDynamicRoute) {
+        if (!isDynamicRoute || isLoading || areUsersAndCollaborationsChecked) {
             return;
         }
-        if (isLoading) {
-            return;
-        }
-        if (areUsersAndCollaborationsChecked) {
-            return;
-        }
-
+        
         if (error || !users || users?.length === 0) {
             handleInvalidUsers();
             return;
@@ -117,7 +111,6 @@ export const useSidebarNavigation = () => {
     }
 
     const handleMultipleUsers = () => {
-        // handleInvalidUsers(); // To be replaced once project/work/.. dynamic routes are added
         setCurrentRouteUsername(undefined);
         setAreUsersAndCollaborationsChecked(true);
         console.log("Multiple users found");
@@ -129,7 +122,6 @@ export const useSidebarNavigation = () => {
             users: users,
         };
         setUsersAndCollaborations(updatedUsersAndCollaborations);
-        console.log("Users and collabs in sidebar nav: ", usersAndCollaborations);
         setAreUsersAndCollaborationsChecked(true);
 
         setPageDirectory(PageDirectory.UserProfile);

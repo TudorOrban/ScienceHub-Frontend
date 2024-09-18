@@ -8,6 +8,7 @@ import UserMetricsPanel from "./MetricsPanel";
 import { UserProfileActionsPanel } from "./UserProfileActionsPanel";
 import { UIItem } from "@/shared/common/models/UITypes";
 import { faBookAtlas, faEye, faPaperclip, faShare, faTableList, faUpLong } from "@fortawesome/free-solid-svg-icons";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 export interface UserProfileHeaderProps {
     result?: Result<UserDetailsDTO>;
@@ -30,6 +31,10 @@ const UserProfileHeader = ({
             "totalShares": { label: "Total Shares", value: (result?.data?.totalShares ?? 0).toString(), icon: faShare },
         }
     ];
+    
+    const {
+        currentUser
+    } = useCurrentUser();
 
     if (result?.isLoading) {
         return (
@@ -74,7 +79,7 @@ const UserProfileHeader = ({
             <div className="space-y-4">            
                 <UserMetricsPanel metrics={metrics} />
 
-                <UserProfileActionsPanel result={result} />
+                <UserProfileActionsPanel result={result} currentUser={currentUser ?? undefined} />
             </div>
         </div>
     );

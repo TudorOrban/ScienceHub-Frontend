@@ -3,13 +3,9 @@
 
 import { getUserProfileBaseMenuConfiguration, getUserProfileMenuConfiguration } from "@/core/main/config/pagesUIConfigurations";
 import UserProfileHeader from "@/core/user/components/user-profile/UserProfileHeader";
-import { useCurrentRouteIdentifierContext } from "@/core/user/contexts/CurrentRouteIdentifierContext";
-import { useFetchUserDetails } from "@/core/user/hooks/useFetchUserDetails";
 import NavigationMenu from "@/shared/common/components/NavigationMenu";
-import { MenuConfiguration } from "@/shared/common/models/UITypes";
-import { useEffect, useState } from "react";
 import { useUserProfileDetails } from "../../hooks/useUserProfileDetails";
-import { notFound } from "next/navigation";
+import NotFoundFallback from "@/shared/error/components/NotFoundFallback";
 
 export interface UserProfileWrapperProps {
     currentMenuItemValue: string;
@@ -21,7 +17,6 @@ const UserProfileWrapper = ({
     children,
 }: UserProfileWrapperProps) => {
     const {
-        usersAndCollaborations,
         areUsersAndCollaborationsChecked,
         isUserProfilePage,
         menuConfiguration,
@@ -29,7 +24,9 @@ const UserProfileWrapper = ({
     } = useUserProfileDetails(getUserProfileBaseMenuConfiguration(), true);
 
     if (areUsersAndCollaborationsChecked && !isUserProfilePage) {
-        console.log("Users and collabs: ", usersAndCollaborations);
+        return (
+            <NotFoundFallback message="User not found" />
+        );
     }
 
     return (
