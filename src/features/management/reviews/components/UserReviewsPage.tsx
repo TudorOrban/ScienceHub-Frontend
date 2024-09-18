@@ -1,29 +1,30 @@
+
 "use client";
 
 import { getUserProfileBaseMenuConfiguration, pagesUIConfigurations } from "@/core/main/config/pagesUIConfigurations";
 import { useUserProfileDetails } from "@/core/user/hooks/useUserProfileDetails";
-import { useMenuHandlers } from "@/shared/common/hooks/useMenuHandlers";
-import { usePageSearchControls } from "@/shared/search/hooks/usePageSearchControls";
-import { useSearchProjectsByUserId } from "../hooks/useSearchProjectsByUserId";
+import ReviewsTable from "@/features/management/reviews/components/ReviewsTable";
+import { useSearchReviewsByUserIdAndReviewType } from "@/features/management/reviews/hooks/useSearchReviewsByUserIdAndReviewType";
+import { ReviewType } from "@/features/management/reviews/models/Review";
 import ListHeader from "@/shared/common/components/ListHeader";
 import NavigationMenus from "@/shared/common/components/NavigationMenus";
-import ProjectCardList from "./ProjectCardList";
+import { useMenuHandlers } from "@/shared/common/hooks/useMenuHandlers";
 import NotFoundFallback from "@/shared/error/components/NotFoundFallback";
+import { usePageSearchControls } from "@/shared/search/hooks/usePageSearchControls";
 
-
-export interface UserProjectsPageProps {
+export interface UserReviewsPageProps {
     userId?: number;
     currentRoute?: boolean;
 }
 
-const UserProjectsPage = ({
+const UserReviewsPage = ({
     userId,
     currentRoute = true
-}: UserProjectsPageProps) => {
-    const pageUIConfiguration = pagesUIConfigurations["projects"];
+}: UserReviewsPageProps) => {
+    const pageUIConfiguration = pagesUIConfigurations["reviews"];
+    const { menuStates, setMenuState } = useMenuHandlers(pageUIConfiguration.menus ?? []);
 
     // Handlers
-    const { menuStates, setMenuState } = useMenuHandlers(pageUIConfiguration.menus ?? []);
     const menuSelectHandlers = (pageUIConfiguration.menus ?? []).reduce((acc, menu) => ({
         ...acc,
         [menu.menuId]: (value: string) => setMenuState(menu.menuId, value)
@@ -31,9 +32,9 @@ const UserProjectsPage = ({
 
     const { 
         searchParams, handleTermChange, handleSortOptionChange, handleToggleDescending, handlePageChange
-    } = usePageSearchControls(pageUIConfiguration.initialSearchParams ?? {});
+     } = usePageSearchControls(pageUIConfiguration.initialSearchParams ?? {});
 
-    // Data fetching
+     // Data fetching
     let usedId = !currentRoute ? userId : undefined;
     const {
         usersAndCollaborations,
@@ -42,8 +43,9 @@ const UserProjectsPage = ({
     } = useUserProfileDetails(getUserProfileBaseMenuConfiguration(), false, usedId);
 
     usedId = usedId ? usedId : usersAndCollaborations?.users?.[0]?.id ?? undefined;
-    const { data, error, isLoading } = useSearchProjectsByUserId(
+    const { data, error, isLoading } = useSearchReviewsByUserIdAndReviewType(
         usedId ?? 0, 
+        menuStates?.["Review Type"] as ReviewType,
         searchParams ?? {}, 
         !!usedId
     );
@@ -55,7 +57,7 @@ const UserProjectsPage = ({
     };
 
     return (
-        <div className="overflow-x-hidden">
+        <div className="text-2xl overflow-x-hidden">
             <ListHeader 
                 pageTitle={pageUIConfiguration.pageTitle}
                 sortOptions={pageUIConfiguration.sortOptions}
@@ -68,24 +70,22 @@ const UserProjectsPage = ({
             />
 
             <div className="page-standard-horizontal-padding pt-4">
-                <NavigationMenus
+                <NavigationMenus 
                     menus={pageUIConfiguration.menus ?? []} 
                     menuSelectHandlers={menuSelectHandlers}
                 />
             </div>
 
-            <ProjectCardList
+            <ReviewsTable
                 data={data}
                 error={error}
-                searchParams={searchParams}
                 isLoading={isLoading}
+                searchParams={searchParams}
                 menuStates={menuStates}
                 handlePageChange={handlePageChange}
-                disableViewMode={false}
             />
-
         </div>
     );
 }
 
-export default UserProjectsPage;
+export default UserReviewsPage;

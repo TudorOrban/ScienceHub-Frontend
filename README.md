@@ -1,6 +1,8 @@
 # ScienceHub
 ScienceHub is a platform aiming to provide a unified space for sharing, exploring, managing and discussing scientific research.
 
+![Projects Page](https://github.com/TudorOrban/ScienceHub-Frontend/blob/main/screenshots/sciencehub_projects_page.png)
+
 ## Status
 The codebase is in the process of rewriting, transitioning from Supabase to a fully-fledged [.NET backend](https://github.com/TudorOrban/ScienceHub-Backend) and plain PostgreSQL database. This repository contains the frontend code (Next.js 14, Typescript).
 
@@ -11,7 +13,7 @@ There are three main categories of features: **Research**, **Management** and **
 **Works** are the basic blocks of scientific research. They can be **Papers**, **Experiments**, **Datasets**, **Data Analyses**, **AI Models** or **Code Blocks**. These can be organized into **Projects**, for unified management and visibility.
 
 ### Management
-Projects and works are updated through a custom [version control system](https://github.com/TudorOrban/ScienceHub-Backend/blob/main/main/version-control-system/README.md) built from scratch to accommodate the needs of the website. **Submissions**, akin to git commits, are blocks holding changes between project or work versions. There are also **Issues** and (Community) **Reviews**.
+Projects and works are updated through a custom [version control system](https://github.com/TudorOrban/ScienceHub-Frontend/blob/main/src/features/version-control-system/README.md) built from scratch to accommodate the needs of the website. **Submissions**, akin to git commits, are blocks holding changes between project or work versions. There are also **Issues** and (Community) **Reviews**.
 
 ### Community
 This includes real-time **Discussions** and **Chats**, as well as **Team** management.

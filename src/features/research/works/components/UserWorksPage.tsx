@@ -51,7 +51,6 @@ const UserWorksPage = ({
     );
 
     if (!isUserProfilePage && currentRoute) {
-        console.log("User not found: ", usedId);
         return (
             <NotFoundFallback message="User not found" />
         );

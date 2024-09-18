@@ -29,7 +29,7 @@ const ProjectMediumCardBase = ({
             }`}
         >
             {/* Left side */}
-            <div className="space-y-4">
+            <div className="space-y-4 pt-2">
                 {/* Title and view mode */}
                 <ProjectMediumCardTitle
                     project={project}
@@ -40,7 +40,7 @@ const ProjectMediumCardBase = ({
                 />
 
                 {/* Authors */}
-                <div className="flex items-center text-base flex-wrap mt-3 text-gray-600 ">
+                <div className="flex items-center text-base flex-wrap text-gray-600 ">
                     <FontAwesomeIcon className="extra-small-icon mr-2" icon={faUser} />
                     <span className="whitespace-nowrap block">Main Authors:</span>
                     {!isLoading && !!project ? (

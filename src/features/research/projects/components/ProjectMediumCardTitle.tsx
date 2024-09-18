@@ -54,7 +54,7 @@ const ProjectMediumCardTitle = ({
                 >
                     <FontAwesomeIcon
                         icon={localViewMode === "expanded" ? faCaretUp : faCaretDown}
-                        className="small-icon text-gray-700 mb-1"
+                        className="small-icon text-gray-700"
                     />
                 </button>
             )}
