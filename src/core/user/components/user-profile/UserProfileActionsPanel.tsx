@@ -1,6 +1,6 @@
 import { Result } from "@/shared/http/Http";
 import { UserDetailsDTO, UserSmall } from "../../models/User";
-import { faEdit, faEllipsis, faMessage, faQuoteLeft, faThumbsUp, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faEllipsis, faMessage, faThumbsUp, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import StandardButton from "@/shared/common/components/simple/StandardButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

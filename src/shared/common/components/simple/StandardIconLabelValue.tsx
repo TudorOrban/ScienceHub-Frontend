@@ -23,7 +23,7 @@ const StandardIconLabelValue = ({
     }
 
     return (
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-2 whitespace-nowrap">
             {item?.icon && (
                 <FontAwesomeIcon icon={item?.icon} className="extra-small-icon text-gray-800" />
             )}

@@ -1,4 +1,5 @@
 import { UserSmall } from "@/core/user/models/User";
+import { CollaborationSmall } from "@/features/community/collaborations/models/Collaboration";
 
 export interface WorkSearchDTO {
     id: number;
@@ -9,12 +10,13 @@ export interface WorkSearchDTO {
     title: string;
     description?: string;
     researchScore?: number;
-    citationsCount?: number;
+    totalCitations?: number;
     isPublic?: boolean;
     currentWorkVersionId?: number;
     workMetadata?: WorkMetadata;
     fileLocation?: FileLocation;
     users: UserSmall[];
+    collaborations?: CollaborationSmall[];
 }
 
 export enum WorkType {
@@ -42,6 +44,9 @@ export interface FileLocation {
     fileSubtype?: string;  // .xlsx, .java etc
 }
 
-export interface WorkDetails extends WorkSearchDTO {
-    
+export interface WorkDetailsDTO extends WorkSearchDTO {
+    totalViews?: number;
+    totalUpvotes?: number;
+    isViewedByCurrentUser?: boolean;
+    isUpvotedByCurrentUser?: boolean;
 }

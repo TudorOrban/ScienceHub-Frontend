@@ -1,12 +1,12 @@
 import { Result, StandardAPIError } from "@/shared/http/Http";
 import { useQuery } from "@tanstack/react-query";
-import { WorkDetails } from "../models/Work";
+import { WorkDetailsDTO } from "../models/Work";
 import { getWorkById } from "../services/getWorkById";
 
-export const useGetWorkById = (workId: number, enabled?: boolean): Result<WorkDetails> => {
+export const useGetWorkById = (workId: number, enabled?: boolean): Result<WorkDetailsDTO> => {
     const queryKey = ["searchWorksByUserIdAndWorkType", workId];
 
-    const result = useQuery<Result<WorkDetails>, StandardAPIError>({
+    const result = useQuery<Result<WorkDetailsDTO>, StandardAPIError>({
         queryKey: queryKey,
         queryFn: () => getWorkById(workId),
         enabled: !!workId && enabled,

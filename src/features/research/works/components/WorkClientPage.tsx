@@ -1,6 +1,7 @@
 "use client";
 
 import { useGetWorkById } from "../hooks/useGetWorkById";
+import WorkHeader from "./WorkHeader";
 
 export interface WorkClientPageProps {
     workId: number;
@@ -9,12 +10,15 @@ export interface WorkClientPageProps {
 const WorkClientPage = ({
     workId,
 }: WorkClientPageProps) => {
-    const { data, isLoading, error } = useGetWorkById(workId, !!workId);
+    const workResult = useGetWorkById(workId, !!workId);
 
 
     return (
         <div>
-            {data?.title}
+            <WorkHeader
+                result={workResult}
+                addBottom={true}
+            />
         </div>
     );
 };

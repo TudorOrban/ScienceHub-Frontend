@@ -1,13 +1,13 @@
 import { UIItem } from "@/shared/common/models/UITypes";
 import StandardIconLabelValue from "@/shared/common/components/simple/StandardIconLabelValue";
 
-export interface UserMetricsPanelProps {
+export interface MetricsPanelProps {
     metrics?: Record<string, UIItem>[];
 }
 
-const UserMetricsPanel = ({
+const MetricsPanel = ({
     metrics = []
-}: UserMetricsPanelProps) => {
+}: MetricsPanelProps) => {
 
     return (
         <div className="flex items-center space-x-12 pl-6 px-12 py-4 bg-white border border-gray-300 rounded-md shadow-sm">
@@ -22,4 +22,4 @@ const UserMetricsPanel = ({
     );
 };
 
-export default UserMetricsPanel;
+export default MetricsPanel;

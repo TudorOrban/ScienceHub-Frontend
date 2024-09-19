@@ -11,17 +11,17 @@ export interface UsersAndTeamsUIProps {
 const UsersAndCollaborationsUI = ({
     users,
     collaborations,
-    small,
+    small = false,
 }: UsersAndTeamsUIProps) => {
     return (
-        <>
+        <div className="flex flex-wrap space-x-1">
             {(users || [])
                 .filter((_, index) => small ? index < 3 : index < 20)
                 .map((user, index) => (
                     <Link
                         key={index}
                         href={`/${user.username}/overview`}
-                        className="pseudo-link ml-1 block"
+                        className="pseudo-link block"
                     >
                         {user.fullName}
                         {((index !== (users || []).length - 1) || collaborations?.length) ? ", " : ""}
@@ -34,14 +34,14 @@ const UsersAndCollaborationsUI = ({
                     <Link
                         key={index}
                         href={`/${collaboration.name}/overview`}
-                        className="pseudo-link ml-1 block"
+                        className="pseudo-link block"
                     >
                         {index !== (collaborations || []).length ? ", " : ""}
                         {collaboration.name}
                     </Link>
                 )
             )}
-        </>
+        </div>
     );
 }
 
