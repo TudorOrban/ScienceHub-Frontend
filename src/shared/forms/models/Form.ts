@@ -1,9 +1,9 @@
 import { UIItem } from '@/shared/common/models/UITypes';
 import { FieldValues, Path, RegisterOptions } from 'react-hook-form';
 
-export interface FormConfig<TFieldValues extends FieldValues, SFieldValues extends FieldValues> {
+export interface FormConfig<TFieldValues extends FieldValues> {
     textItems?: FormTextItem<TFieldValues>[];
-    selectItems?: FormEnumItem<SFieldValues>[];
+    selectItems?: FormEnumItem<TFieldValues>[];
 }
 
 export interface FormTextItem<TFieldValues extends FieldValues> {

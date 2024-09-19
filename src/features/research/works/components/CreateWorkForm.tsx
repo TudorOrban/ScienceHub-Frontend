@@ -6,7 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import FormTextField from '@/shared/forms/components/FormTextField';
 import { workFormItemsConfig } from '@/shared/forms/config/formItemsConfig';
 import { WorkType } from '../models/Work';
-import FormEnumSelectField from '@/shared/forms/components/FormEnumSelectField';
+import FormSelectField from '@/shared/forms/components/FormEnumSelectField';
+import FormUserSelection from '@/shared/forms/components/FormUserSelection';
 
 export interface IWorkFormInput {
     workType: WorkType;
@@ -53,7 +54,7 @@ const CreateWorkForm = ({
 
             <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
                 {/* Work Type */}
-                <FormEnumSelectField
+                <FormSelectField
                     formItem={workFormItemsConfig.selectItems?.[0] ?? undefined}
                     register={register}
                     error={errors?.workType?.message}
@@ -68,6 +69,9 @@ const CreateWorkForm = ({
                         error={errors?.[item.id]?.message}
                     />
                 ))}
+
+                {/* Users */}
+                <FormUserSelection label="Users" id="users" />
 
                 <div className="flex items-center justify-end w-full">
                     <button

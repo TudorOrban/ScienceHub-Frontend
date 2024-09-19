@@ -1,17 +1,17 @@
 import { FieldValues, UseFormRegister } from "react-hook-form";
 import { FormEnumItem, FormTextItem } from "../models/Form";
 
-interface FormEnumSelectFieldProps<TFieldValues extends FieldValues> {
+interface FormSelectFieldProps<TFieldValues extends FieldValues> {
     formItem?: FormEnumItem<TFieldValues>;
     register: UseFormRegister<TFieldValues>;
     error?: string;
 }
 
-const FormEnumSelectField = <TFieldValues extends FieldValues>({
+const FormSelectField = <TFieldValues extends FieldValues>({
     formItem,
     register,
     error,
-}: FormEnumSelectFieldProps<TFieldValues>) => {
+}: FormSelectFieldProps<TFieldValues>) => {
     if (!formItem) {
         return null;
     }
@@ -36,4 +36,4 @@ const FormEnumSelectField = <TFieldValues extends FieldValues>({
     );
 }
 
-export default FormEnumSelectField;
+export default FormSelectField;

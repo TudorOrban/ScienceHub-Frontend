@@ -1,9 +1,8 @@
-import { WorkType } from "@/features/research/works/models/Work";
 import { FormConfig } from "../models/Form";
 import { IWorkFormInput } from "@/features/research/works/components/CreateWorkForm";
 
 
-export const workFormItemsConfig: FormConfig<IWorkFormInput, IWorkFormInput> = {
+export const workFormItemsConfig: FormConfig<IWorkFormInput> = {
     textItems: [
         {
             label: "Title",
@@ -35,24 +34,12 @@ export const workFormItemsConfig: FormConfig<IWorkFormInput, IWorkFormInput> = {
             label: "Work Type",
             id: "workType",
             items: [
-                {
-                    label: "Paper", value: "Paper"
-                },
-                {
-                    label: "Dataset", value: "Dataset"
-                },
-                {
-                    label: "Experiment", value: "Experiment"
-                },
-                {
-                    label: "Data Analysis", value: "DataAnalysis"
-                },
-                {
-                    label: "AI Model", value: "AIModel"
-                },
-                {
-                    label: "Code Block", value: "CodeBlock"
-                },
+                { label: "Paper", value: "Paper" },
+                { label: "Experiment", value: "Experiment" },
+                { label: "Dataset", value: "Dataset" },
+                { label: "Data Analysis", value: "DataAnalysis" },
+                { label: "AI Model", value: "AIModel" },
+                { label: "Code Block", value: "CodeBlock" },
             ],
         }
     ]
