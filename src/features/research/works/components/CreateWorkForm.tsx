@@ -4,15 +4,27 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormTextField from '@/shared/forms/components/FormTextField';
+import { workFormItemsConfig } from '@/shared/forms/config/formItemsConfig';
+import { WorkType } from '../models/Work';
 
-interface IFormInput {
+export interface IFormInput {
+    workType: WorkType;
     title: string;
+    name: string;
     description?: string;
 }
 
 const schema = yup.object({
-    title: yup.string().required('Title is required'),
-    description: yup.string().min(10, 'Description must be at least 10 characters'),
+    workType: yup.mixed<WorkType>().oneOf(Object.values(WorkType)).required('Work type is required'),
+    title: yup.string()
+        .required('Title is required')
+        .min(3, 'Title must be at least 3 characters long')
+        .max(50, 'Title must be at most 50 characters long'),
+    name: yup.string()
+        .required('Name is required')
+        .min(3, 'Name must be at least 3 characters long')
+        .max(50, 'Name must be at most 50 characters long'),
+    description: yup.string(),
 }).required();
 
 export interface CreateWorkFormProps {
@@ -27,7 +39,7 @@ const CreateWorkForm = ({
         handleSubmit,
         formState: { errors }
     } = useForm<IFormInput>({
-        resolver: yupResolver(schema)
+        resolver: yupResolver<IFormInput>(schema)
     });
 
     const onSubmit: SubmitHandler<IFormInput> = data => {
@@ -39,24 +51,32 @@ const CreateWorkForm = ({
             <h1 className="page-title py-4">Create Work</h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
-                <FormTextField
-                    label="Title"
-                    id="title"
-                    register={register}
-                    options={{ required: "Title is required" }}
-                    error={errors.title?.message}
-                />
-                <FormTextField
-                    label="Description"
-                    id="description"
-                    type="textarea"
-                    register={register}
-                    options={{
-                        required: "Description is required",
-                        minLength: { value: 10, message: "Description must be at least 10 characters long" }
-                    }}
-                    error={errors.description?.message}
-                />
+                {/* Work Type */}
+                <div className="flex flex-col space-y-2">
+                <label htmlFor="workType" className="form-label">Work Type</label>
+                    <select
+                        {...register('workType')}
+                        className="form-input"
+                    >
+                        {Object.values(WorkType).map(type => (
+                            <option key={type} value={type}>
+                                {type}
+                            </option>
+                        ))}
+                    </select>
+                    {errors.workType && <p className="form-error-message">{errors.workType.message}</p>}
+
+                </div>
+
+                {/* Title, Name, Description */}
+                {workFormItemsConfig.map((item) => (
+                    <FormTextField
+                        key={item.id}
+                        formItem={item}
+                        register={register}
+                        error={errors?.[item.id]?.message}
+                    />
+                ))}
 
                 <div className="flex items-center justify-end w-full">
                     <button

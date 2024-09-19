@@ -1,22 +1,19 @@
-import { UseFormRegister, FieldValues, Path, RegisterOptions } from 'react-hook-form';
+import { UseFormRegister, FieldValues, FieldErrors } from 'react-hook-form';
+import { FormItem } from '../models/Form';
 
 interface FormTextFieldProps<TFieldValues extends FieldValues> {
-    label: string;
-    id: Path<TFieldValues>;
-    type?: string;
+    formItem: FormItem<TFieldValues>;
     register: UseFormRegister<TFieldValues>;
-    options?: RegisterOptions<TFieldValues, Path<TFieldValues>>;
     error?: string;
 }
 
 function FormTextField<TFieldValues extends FieldValues>({
-    label,
-    id,
-    type = "text",
+    formItem,
     register,
-    options,
     error,
 }: FormTextFieldProps<TFieldValues>) {
+    const { label, id, type, options } = formItem;
+
     if (type === "textarea") {
         return (
             <div className="flex flex-col space-y-2">
@@ -32,7 +29,7 @@ function FormTextField<TFieldValues extends FieldValues>({
             </div>
         );
     }
-    
+
     return (
         <div className="flex flex-col space-y-2">
             <label htmlFor={id} className="form-label">
