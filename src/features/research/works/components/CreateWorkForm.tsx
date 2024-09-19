@@ -8,6 +8,7 @@ import { workFormItemsConfig } from '@/shared/forms/config/formItemsConfig';
 import { WorkType } from '../models/Work';
 import FormSelectField from '@/shared/forms/components/FormEnumSelectField';
 import FormUserSelection from '@/shared/forms/components/FormUserSelection';
+import { useCurrentUser } from '@/core/user/contexts/CurrentUserContext';
 
 export interface IWorkFormInput {
     workType: WorkType;
@@ -36,6 +37,8 @@ export interface CreateWorkFormProps {
 const CreateWorkForm = ({
 
 }: CreateWorkFormProps) => {
+    const { currentUser } = useCurrentUser();
+
     const {
         register,
         handleSubmit,
@@ -45,7 +48,7 @@ const CreateWorkForm = ({
     });
 
     const onSubmit: SubmitHandler<IWorkFormInput> = data => {
-        console.log(data);
+        console.log("Submit: ", data);
     }
 
     return (
@@ -71,7 +74,12 @@ const CreateWorkForm = ({
                 ))}
 
                 {/* Users */}
-                <FormUserSelection label="Users" id="users" />
+                <FormUserSelection 
+                    label="Users" 
+                    id="users" 
+                    initialUsers={currentUser ? [currentUser] : []}
+                    currentUser={currentUser ?? undefined}
+                />
 
                 <div className="flex items-center justify-end w-full">
                     <button

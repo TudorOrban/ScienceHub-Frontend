@@ -42,6 +42,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ searchTerm, onTermChange, sea
                 className="custom-search-input w-64 rounded-l-md"
             />
             <button
+                type="button"
                 className="search-button rounded-l-none rounded-r-md"
                 onClick={handleSearchClick}
             >
