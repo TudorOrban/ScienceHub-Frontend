@@ -1,8 +1,8 @@
 import { UseFormRegister, FieldValues, FieldErrors } from 'react-hook-form';
-import { FormItem } from '../models/Form';
+import { FormTextItem } from '../models/Form';
 
 interface FormTextFieldProps<TFieldValues extends FieldValues> {
-    formItem: FormItem<TFieldValues>;
+    formItem: FormTextItem<TFieldValues>;
     register: UseFormRegister<TFieldValues>;
     error?: string;
 }

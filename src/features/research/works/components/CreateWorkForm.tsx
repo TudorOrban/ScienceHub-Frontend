@@ -6,8 +6,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import FormTextField from '@/shared/forms/components/FormTextField';
 import { workFormItemsConfig } from '@/shared/forms/config/formItemsConfig';
 import { WorkType } from '../models/Work';
+import FormEnumSelectField from '@/shared/forms/components/FormEnumSelectField';
 
-export interface IFormInput {
+export interface IWorkFormInput {
     workType: WorkType;
     title: string;
     name: string;
@@ -38,38 +39,28 @@ const CreateWorkForm = ({
         register,
         handleSubmit,
         formState: { errors }
-    } = useForm<IFormInput>({
-        resolver: yupResolver<IFormInput>(schema)
+    } = useForm<IWorkFormInput>({
+        resolver: yupResolver<IWorkFormInput>(schema)
     });
 
-    const onSubmit: SubmitHandler<IFormInput> = data => {
+    const onSubmit: SubmitHandler<IWorkFormInput> = data => {
         console.log(data);
     }
 
     return (
-        <div className="flex flex-col items-center w-full page-standard-horizontal-padding py-4">
+        <div className="flex flex-col items-center w-full px-16 py-4">
             <h1 className="page-title py-4">Create Work</h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
                 {/* Work Type */}
-                <div className="flex flex-col space-y-2">
-                <label htmlFor="workType" className="form-label">Work Type</label>
-                    <select
-                        {...register('workType')}
-                        className="form-input"
-                    >
-                        {Object.values(WorkType).map(type => (
-                            <option key={type} value={type}>
-                                {type}
-                            </option>
-                        ))}
-                    </select>
-                    {errors.workType && <p className="form-error-message">{errors.workType.message}</p>}
-
-                </div>
+                <FormEnumSelectField
+                    formItem={workFormItemsConfig.selectItems?.[0] ?? undefined}
+                    register={register}
+                    error={errors?.workType?.message}
+                />    
 
                 {/* Title, Name, Description */}
-                {workFormItemsConfig.map((item) => (
+                {(workFormItemsConfig.textItems ?? []).map((item) => (
                     <FormTextField
                         key={item.id}
                         formItem={item}
