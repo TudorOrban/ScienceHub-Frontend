@@ -3,6 +3,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import FormTextField from '@/shared/forms/components/FormTextField';
 
 interface IFormInput {
     title: string;
@@ -34,37 +35,37 @@ const CreateWorkForm = ({
     }
 
     return (
-        <div className="flex flex-col items-center w-full p-4">
+        <div className="flex flex-col items-center w-full page-standard-horizontal-padding py-4">
             <h1 className="page-title py-4">Create Work</h1>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xl">
-                <div className="mb-4">
-                    <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-                        Title
-                    </label>
-                    <input
-                        type="text"
-                        {...register('title')}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    />
-                    {errors.title && <p className="text-red-500 text-xs italic">{errors.title.message}</p>}
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
+                <FormTextField
+                    label="Title"
+                    id="title"
+                    register={register}
+                    options={{ required: "Title is required" }}
+                    error={errors.title?.message}
+                />
+                <FormTextField
+                    label="Description"
+                    id="description"
+                    type="textarea"
+                    register={register}
+                    options={{
+                        required: "Description is required",
+                        minLength: { value: 10, message: "Description must be at least 10 characters long" }
+                    }}
+                    error={errors.description?.message}
+                />
+
+                <div className="flex items-center justify-end w-full">
+                    <button
+                        type="submit"
+                        className="standard-write-button"
+                    >
+                        Create Work
+                    </button>
                 </div>
-                <div className="mb-4">
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                        Description
-                    </label>
-                    <textarea
-                        {...register('description')}
-                        className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    />
-                    {errors.description && <p className="text-red-500 text-xs italic">{errors.description.message}</p>}
-                </div>
-                <button
-                    type="submit"
-                    className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                >
-                    Create Work
-                </button>
             </form>
         </div>
     );

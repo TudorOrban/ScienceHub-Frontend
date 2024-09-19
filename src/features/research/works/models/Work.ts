@@ -50,3 +50,15 @@ export interface WorkDetailsDTO extends WorkSearchDTO {
     isViewedByCurrentUser?: boolean;
     isUpvotedByCurrentUser?: boolean;
 }
+
+export interface CreateWorkDTO {
+    workType: WorkType;
+    name: string;
+    title: string;
+    description?: string;
+    isPublic?: boolean;
+    workMetadata?: WorkMetadata;
+    fileLocation?: FileLocation;
+    users: UserSmall[];
+    collaborations?: CollaborationSmall[];
+}
