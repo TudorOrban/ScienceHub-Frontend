@@ -18,12 +18,12 @@ const ProjectMediumCardExpansion = ({
         identifier ?? "",
         project.name ?? "",
         {
-            papersCount: project.papersCount ?? 21,
-            experimentsCount: project.experimentsCount ?? 5,
-            datasetsCount: project.datasetsCount ?? 1,
-            dataAnalysesCount: project.dataAnalysesCount ?? 1,
-            aiModelsCount: project.aiModelsCount ?? 2,
-            codeBlocksCount: project.codeBlocksCount ?? 6,
+            papersCount: project.papersCount ?? 0,
+            experimentsCount: project.experimentsCount ?? 0,
+            datasetsCount: project.datasetsCount ?? 0,
+            dataAnalysesCount: project.dataAnalysesCount ?? 0,
+            aiModelsCount: project.aiModelsCount ?? 0,
+            codeBlocksCount: project.codeBlocksCount ?? 0,
         }
     );
 
@@ -31,9 +31,9 @@ const ProjectMediumCardExpansion = ({
         identifier ?? "",
         project.name ?? "",
         {
-            projectSubmissionsCount: project.projectSubmissionsCount ?? 41,
-            projectIssuesCount: project.projectIssuesCount ?? 12,
-            projectReviewsCount: project.projectReviewsCount ?? 4,
+            projectSubmissionsCount: project.projectSubmissionsCount ?? 0,
+            projectIssuesCount: project.projectIssuesCount ?? 0,
+            projectReviewsCount: project.projectReviewsCount ?? 0,
         }
     );
 

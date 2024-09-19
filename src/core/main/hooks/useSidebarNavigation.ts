@@ -37,12 +37,7 @@ export const useSidebarNavigation = () => {
 
     // Static route handling
     const handleStaticRoute = (currentPageDirectory: PageDirectory) => {
-        setPageDirectory(currentPageDirectory);
-
-        const navigationItems = determineNavigationItems(currentPageDirectory, currentRouteUsername);
-        setNavigationItems(navigationItems);
-        const selectedItem = determineSelectedItem(pathname, navigationItems);
-        setSelectedItem(selectedItem);
+        updatePageDirectory(currentPageDirectory);
 
         clearDynamicRouteContext();
     }
@@ -110,6 +105,7 @@ export const useSidebarNavigation = () => {
 
     const handleMultipleUsers = () => {
         setCurrentRouteUsername(undefined);
+        updatePageDirectory(PageDirectory.Workspace);
         console.log("Multiple users found");
     }
 
@@ -120,10 +116,13 @@ export const useSidebarNavigation = () => {
         };
         setUsersAndCollaborations(updatedUsersAndCollaborations);
 
-        setPageDirectory(PageDirectory.UserProfile);
-        setCurrentRouteUsername(users?.[0].username);
+        updatePageDirectory(PageDirectory.UserProfile, users?.[0].username);
+    }
 
-        const navigationItems = determineNavigationItems(PageDirectory.UserProfile, users?.[0].username);
+    const updatePageDirectory = (newPageDirectory: PageDirectory, name?: string) => {
+        setPageDirectory(newPageDirectory);
+
+        const navigationItems = determineNavigationItems(newPageDirectory, name ?? currentRouteUsername);
         setNavigationItems(navigationItems);
         const selectedItem = determineSelectedItem(pathname, navigationItems);
         setSelectedItem(selectedItem);

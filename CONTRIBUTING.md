@@ -1,16 +1,17 @@
 Contributions to ScienceHub are highly encouraged and greatly appreciated. Whether you've found a bug, have a feature in mind, or see a need for documentation improvements, your input is valuable. We will soon add a roadmap covering the most pressing issues to work on, as well as our long-term goals.
 
 ## Github Workflow
-1. Fork and fetch the repository: https://github.com/TudorOrban/ScienceHub.
+1. Fork and fetch the frontend or backend repository.
 2. Create a branch for your work with a suggestive name, eg `feature-add-x`.
 3. Make your changes in your branch, keeping commits small and focused. Aim for clear commit messages that explain the "why" behind your changes.
 4. Submit a pull request (PR) to the main repository once you're ready to share your contributions. Describe the changes you've made and any additional context that might help the review process.
 
 ## Get started developing
-1. Ensure you have a newer version of Node.js installed and run from main `npm install`.
-3. Still from main: `npm run dev` (development mode) or `npm run build`, `npm run start` (production mode).
-3. For certain functionalities, such as creating projects, you will need the .NET backend compiled and running.
-4. Until we head into production, there is no need to configure the database connection, the app will directly make calls to Supabase's API. You can check out and work with the schema using the dump in database/schema. If you wish to make changes to the schema, place an sql file in database/migrations/proposals and include it in your pull request.
+To run ScienceHub locally, follow these steps:
+1. Ensure you have installed: Docker, Minikube/Docker Compose and a newer version of Node.
+2. Fetch the [backend](https://github.com/TudorOrban/ScienceHub-Backend). From the root, run `cd scripts` and then the `StartMinikube` script, depending on your operating system. This will build the images for the backend microservices and register corresponding deployments and services in Minikube.
+3. Expose the API Gateway with `kubectl port-forward sciencehub-backend-api-gateway 8082:8082`. If you need to work with a service's database, also expose `postgresql-core 5432:5432` or `postgresql-community 5433:5433`.
+4. Fetch the [frontend](https://github.com/TudorOrban/ScienceHub-Frontend) and run from the root `npm install`, `npm run dev`. Now you can use the app by accessing it in the browser at `http://localhost:3000`.
 
 ## Style guides
 We aim to maintain a clean and consistent codebase. Detailed style guides will be added soon. In the meantime, please adhere to the following general principles:
@@ -21,7 +22,7 @@ We aim to maintain a clean and consistent codebase. Detailed style guides will b
 
 ## Code of Conduct
 
-We are committed to providing a welcoming and inclusive experience for everyone. We expect all participants to adhere to our Code of Conduct. Please read [Code of Conduct](https://github.com/TudorOrban/ScienceHub/blob/main/CODE_OF_CONDUCT.md) to understand what behaviors will not be tolerated.
+We are committed to providing a welcoming and inclusive experience for everyone. We expect all participants to adhere to our Code of Conduct. Please read [Code of Conduct](https://github.com/TudorOrban/ScienceHub-Frontend/blob/main/CODE_OF_CONDUCT.md) to understand what behaviors will not be tolerated.
 
 ## Reporting Bugs or Requesting Features
 

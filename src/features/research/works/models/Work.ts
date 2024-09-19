@@ -41,3 +41,7 @@ export interface FileLocation {
     fileType?: string;  // PDF || Dataset || CodeFile || AIModel
     fileSubtype?: string;  // .xlsx, .java etc
 }
+
+export interface WorkDetails extends WorkSearchDTO {
+    
+}

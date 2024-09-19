@@ -23,7 +23,7 @@ const UsersAndCollaborationsUI = ({
                         href={`/${user.username}/overview`}
                         className="pseudo-link ml-1 block"
                     >
-                        {user.fullName === "Tudor Andrei Orban" ? "Liam Radigger" : user.fullName}
+                        {user.fullName}
                         {((index !== (users || []).length - 1) || collaborations?.length) ? ", " : ""}
                     </Link>
                 )

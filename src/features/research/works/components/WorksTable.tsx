@@ -58,7 +58,7 @@ const WorksTable = ({
                     {data?.results && !isLoading && data?.results.map(work => (
                         <tr key={work.id}>
                             <td>
-                                <Link href={constructFeatureURL(Feature.Work, work?.name, work?.users, [])} className="pseudo-link font-medium">
+                                <Link href={constructFeatureURL(Feature.Work, work?.id.toString(), work?.users, [])} className="pseudo-link font-medium">
                                     {truncateString(work.title, 28)}
                                 </Link>
                             </td>
