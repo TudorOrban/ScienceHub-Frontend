@@ -5,10 +5,12 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormTextField from '@/shared/forms/components/FormTextField';
 import { workFormItemsConfig } from '@/shared/forms/config/formItemsConfig';
-import { WorkType } from '../models/Work';
+import { CreateWorkDTO, WorkType } from '../models/Work';
 import FormSelectField from '@/shared/forms/components/FormEnumSelectField';
 import FormUserSelection from '@/shared/forms/components/FormUserSelection';
 import { useCurrentUser } from '@/core/user/contexts/CurrentUserContext';
+import { useState } from 'react';
+import { UserSmall } from '@/core/user/models/User';
 
 export interface IWorkFormInput {
     workType: WorkType;
@@ -37,7 +39,7 @@ export interface CreateWorkFormProps {
 const CreateWorkForm = ({
 
 }: CreateWorkFormProps) => {
-    const { currentUser } = useCurrentUser();
+    const [selectedUserIds, setSelectedUserIds] = useState<number[]>([]);
 
     const {
         register,
@@ -46,9 +48,42 @@ const CreateWorkForm = ({
     } = useForm<IWorkFormInput>({
         resolver: yupResolver<IWorkFormInput>(schema)
     });
+    
+    const { currentUser } = useCurrentUser();
+
+    const handleSelectedUsersChange = (users: UserSmall[]) => {
+        setSelectedUserIds(users.map((u) => u.id));
+    }
 
     const onSubmit: SubmitHandler<IWorkFormInput> = data => {
-        console.log("Submit: ", data);
+        if (!validateInput(data)) {
+            return;
+        }
+        
+        const createWorkDTO = getCreateWorkDTO(data);
+
+        console.log("Create Work DTO: ", createWorkDTO);
+    }
+
+    const validateInput = (data: IWorkFormInput): boolean => {
+        const isValid = !!data && selectedUserIds?.find(u => u === currentUser?.id) !== undefined;
+        return isValid;
+    }
+
+    const getCreateWorkDTO = (data: IWorkFormInput) => {
+        const workDTO: CreateWorkDTO = {
+            workType: data.workType,
+            title: data.title,
+            name: data.name,
+            description: data.description,
+            isPublic: true,
+            workMetadata: undefined,
+            fileLocation: undefined,
+            userIds: selectedUserIds,
+            collaborationIds: [],
+        };
+
+        return workDTO;
     }
 
     return (
@@ -79,6 +114,7 @@ const CreateWorkForm = ({
                     id="users" 
                     initialUsers={currentUser ? [currentUser] : []}
                     currentUser={currentUser ?? undefined}
+                    onSelectedUsersChange={handleSelectedUsersChange}
                 />
 
                 <div className="flex items-center justify-end w-full">

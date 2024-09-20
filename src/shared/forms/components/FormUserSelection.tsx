@@ -12,6 +12,7 @@ export interface FormUserSelectionProps {
     initialUsers?: UserSmall[];
     currentUser?: UserSmall;
     error?: string;
+    onSelectedUsersChange?: (users: UserSmall[]) => void;
 }
 
 const FormUserSelection = ({ 
@@ -20,6 +21,7 @@ const FormUserSelection = ({
     initialUsers,
     currentUser,
     error,
+    onSelectedUsersChange
 }: FormUserSelectionProps) => {
     const initialSearchParams = {
         searchTerm: "",
@@ -31,10 +33,9 @@ const FormUserSelection = ({
 
     const [searchParams, setSearchParams] = useState<SearchParams>(initialSearchParams);
     const [selectedUsers, setSelectedUsers] = useState<UserSmall[]>(initialUsers ?? []);
-
+    const [isFocused, setIsFocused] = useState(false);
+   
     const usersResult = useSearchUsersSmallByUsername(searchParams, true);
-
-    console.log(usersResult);
 
     const handleTermChange = (term: string) => {
         setSearchParams({
@@ -48,13 +49,15 @@ const FormUserSelection = ({
             return;
         }
         setSelectedUsers([...selectedUsers, user]);
+        onSelectedUsersChange?.([...selectedUsers, user]);
     }
 
     const handleUnselectUser = (user: UserSmall) => {
-        if (selectedUsers.find((u) => u.id === currentUser?.id)) {
+        if (user.id === currentUser?.id) {
             return;
         }
         setSelectedUsers(selectedUsers.filter((u) => u.id !== user.id));
+        onSelectedUsersChange?.(selectedUsers.filter((u) => u.id !== user.id));
     }
 
     return (
@@ -64,45 +67,55 @@ const FormUserSelection = ({
             <SearchInput 
                 searchTerm={searchParams.searchTerm ?? ""}
                 onTermChange={handleTermChange}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
                 searchOnChange={false}
             />
 
             <div className="relative">
-                <div className="absolute flex flex-col bg-white border border-gray-200 rounded-md shadow-md w-64">
-                    {(usersResult?.data?.results ?? [])
-                        .filter((user) => !selectedUsers.find((u) => u.id === user.id))
-                        .map((user) => (
-                        <button 
-                            type="button"
-                            onClick={() => handleUserSelect(user)}
-                            key={user.id} 
-                            className="px-4 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md shadow-sm text-gray-800 font-medium whitespace-nowrap"
-                        >
-                            {user.username}
-                        </button>  
-                    ))}
-                </div>
+                {isFocused && (
+                    <div className="absolute flex flex-col bg-white border border-gray-200 rounded-md shadow-md w-64">
+                        {(usersResult?.data?.results ?? [])
+                            .filter((user) => !selectedUsers.find((u) => u.id === user.id))
+                            .map((user) => (
+                            <button 
+                                type="button"
+                                onMouseDown={(e) => {
+                                    e.preventDefault();
+                                    handleUserSelect(user);
+                                }}
+                                key={user.id} 
+                                className="px-4 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md shadow-sm text-gray-800 font-medium whitespace-nowrap"
+                            >
+                                {user.username}
+                            </button>  
+                        ))}
+                    </div>    
+                )}
 
-                <div>
+                <div className="flex flex-wrap">
                     {selectedUsers
                         .map((user) => (
-                        <button 
-                            onClick={() => handleUnselectUser(user)}
-                            type="button"
+                        <div 
                             key={user.id} 
                             className="flex items-center justify-between space-x-4 px-4 py-2 max-w-40 bg-gray-50 border border-gray-200 rounded-md shadow-sm text-gray-800 font-medium whitespace-nowrap"
                         >
-                            {user.username}
+                            <h1>{user.username}</h1>
                             {currentUser?.id !== user.id && (
-                                <FontAwesomeIcon icon={faXmark} className="small-icon hover:text-red-700" />   
+                                <button
+                                    onClick={() => handleUnselectUser(user)}
+                                    type="button"
+                                >
+                                    <FontAwesomeIcon icon={faXmark} className="small-icon hover:text-red-700" />   
+                                </button>
                             )}
-                        </button>
+                        </div>
                     ))}
                 </div>
 
             </div>
             
-            {/* {error && <p className="form-error-message">{error}</p>} */}
+            {error && <p className="form-error-message">{error}</p>}
         </div>
     );
 };

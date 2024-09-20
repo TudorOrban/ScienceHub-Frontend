@@ -59,6 +59,6 @@ export interface CreateWorkDTO {
     isPublic?: boolean;
     workMetadata?: WorkMetadata;
     fileLocation?: FileLocation;
-    users: UserSmall[];
-    collaborations?: CollaborationSmall[];
+    userIds: number[];
+    collaborationIds?: number[];
 }

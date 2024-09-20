@@ -6,9 +6,17 @@ interface SearchInputProps {
     searchTerm: string;
     onTermChange: (term: string) => void;
     searchOnChange?: boolean;
+    onFocus?: () => void;
+    onBlur?: () => void;
 }
 
-const SearchInput: React.FC<SearchInputProps> = ({ searchTerm, onTermChange, searchOnChange }) => {
+const SearchInput: React.FC<SearchInputProps> = ({ 
+    searchTerm, 
+    onTermChange, 
+    searchOnChange,
+    onFocus,
+    onBlur
+}) => {
     const [localTerm, setLocalTerm] = useState<string>(searchTerm);
 
     useEffect(() => {
@@ -37,6 +45,8 @@ const SearchInput: React.FC<SearchInputProps> = ({ searchTerm, onTermChange, sea
                 type="text"
                 value={localTerm}
                 onChange={handleInputChange}
+                onFocus={onFocus}
+                onBlur={onBlur}
                 onKeyDown={handleKeyPress}
                 placeholder="Search ScienceHub"
                 className="custom-search-input w-64 rounded-l-md"
