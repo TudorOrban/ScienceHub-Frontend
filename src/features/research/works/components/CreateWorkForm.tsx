@@ -13,6 +13,10 @@ import { useState } from 'react';
 import { UserSmall } from '@/core/user/models/User';
 import { Switch } from '@/shared/shadcn-ui/components/ui/switch';
 import FormSwitchField from '@/shared/forms/components/FormSwitchField';
+import { createWork } from '../services/createWork';
+import { useRouter } from 'next/navigation';
+import { constructFeatureURL } from '@/shared/utils/featureURLConstructor';
+import { Feature } from '@/shared/common/models/Features';
 
 export interface IWorkFormInput {
     workType: WorkType;
@@ -45,6 +49,8 @@ const CreateWorkForm = ({
 }: CreateWorkFormProps) => {
     const [selectedUserIds, setSelectedUserIds] = useState<number[]>([]);
 
+    const router = useRouter();
+
     const {
         register,
         handleSubmit,
@@ -59,14 +65,17 @@ const CreateWorkForm = ({
         setSelectedUserIds(users.map((u) => u.id));
     }
 
-    const onSubmit: SubmitHandler<IWorkFormInput> = data => {
+    const onSubmit: SubmitHandler<IWorkFormInput> = async data => {
         if (!validateInput(data)) {
             return;
         }
 
         const createWorkDTO = getCreateWorkDTO(data);
-
         console.log("Create Work DTO: ", createWorkDTO);
+
+        const createdWork = await createWork(createWorkDTO);
+        const workUrl = constructFeatureURL(Feature.Work, createdWork?.data?.id.toString());
+        router.push(workUrl);
     }
 
     const validateInput = (data: IWorkFormInput): boolean => {
