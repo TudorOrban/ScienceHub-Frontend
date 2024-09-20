@@ -2,7 +2,7 @@ import { UseFormRegister, FieldValues, FieldErrors } from 'react-hook-form';
 import { FormTextItem } from '../models/Form';
 
 interface FormTextFieldProps<TFieldValues extends FieldValues> {
-    formItem: FormTextItem<TFieldValues>;
+    formItem?: FormTextItem<TFieldValues>;
     register: UseFormRegister<TFieldValues>;
     error?: string;
 }
@@ -12,6 +12,10 @@ function FormTextField<TFieldValues extends FieldValues>({
     register,
     error,
 }: FormTextFieldProps<TFieldValues>) {
+    if (!formItem) {
+        return null;
+    }
+    
     const { label, id, type, options } = formItem;
 
     if (type === "textarea") {

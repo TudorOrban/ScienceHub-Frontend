@@ -147,3 +147,57 @@
 .selected-border-hover:hover {
     border-bottom: 3px solid var(--selected-border-color);
 }
+
+.custom-switch {
+    position: relative;
+    display: inline-block;
+    width: 3.25rem;
+    height: 1.8rem;
+}
+  
+.custom-switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+  
+.custom-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+  
+.custom-slider:before {
+    position: absolute;
+    content: "";
+    height: 1.4rem;
+    width: 1.4rem;
+    left: 0.2rem;
+    bottom: 0.2rem;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+  
+input:checked + .custom-slider {
+    background-color: #1362d7;
+}
+  
+input:focus + .custom-slider {
+    box-shadow: 0 0 1px #1362d7;
+}
+  
+input:checked + .custom-slider:before {
+    transform: translateX(1.4rem);
+}
+  
+  /* Optional: CSS for disabled state */
+input:disabled + .custom-slider {
+    background-color: #ddd;
+}

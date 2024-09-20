@@ -3,8 +3,8 @@ import { IWorkFormInput } from "@/features/research/works/components/CreateWorkF
 
 
 export const workFormItemsConfig: FormConfig<IWorkFormInput> = {
-    textItems: [
-        {
+    textItems: {
+        "title": {
             label: "Title",
             id: "title",
             type: "text",
@@ -12,7 +12,7 @@ export const workFormItemsConfig: FormConfig<IWorkFormInput> = {
                 required: "Title is required"
             }
         },
-        {
+        "name": {
             label: "Name",
             id: "name",
             type: "text",
@@ -20,7 +20,7 @@ export const workFormItemsConfig: FormConfig<IWorkFormInput> = {
                 required: "Name is required"
             }
         },
-        {
+        "description": {
             label: "Description",
             id: "description",
             type: "textarea",
@@ -28,9 +28,9 @@ export const workFormItemsConfig: FormConfig<IWorkFormInput> = {
                 minLength: { value: 10, message: "Description must be at least 10 characters long" }
             }
         },
-    ],
-    selectItems: [
-        {
+    },
+    selectItems: {
+        "workType": {
             label: "Work Type",
             id: "workType",
             items: [
@@ -42,5 +42,15 @@ export const workFormItemsConfig: FormConfig<IWorkFormInput> = {
                 { label: "Code Block", value: "CodeBlock" },
             ],
         }
-    ]
+    },
+    switchItems: {
+        "isPublic": {
+            label: "Public",
+            id: "isPublic",
+            options: {
+                required: "Is Public is required"
+            },
+            error: "Is Public is required"
+        }
+    }
 }

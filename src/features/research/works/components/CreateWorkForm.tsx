@@ -11,12 +11,15 @@ import FormUserSelection from '@/shared/forms/components/FormUserSelection';
 import { useCurrentUser } from '@/core/user/contexts/CurrentUserContext';
 import { useState } from 'react';
 import { UserSmall } from '@/core/user/models/User';
+import { Switch } from '@/shared/shadcn-ui/components/ui/switch';
+import FormSwitchField from '@/shared/forms/components/FormSwitchField';
 
 export interface IWorkFormInput {
     workType: WorkType;
     title: string;
     name: string;
     description?: string;
+    isPublic?: boolean;
 }
 
 const schema = yup.object({
@@ -30,6 +33,7 @@ const schema = yup.object({
         .min(3, 'Name must be at least 3 characters long')
         .max(50, 'Name must be at most 50 characters long'),
     description: yup.string(),
+    isPublic: yup.boolean().required('Is Public is required'),
 }).required();
 
 export interface CreateWorkFormProps {
@@ -59,7 +63,7 @@ const CreateWorkForm = ({
         if (!validateInput(data)) {
             return;
         }
-        
+
         const createWorkDTO = getCreateWorkDTO(data);
 
         console.log("Create Work DTO: ", createWorkDTO);
@@ -76,7 +80,7 @@ const CreateWorkForm = ({
             title: data.title,
             name: data.name,
             description: data.description,
-            isPublic: true,
+            isPublic: data?.isPublic ?? false,
             workMetadata: undefined,
             fileLocation: undefined,
             userIds: selectedUserIds,
@@ -87,26 +91,44 @@ const CreateWorkForm = ({
     }
 
     return (
-        <div className="flex flex-col items-center w-full px-16 py-4">
-            <h1 className="page-title py-4">Create Work</h1>
+        <div className="px-16 py-4">
+            <h1 className="page-title py-4 text-center w-full">Create Work</h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
-                {/* Work Type */}
-                <FormSelectField
-                    formItem={workFormItemsConfig.selectItems?.[0] ?? undefined}
-                    register={register}
-                    error={errors?.workType?.message}
-                />    
+                {/* Work Type and Is Public */}
+                <div className="flex items-start space-x-8">
+                    <FormSelectField
+                        formItem={workFormItemsConfig.selectItems?.["workType"] ?? undefined}
+                        register={register}
+                        error={errors?.workType?.message}
+                    />  
+
+                    <FormSwitchField
+                        formItem={workFormItemsConfig.switchItems?.["isPublic"] ?? undefined}
+                        register={register}
+                        error={errors?.isPublic?.message}
+                    />
+                </div>
 
                 {/* Title, Name, Description */}
-                {(workFormItemsConfig.textItems ?? []).map((item) => (
-                    <FormTextField
-                        key={item.id}
-                        formItem={item}
+                <div className="flex items-start space-x-8">
+                    <FormTextField 
+                        formItem={workFormItemsConfig.textItems?.["title"]}
                         register={register}
-                        error={errors?.[item.id]?.message}
+                        error={errors?.title?.message}
                     />
-                ))}
+                    <FormTextField 
+                        formItem={workFormItemsConfig.textItems?.["name"]}
+                        register={register}
+                        error={errors?.name?.message}
+                    />
+                </div>
+
+                <FormTextField 
+                    formItem={workFormItemsConfig.textItems?.["description"]}
+                    register={register}
+                    error={errors?.description?.message}
+                />
 
                 {/* Users */}
                 <FormUserSelection 
@@ -117,7 +139,7 @@ const CreateWorkForm = ({
                     onSelectedUsersChange={handleSelectedUsersChange}
                 />
 
-                <div className="flex items-center justify-end w-full">
+                <div className="flex items-center justify-end w-full pt-4">
                     <button
                         type="submit"
                         className="standard-write-button"
