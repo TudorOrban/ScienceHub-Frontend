@@ -5,8 +5,9 @@ import { searchUsersSmallByUsername } from "../services/searchUsersSmallByUserna
 import { PaginatedResults, SearchParams } from "@/shared/search/models/Search";
 
 export const useSearchUsersSmallByUsername = (searchParams?: SearchParams, enabled?: boolean): Result<PaginatedResults<UserSmall>> => {
+
     const result = useQuery<Result<PaginatedResults<UserSmall>>, StandardAPIError>({
-        queryKey: ["fetchUsersSmall", searchParams?.searchTerm],
+        queryKey: ["fetchUsersSmall", searchParams?.searchTerm, searchParams?.page],
         queryFn: () => searchUsersSmallByUsername(searchParams),
         enabled: enabled,
         staleTime: 60 * 1000,

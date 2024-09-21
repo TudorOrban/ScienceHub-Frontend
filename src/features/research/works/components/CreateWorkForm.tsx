@@ -11,7 +11,6 @@ import FormUserSelection from '@/shared/forms/components/FormUserSelection';
 import { useCurrentUser } from '@/core/user/contexts/CurrentUserContext';
 import { useState } from 'react';
 import { UserSmall } from '@/core/user/models/User';
-import { Switch } from '@/shared/shadcn-ui/components/ui/switch';
 import FormSwitchField from '@/shared/forms/components/FormSwitchField';
 import { createWork } from '../services/createWork';
 import { useRouter } from 'next/navigation';
@@ -37,7 +36,7 @@ const schema = yup.object({
         .min(3, 'Name must be at least 3 characters long')
         .max(50, 'Name must be at most 50 characters long'),
     description: yup.string(),
-    isPublic: yup.boolean().required('Is Public is required'),
+    isPublic: yup.boolean().required('Public is required'),
 }).required();
 
 export interface CreateWorkFormProps {
@@ -60,7 +59,8 @@ const CreateWorkForm = ({
     });
     
     const { currentUser } = useCurrentUser();
-
+    const [searchParams, setSearchParams] = useState({ searchTerm: "", page: 1, itemsPerPage: 10, sortBy: "createdAt", sortDescending: false });
+    
     const handleSelectedUsersChange = (users: UserSmall[]) => {
         setSelectedUserIds(users.map((u) => u.id));
     }
@@ -74,6 +74,7 @@ const CreateWorkForm = ({
         console.log("Create Work DTO: ", createWorkDTO);
 
         const createdWork = await createWork(createWorkDTO);
+
         const workUrl = constructFeatureURL(Feature.Work, createdWork?.data?.id.toString());
         router.push(workUrl);
     }

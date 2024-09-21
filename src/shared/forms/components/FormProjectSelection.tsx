@@ -1,28 +1,29 @@
-import { useSearchUsersSmallByUsername } from "@/core/user/hooks/useSearchUsersSmallByUsername";
 import { UserSmall } from "@/core/user/models/User";
+import { useSearchProjectsByUserId } from "@/features/research/projects/hooks/useSearchProjectsByUserId";
+import { ProjectSmall } from "@/features/research/projects/models/Project";
 import SearchInput from "@/shared/common/components/SearchInput";
 import { SearchParams } from "@/shared/search/models/Search";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
-export interface FormUserSelectionProps {
+export interface FormProjectSelectionProps {
     label: string;
     id: string;
-    initialUsers?: UserSmall[];
+    initialProject?: ProjectSmall;
     currentUser?: UserSmall;
     error?: string;
-    onSelectedUsersChange?: (users: UserSmall[]) => void;
+    onSelectedProjectChange?: (project?: ProjectSmall) => void;
 }
 
-const FormUserSelection = ({ 
+const FormProjectSelection = ({ 
     label, 
     id, 
-    initialUsers,
+    initialProject,
     currentUser,
     error,
-    onSelectedUsersChange
-}: FormUserSelectionProps) => {
+    onSelectedProjectChange
+}: FormProjectSelectionProps) => {
     const initialSearchParams = {
         searchTerm: "",
         page: 1,
@@ -32,18 +33,18 @@ const FormUserSelection = ({
     };
 
     const [searchParams, setSearchParams] = useState<SearchParams>(initialSearchParams);
-    const [loadedUsers, setLoadedUsers] = useState<UserSmall[]>([]);
-    const [selectedUsers, setSelectedUsers] = useState<UserSmall[]>(initialUsers ?? []);
+    const [loadedProjects, setLoadedProjects] = useState<ProjectSmall[]>([]);
+    const [selectedProject, setSelectedProject] = useState<ProjectSmall | undefined>(initialProject ?? undefined);
     const [isFocused, setIsFocused] = useState(false);
    
-    const usersResult = useSearchUsersSmallByUsername(searchParams, true);
+    const projectsResult = useSearchProjectsByUserId(currentUser?.id ?? 0, searchParams, !!currentUser?.id, true);
 
     useEffect(() => {
-        setLoadedUsers([...loadedUsers, ...(usersResult.data?.results ?? [])]);
-    }, [usersResult?.data, usersResult?.isLoading]);
+        setLoadedProjects([...loadedProjects, ...(projectsResult.data?.results ?? [])]);
+    }, [projectsResult?.data]);
 
     const handleTermChange = (term: string) => {
-        setLoadedUsers([]);
+        setLoadedProjects([]);
         setSearchParams({
             ...searchParams,
             searchTerm: term,
@@ -51,20 +52,17 @@ const FormUserSelection = ({
         });
     }
 
-    const handleUserSelect = (user: UserSmall) => {
-        if (selectedUsers.find((u) => u.id === user.id)) {
+    const handleProjectSelect = (project: ProjectSmall) => {
+        if (selectedProject?.id === project.id) {
             return;
         }
-        setSelectedUsers([...selectedUsers, user]);
-        onSelectedUsersChange?.([...selectedUsers, user]);
+        setSelectedProject(project);
+        onSelectedProjectChange?.(project);
     }
 
-    const handleUnselectUser = (user: UserSmall) => {
-        if (user.id === currentUser?.id) {
-            return;
-        }
-        setSelectedUsers(selectedUsers.filter((u) => u.id !== user.id));
-        onSelectedUsersChange?.(selectedUsers.filter((u) => u.id !== user.id));
+    const handleUnselectProject = () => {
+        setSelectedProject(undefined);
+        onSelectedProjectChange?.(undefined);
     }
 
     const handleLoadMore = () => {
@@ -89,23 +87,23 @@ const FormUserSelection = ({
             <div className="relative">
                 {isFocused && (
                     <div className="absolute flex flex-col bg-white border border-gray-200 rounded-md shadow-md w-64">
-                        {loadedUsers
-                            .filter((user) => !selectedUsers.find((u) => u.id === user.id))
-                            .map((user) => (
+                        {loadedProjects
+                            .filter((project) => selectedProject?.id !== project.id)
+                            .map((project) => (
                             <button 
                                 type="button"
                                 onMouseDown={(e) => {
                                     e.preventDefault();
-                                    handleUserSelect(user);
+                                    handleProjectSelect(project);
                                 }}
-                                key={user.id} 
+                                key={project.id} 
                                 className="px-4 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md shadow-sm text-gray-800 font-medium whitespace-nowrap"
                             >
-                                {user.username}
+                                {project.name}
                             </button>  
                         ))}
 
-                        {(usersResult?.data?.totalCount ?? 0) > (searchParams.itemsPerPage ?? 0) * (searchParams.page ?? 0) && (
+                        {(projectsResult?.data?.totalCount ?? 0) > (searchParams.itemsPerPage ?? 0) * (searchParams.page ?? 0) && (
                             <button
                                 type="button"
                                 onMouseDown={(e) => {
@@ -121,23 +119,17 @@ const FormUserSelection = ({
                 )}
 
                 <div className="flex flex-wrap">
-                    {selectedUsers
-                        .map((user) => (
-                        <div 
-                            key={user.id} 
-                            className="flex items-center justify-between space-x-4 px-4 py-2 max-w-40 bg-gray-50 border border-gray-200 rounded-md shadow-sm text-gray-800 font-medium whitespace-nowrap"
+                    <div 
+                        className="flex items-center justify-between space-x-4 px-4 py-2 max-w-40 bg-gray-50 border border-gray-200 rounded-md shadow-sm text-gray-800 font-medium whitespace-nowrap"
+                    >
+                        <h1>{selectedProject?.name}</h1>
+                        <button
+                            onClick={handleUnselectProject}
+                            type="button"
                         >
-                            <h1>{user.username}</h1>
-                            {currentUser?.id !== user.id && (
-                                <button
-                                    onClick={() => handleUnselectUser(user)}
-                                    type="button"
-                                >
-                                    <FontAwesomeIcon icon={faXmark} className="small-icon hover:text-red-700" />   
-                                </button>
-                            )}
-                        </div>
-                    ))}
+                            <FontAwesomeIcon icon={faXmark} className="small-icon hover:text-red-700" />   
+                        </button>
+                    </div>
                 </div>
 
             </div>
@@ -147,5 +139,5 @@ const FormUserSelection = ({
     );
 };
 
-export default FormUserSelection;
+export default FormProjectSelection;
 
