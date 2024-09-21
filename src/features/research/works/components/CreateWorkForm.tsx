@@ -16,6 +16,8 @@ import { createWork } from '../services/createWork';
 import { useRouter } from 'next/navigation';
 import { constructFeatureURL } from '@/shared/utils/featureURLConstructor';
 import { Feature } from '@/shared/common/models/Features';
+import FormProjectSelection from '@/shared/forms/components/FormProjectSelection';
+import { ProjectSmall } from '../../projects/models/Project';
 
 export interface IWorkFormInput {
     workType: WorkType;
@@ -47,6 +49,7 @@ const CreateWorkForm = ({
 
 }: CreateWorkFormProps) => {
     const [selectedUserIds, setSelectedUserIds] = useState<number[]>([]);
+    const [selectedProjectId, setSelectedProjectId] = useState<number | undefined>(undefined);
 
     const router = useRouter();
 
@@ -59,10 +62,13 @@ const CreateWorkForm = ({
     });
     
     const { currentUser } = useCurrentUser();
-    const [searchParams, setSearchParams] = useState({ searchTerm: "", page: 1, itemsPerPage: 10, sortBy: "createdAt", sortDescending: false });
     
     const handleSelectedUsersChange = (users: UserSmall[]) => {
         setSelectedUserIds(users.map((u) => u.id));
+    }
+
+    const handleSelectedProjectChange = (project?: ProjectSmall) => {
+        setSelectedProjectId(project?.id);
     }
 
     const onSubmit: SubmitHandler<IWorkFormInput> = async data => {
@@ -87,6 +93,7 @@ const CreateWorkForm = ({
     const getCreateWorkDTO = (data: IWorkFormInput) => {
         const workDTO: CreateWorkDTO = {
             workType: data.workType,
+            projectId: selectedProjectId,
             title: data.title,
             name: data.name,
             description: data.description,
@@ -105,13 +112,20 @@ const CreateWorkForm = ({
             <h1 className="page-title py-4 text-center w-full">Create Work</h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
-                {/* Work Type and Is Public */}
-                <div className="flex items-start space-x-8">
+                {/* Work Type, Project and Is Public */}
+                <div className="flex items-start flex-wrap lg:flex-nowrap lg:space-x-8">
                     <FormSelectField
                         formItem={workFormItemsConfig.selectItems?.["workType"] ?? undefined}
                         register={register}
                         error={errors?.workType?.message}
                     />  
+
+                    <FormProjectSelection
+                        label="Project"
+                        id="project"
+                        currentUser={currentUser ?? undefined}
+                        onSelectedProjectChange={handleSelectedProjectChange}
+                    />
 
                     <FormSwitchField
                         formItem={workFormItemsConfig.switchItems?.["isPublic"] ?? undefined}
@@ -121,7 +135,7 @@ const CreateWorkForm = ({
                 </div>
 
                 {/* Title, Name, Description */}
-                <div className="flex items-start space-x-8">
+                <div className="flex items-start flex-wrap space-x-8">
                     <FormTextField 
                         formItem={workFormItemsConfig.textItems?.["title"]}
                         register={register}

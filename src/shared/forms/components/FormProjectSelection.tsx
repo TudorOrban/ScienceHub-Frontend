@@ -76,48 +76,53 @@ const FormProjectSelection = ({
         <div className="flex flex-col">
             <label htmlFor={id} className="form-label pb-2">{label}</label>
 
-            <SearchInput 
-                searchTerm={searchParams.searchTerm ?? ""}
-                onTermChange={handleTermChange}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-                searchOnChange={false}
-            />
+            {!selectedProject && (
+                <>
+                    <SearchInput 
+                        searchTerm={searchParams.searchTerm ?? ""}
+                        onTermChange={handleTermChange}
+                        onFocus={() => setIsFocused(true)}
+                        onBlur={() => setIsFocused(false)}
+                        searchOnChange={false}
+                    />
 
-            <div className="relative">
-                {isFocused && (
-                    <div className="absolute flex flex-col bg-white border border-gray-200 rounded-md shadow-md w-64">
-                        {loadedProjects
-                            .filter((project) => selectedProject?.id !== project.id)
-                            .map((project) => (
-                            <button 
-                                type="button"
-                                onMouseDown={(e) => {
-                                    e.preventDefault();
-                                    handleProjectSelect(project);
-                                }}
-                                key={project.id} 
-                                className="px-4 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md shadow-sm text-gray-800 font-medium whitespace-nowrap"
-                            >
-                                {project.name}
-                            </button>  
-                        ))}
+                    <div className="relative">
+                        {isFocused && (
+                            <div className="absolute flex flex-col bg-white border border-gray-200 rounded-md shadow-md w-64">
+                                {loadedProjects
+                                    .map((project) => (
+                                    <button 
+                                        type="button"
+                                        onMouseDown={(e) => {
+                                            e.preventDefault();
+                                            handleProjectSelect(project);
+                                        }}
+                                        key={project.id} 
+                                        className="px-4 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md shadow-sm text-gray-800 font-medium whitespace-nowrap"
+                                    >
+                                        {project.name}
+                                    </button>  
+                                ))}
 
-                        {(projectsResult?.data?.totalCount ?? 0) > (searchParams.itemsPerPage ?? 0) * (searchParams.page ?? 0) && (
-                            <button
-                                type="button"
-                                onMouseDown={(e) => {
-                                    e.preventDefault();
-                                    handleLoadMore();
-                                }}
-                                className="px-4 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md shadow-sm text-gray-800 font-medium whitespace-nowrap"
-                            >
-                                Load More
-                            </button>   
+                                {(projectsResult?.data?.totalCount ?? 0) > (searchParams.itemsPerPage ?? 0) * (searchParams.page ?? 0) && (
+                                    <button
+                                        type="button"
+                                        onMouseDown={(e) => {
+                                            e.preventDefault();
+                                            handleLoadMore();
+                                        }}
+                                        className="px-4 py-2 bg-gray-50 hover:bg-gray-100 border border-gray-200 rounded-md shadow-sm text-gray-800 font-medium whitespace-nowrap"
+                                    >
+                                        Load More
+                                    </button>   
+                                )}
+                            </div>    
                         )}
-                    </div>    
-                )}
+                    </div>
+                </>
+            )}
 
+            {selectedProject && (
                 <div className="flex flex-wrap">
                     <div 
                         className="flex items-center justify-between space-x-4 px-4 py-2 max-w-40 bg-gray-50 border border-gray-200 rounded-md shadow-sm text-gray-800 font-medium whitespace-nowrap"
@@ -130,9 +135,8 @@ const FormProjectSelection = ({
                             <FontAwesomeIcon icon={faXmark} className="small-icon hover:text-red-700" />   
                         </button>
                     </div>
-                </div>
-
-            </div>
+                </div>   
+            )}
             
             {error && <p className="form-error-message">{error}</p>}
         </div>

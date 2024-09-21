@@ -53,6 +53,7 @@ export interface WorkDetailsDTO extends WorkSearchDTO {
 
 export interface CreateWorkDTO {
     workType: WorkType;
+    projectId?: number;
     name: string;
     title: string;
     description?: string;

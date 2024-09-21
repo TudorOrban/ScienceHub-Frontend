@@ -19,7 +19,7 @@ const FormSwitchField = <TFieldValues extends FieldValues>({
     const { label, id } = formItem;
 
     return (
-        <div className="flex flex-col space-y-4">
+        <div className="flex flex-col space-y-3">
             <label htmlFor={id} className="form-label">
                 {label}
             </label>
