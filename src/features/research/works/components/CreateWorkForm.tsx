@@ -18,6 +18,8 @@ import { constructFeatureURL } from '@/shared/utils/featureURLConstructor';
 import { Feature } from '@/shared/common/models/Features';
 import FormProjectSelection from '@/shared/forms/components/FormProjectSelection';
 import { ProjectSmall } from '../../projects/models/Project';
+import { useToastsContext } from '@/shared/toasts/contexts/ToastsContext';
+import { OperationOutcome } from '@/shared/toasts/models/Toast';
 
 export interface IWorkFormInput {
     workType: WorkType;
@@ -54,6 +56,10 @@ const CreateWorkForm = ({
     const router = useRouter();
 
     const {
+        addToast
+    } = useToastsContext();
+
+    const {
         register,
         handleSubmit,
         formState: { errors }
@@ -72,17 +78,23 @@ const CreateWorkForm = ({
     }
 
     const onSubmit: SubmitHandler<IWorkFormInput> = async data => {
-        if (!validateInput(data)) {
-            return;
-        }
+        // if (!validateInput(data)) {
+        //     return;
+        // }
 
         const createWorkDTO = getCreateWorkDTO(data);
         console.log("Create Work DTO: ", createWorkDTO);
 
-        const createdWork = await createWork(createWorkDTO);
+        // const createdWork = await createWork(createWorkDTO);
 
-        const workUrl = constructFeatureURL(Feature.Work, createdWork?.data?.id.toString());
-        router.push(workUrl);
+        addToast({
+            title: "Work Created",
+            message: "Work has been created successfully",
+            outcome: OperationOutcome.SUCCESS
+        });
+
+        // const workUrl = constructFeatureURL(Feature.Work, createdWork?.data?.id.toString());
+        // router.push(workUrl);
     }
 
     const validateInput = (data: IWorkFormInput): boolean => {

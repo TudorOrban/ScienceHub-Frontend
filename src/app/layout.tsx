@@ -10,6 +10,7 @@ import Sidebar from "@/core/main/components/sidebar/Sidebar";
 import Header from "@/core/main/components/header/Header";
 import Providers from "@/core/main/providers/Providers";
 import UserbarWrapper from "@/core/user/components/UserbarWrapper";
+import ToastManager from "@/shared/toasts/components/ToastManager";
 
 export const metadata: Metadata = {
     title: "Create Next App",
@@ -24,8 +25,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Providers>                    
-                    <div>
+                <Providers>  
+                    <div className="relative">
+                        <ToastManager />
+
                         <Header />
                         <UserbarWrapper />
                         
