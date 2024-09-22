@@ -77,10 +77,18 @@ const CreateWorkForm = ({
         setSelectedProjectId(project?.id);
     }
 
+    const displayToast = () => {
+        addToast({
+            title: "Work Created",
+            message: "Work has been created successfully",
+            outcome: OperationOutcome.SUCCESS
+        });
+    }
+
     const onSubmit: SubmitHandler<IWorkFormInput> = async data => {
-        // if (!validateInput(data)) {
-        //     return;
-        // }
+        if (!validateInput(data)) {
+            return;
+        }
 
         const createWorkDTO = getCreateWorkDTO(data);
         console.log("Create Work DTO: ", createWorkDTO);
@@ -122,6 +130,7 @@ const CreateWorkForm = ({
     return (
         <div className="px-16 py-4">
             <h1 className="page-title py-4 text-center w-full">Create Work</h1>
+            <button onClick={displayToast}>Display Toast</button>
 
             <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
                 {/* Work Type, Project and Is Public */}

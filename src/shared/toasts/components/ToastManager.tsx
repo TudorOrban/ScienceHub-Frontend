@@ -16,8 +16,8 @@ const ToastManager = ({
     } = useToastsContext();
 
     return (
-        <div className="absolute right-0 bottom-0 bg-white text-black text-xl">
-            {toasts.map((toast, index) => (
+        <div className="absolute z-50 right-8 bottom-8 bg-white text-black text-xl space-y-8">
+            {toasts.map((toast) => (
                 <Toast key={toast.id} toast={toast} />
             ))}
         </div>
