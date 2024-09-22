@@ -4,6 +4,7 @@ export interface ToastInfo {
     title?: string;
     message?: string;
     outcome?: OperationOutcome;
+    duration?: number;
 }
 
 export enum OperationOutcome {
