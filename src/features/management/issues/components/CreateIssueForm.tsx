@@ -4,25 +4,25 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import FormTextField from '@/shared/forms/components/FormTextField';
-import { CreateWorkDTO, WorkType } from '../models/Work';
 import FormSelectField from '@/shared/forms/components/FormEnumSelectField';
 import FormUserSelection from '@/shared/forms/components/FormUserSelection';
 import { useCurrentUser } from '@/core/user/contexts/CurrentUserContext';
 import { useState } from 'react';
 import { UserSmall } from '@/core/user/models/User';
 import FormSwitchField from '@/shared/forms/components/FormSwitchField';
-import { createWork } from '../services/createWork';
 import { useRouter } from 'next/navigation';
 import { constructFeatureURL } from '@/shared/utils/featureURLConstructor';
 import { Feature } from '@/shared/common/models/Features';
 import FormProjectSelection from '@/shared/forms/components/FormProjectSelection';
-import { ProjectSmall } from '../../projects/models/Project';
 import { useToastsContext } from '@/shared/toasts/contexts/ToastsContext';
 import { OperationOutcome } from '@/shared/toasts/models/Toast';
-import { workFormItemsConfig } from '../config/workFormItemsConfig';
+import { CreateIssueDTO, IssueType } from '../models/Issue';
+import { ProjectSmall } from '@/features/research/projects/models/Project';
+import { createIssue } from '../services/createIssue';
+import { issueFormItemsConfig } from '../config/issueFormItemsConfig';
 
-export interface IWorkFormInput {
-    workType: WorkType;
+export interface IIssueFormInput {
+    issueType: IssueType;
     title: string;
     name: string;
     description?: string;
@@ -30,7 +30,7 @@ export interface IWorkFormInput {
 }
 
 const schema = yup.object({
-    workType: yup.mixed<WorkType>().oneOf(Object.values(WorkType)).required('Work type is required'),
+    issueType: yup.mixed<IssueType>().oneOf(Object.values(IssueType)).required('Issue type is required'),
     title: yup.string()
         .required('Title is required')
         .min(3, 'Title must be at least 3 characters long')
@@ -43,13 +43,13 @@ const schema = yup.object({
     isPublic: yup.boolean().required('Public is required'),
 }).required();
 
-export interface CreateWorkFormProps {
+export interface CreateIssueFormProps {
 
 }
 
-const CreateWorkForm = ({
+const CreateIssueForm = ({
 
-}: CreateWorkFormProps) => {
+}: CreateIssueFormProps) => {
     const [selectedUserIds, setSelectedUserIds] = useState<number[]>([]);
     const [selectedProjectId, setSelectedProjectId] = useState<number | undefined>(undefined);
 
@@ -63,8 +63,8 @@ const CreateWorkForm = ({
         register,
         handleSubmit,
         formState: { errors }
-    } = useForm<IWorkFormInput>({
-        resolver: yupResolver<IWorkFormInput>(schema)
+    } = useForm<IIssueFormInput>({
+        resolver: yupResolver<IIssueFormInput>(schema)
     });
     
     const { currentUser } = useCurrentUser();
@@ -77,59 +77,56 @@ const CreateWorkForm = ({
         setSelectedProjectId(project?.id);
     }
 
-    const onSubmit: SubmitHandler<IWorkFormInput> = async data => {
+    const onSubmit: SubmitHandler<IIssueFormInput> = async data => {
         if (!validateInput(data)) {
             return;
         }
 
-        const createWorkDTO = getCreateWorkDTO(data);
-        console.log("Create Work DTO: ", createWorkDTO);
+        const createIssueDTO = getCreateIssueDTO(data);
+        console.log("Create Issue DTO: ", createIssueDTO);
 
-        const createdWork = await createWork(createWorkDTO);
+        const createdIssue = await createIssue(createIssueDTO);
 
         addToast({
-            title: "Work Created",
-            message: "Work has been created successfully",
+            title: "Issue Created",
+            message: "Issue has been created successfully",
             outcome: OperationOutcome.SUCCESS
         });
 
-        const workUrl = "http://localhost:3000" + constructFeatureURL(Feature.Work, createdWork?.data?.id.toString());
-        router.push(workUrl);
+        const issueUrl = "http://localhost:3000" + constructFeatureURL(Feature.Issue, createdIssue?.data?.id.toString());
+        router.push(issueUrl);
     }
 
-    const validateInput = (data: IWorkFormInput): boolean => {
+    const validateInput = (data: IIssueFormInput): boolean => {
         const isValid = !!data && selectedUserIds?.find(u => u === currentUser?.id) !== undefined;
         return isValid;
     }
 
-    const getCreateWorkDTO = (data: IWorkFormInput) => {
-        const workDTO: CreateWorkDTO = {
-            workType: data.workType,
+    const getCreateIssueDTO = (data: IIssueFormInput) => {
+        const issueDTO: CreateIssueDTO = {
+            issueType: data.issueType,
             projectId: selectedProjectId,
             title: data.title,
-            name: data.name,
             description: data.description,
             isPublic: data?.isPublic ?? false,
-            workMetadata: undefined,
-            fileLocation: undefined,
             userIds: selectedUserIds,
             collaborationIds: [],
         };
 
-        return workDTO;
+        return issueDTO;
     }
 
     return (
         <div className="px-16 py-4">
-            <h1 className="page-title py-4 text-center w-full">Create Work</h1>
+            <h1 className="page-title py-6 text-center w-full">Create Issue</h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4">
-                {/* Work Type, Project and Is Public */}
+                {/* Issue Type, Project and Is Public */}
                 <div className="flex items-start flex-wrap lg:flex-nowrap lg:space-x-8">
                     <FormSelectField
-                        formItem={workFormItemsConfig.selectItems?.["workType"] ?? undefined}
+                        formItem={issueFormItemsConfig.selectItems?.["issueType"] ?? undefined}
                         register={register}
-                        error={errors?.workType?.message}
+                        error={errors?.issueType?.message}
                     />  
 
                     <FormProjectSelection
@@ -140,7 +137,7 @@ const CreateWorkForm = ({
                     />
 
                     <FormSwitchField
-                        formItem={workFormItemsConfig.switchItems?.["isPublic"] ?? undefined}
+                        formItem={issueFormItemsConfig.switchItems?.["isPublic"] ?? undefined}
                         register={register}
                         error={errors?.isPublic?.message}
                     />
@@ -149,19 +146,19 @@ const CreateWorkForm = ({
                 {/* Title, Name, Description */}
                 <div className="flex items-start flex-wrap space-x-8">
                     <FormTextField 
-                        formItem={workFormItemsConfig.textItems?.["title"]}
+                        formItem={issueFormItemsConfig.textItems?.["title"]}
                         register={register}
                         error={errors?.title?.message}
                     />
                     <FormTextField 
-                        formItem={workFormItemsConfig.textItems?.["name"]}
+                        formItem={issueFormItemsConfig.textItems?.["name"]}
                         register={register}
                         error={errors?.name?.message}
                     />
                 </div>
 
                 <FormTextField 
-                    formItem={workFormItemsConfig.textItems?.["description"]}
+                    formItem={issueFormItemsConfig.textItems?.["description"]}
                     register={register}
                     error={errors?.description?.message}
                 />
@@ -180,7 +177,7 @@ const CreateWorkForm = ({
                         type="submit"
                         className="standard-write-button"
                     >
-                        Create Work
+                        Create Issue
                     </button>
                 </div>
             </form>
@@ -188,4 +185,4 @@ const CreateWorkForm = ({
     );
 }
 
-export default CreateWorkForm;
+export default CreateIssueForm;

@@ -24,7 +24,7 @@ const ToastManager = ({
 
     
     return (
-        <div className="absolute z-50 right-8 bottom-8 bg-white text-black text-xl space-y-8">
+        <div className="absolute z-50 right-8 bottom-8 bg-white text-black text-xl space-y-6">
             {toasts.map((toast) => (
                 <Toast key={toast.id} toast={toast} removeToast={removeToast} />
             ))}

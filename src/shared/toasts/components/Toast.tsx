@@ -44,8 +44,8 @@ const Toast = ({
 
     return (
         <div className="w-80 px-4 py-2 flex items-start justify-between bg-gray-50 border border-gray-300 rounded-md shadow-sm text-base">
-            <div className="flex items-center space-x-2">
-                <div className={`w-8 h-6 rounded-full flex items-center justify-center ${getTailwindCSSByOutcome()}`}>
+            <div className="flex items-center space-x-4">
+                <div className={`w-8 h-7 rounded-full flex items-center justify-center ${getTailwindCSSByOutcome()}`}>
                     <FontAwesomeIcon icon={getIconByOutcome()} className="text-white small-icon" />
                 </div>
                 <div>

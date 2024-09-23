@@ -24,6 +24,8 @@ export const ToastsProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     const addToast = (toast: ToastInfo) => {
         const id = currentMaxId + 1;
         toast.id = id.toString();
+        console.log("Toast: ", toast);
+        console.log("Toasts: ", toasts);
 
         const timeoutDuration = toast.duration ?? getDurationByOutcome(toast.outcome ?? OperationOutcome.INFO);
 

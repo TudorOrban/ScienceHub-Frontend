@@ -24,3 +24,18 @@ export enum IssueStatus {
     Open = "Open",
     Closed = "Closed",
 }
+
+export interface IssueDetailsDTO extends IssueSearchDTO {
+
+}
+
+export interface CreateIssueDTO {
+    issueType: IssueType;
+    projectId?: number;
+    workId?: number;
+    title: string;
+    description?: string;
+    isPublic?: boolean;
+    userIds?: number[];
+    collaborationIds?: number[];
+}

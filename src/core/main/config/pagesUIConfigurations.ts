@@ -88,7 +88,7 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             { label: "Updated At", value: "updatedAt" },
             { label: "Title", value: "title" },
         ],
-        createNewButtonData: { label: "New Issue", value: "", link: "/workspace/research/issues/create" },
+        createNewButtonData: { label: "New Issue", value: "", link: "/workspace/management/issues/create" },
         addListHeaderBottom: false,
         menus: [
             {
@@ -125,7 +125,7 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             { label: "Updated At", value: "updatedAt" },
             { label: "Title", value: "title" },
         ],
-        createNewButtonData: { label: "New Review", value: "", link: "/workspace/research/reviews/create" },
+        createNewButtonData: { label: "New Review", value: "", link: "/workspace/management/reviews/create" },
         addListHeaderBottom: false,
         menus: [
             {
@@ -162,7 +162,7 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             { label: "Updated At", value: "updatedAt" },
             { label: "Title", value: "title" },
         ],
-        createNewButtonData: { label: "New Discussion", value: "", link: "/workspace/research/discussions/create" },
+        createNewButtonData: { label: "New Discussion", value: "", link: "/workspace/community/discussions/create" },
         addListHeaderBottom: false,
         menus: [],
         initialSearchParams: {

@@ -1,8 +1,7 @@
-import { FormConfig } from "../models/Form";
-import { IWorkFormInput } from "@/features/research/works/components/CreateWorkForm";
+import { FormConfig } from "@/shared/forms/models/Form";
+import { IIssueFormInput } from "../components/CreateIssueForm";
 
-
-export const workFormItemsConfig: FormConfig<IWorkFormInput> = {
+export const issueFormItemsConfig: FormConfig<IIssueFormInput> = {
     textItems: {
         "title": {
             label: "Title",
@@ -30,16 +29,12 @@ export const workFormItemsConfig: FormConfig<IWorkFormInput> = {
         },
     },
     selectItems: {
-        "workType": {
-            label: "Work Type",
-            id: "workType",
+        "issueType": {
+            label: "Issue Type",
+            id: "issueType",
             items: [
-                { label: "Paper", value: "Paper" },
-                { label: "Experiment", value: "Experiment" },
-                { label: "Dataset", value: "Dataset" },
-                { label: "Data Analysis", value: "DataAnalysis" },
-                { label: "AI Model", value: "AIModel" },
-                { label: "Code Block", value: "CodeBlock" },
+                { label: "Project Issue", value: "ProjectIssue" },
+                { label: "Work Issue", value: "WorkIssue" },
             ],
         }
     },
