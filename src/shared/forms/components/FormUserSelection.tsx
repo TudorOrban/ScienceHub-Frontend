@@ -26,7 +26,7 @@ const FormUserSelection = ({
     const initialSearchParams = {
         searchTerm: "",
         page: 1,
-        itemsPerPage: 1,
+        itemsPerPage: 10,
         sortBy: "createdAt",
         sortDescending: false,
     };
@@ -120,7 +120,7 @@ const FormUserSelection = ({
                     </div>    
                 )}
 
-                <div className="flex flex-wrap">
+                <div className="flex flex-wrap py-2">
                     {selectedUsers
                         .map((user) => (
                         <div 

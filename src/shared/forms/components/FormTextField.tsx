@@ -15,7 +15,7 @@ function FormTextField<TFieldValues extends FieldValues>({
     if (!formItem) {
         return null;
     }
-    
+
     const { label, id, type, options } = formItem;
 
     if (type === "textarea") {
@@ -43,7 +43,7 @@ function FormTextField<TFieldValues extends FieldValues>({
                 type={type}
                 id={id}
                 {...register(id, options)}
-                className="form-input"
+                className="form-input max-w-80"
             />
             {error && <p className="form-error-message">{error}</p>}
         </div>

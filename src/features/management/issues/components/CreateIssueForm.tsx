@@ -24,7 +24,6 @@ import { issueFormItemsConfig } from '../config/issueFormItemsConfig';
 export interface IIssueFormInput {
     issueType: IssueType;
     title: string;
-    name: string;
     description?: string;
     isPublic?: boolean;
 }
@@ -35,10 +34,6 @@ const schema = yup.object({
         .required('Title is required')
         .min(3, 'Title must be at least 3 characters long')
         .max(50, 'Title must be at most 50 characters long'),
-    name: yup.string()
-        .required('Name is required')
-        .min(3, 'Name must be at least 3 characters long')
-        .max(50, 'Name must be at most 50 characters long'),
     description: yup.string(),
     isPublic: yup.boolean().required('Public is required'),
 }).required();
@@ -62,10 +57,13 @@ const CreateIssueForm = ({
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors }
     } = useForm<IIssueFormInput>({
         resolver: yupResolver<IIssueFormInput>(schema)
     });
+
+    const issueType = watch("issueType");
     
     const { currentUser } = useCurrentUser();
     
@@ -129,12 +127,14 @@ const CreateIssueForm = ({
                         error={errors?.issueType?.message}
                     />  
 
-                    <FormProjectSelection
-                        label="Project"
-                        id="project"
-                        currentUser={currentUser ?? undefined}
-                        onSelectedProjectChange={handleSelectedProjectChange}
-                    />
+                    {issueType === 'ProjectIssue' && (
+                        <FormProjectSelection
+                            label="Project"
+                            id="project"
+                            currentUser={currentUser ?? undefined}
+                            onSelectedProjectChange={handleSelectedProjectChange}
+                        />
+                    )}
 
                     <FormSwitchField
                         formItem={issueFormItemsConfig.switchItems?.["isPublic"] ?? undefined}
@@ -143,19 +143,12 @@ const CreateIssueForm = ({
                     />
                 </div>
 
-                {/* Title, Name, Description */}
-                <div className="flex items-start flex-wrap space-x-8">
-                    <FormTextField 
-                        formItem={issueFormItemsConfig.textItems?.["title"]}
-                        register={register}
-                        error={errors?.title?.message}
-                    />
-                    <FormTextField 
-                        formItem={issueFormItemsConfig.textItems?.["name"]}
-                        register={register}
-                        error={errors?.name?.message}
-                    />
-                </div>
+                {/* Title, Description */}
+                <FormTextField 
+                    formItem={issueFormItemsConfig.textItems?.["title"]}
+                    register={register}
+                    error={errors?.title?.message}
+                />
 
                 <FormTextField 
                     formItem={issueFormItemsConfig.textItems?.["description"]}

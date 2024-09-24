@@ -11,14 +11,6 @@ export const issueFormItemsConfig: FormConfig<IIssueFormInput> = {
                 required: "Title is required"
             }
         },
-        "name": {
-            label: "Name",
-            id: "name",
-            type: "text",
-            options: {
-                required: "Name is required"
-            }
-        },
         "description": {
             label: "Description",
             id: "description",
