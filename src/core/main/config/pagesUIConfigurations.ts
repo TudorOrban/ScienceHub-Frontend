@@ -1,5 +1,5 @@
 import { MenuConfiguration, PageUIConfiguration, UIItem } from "@/shared/common/models/UITypes";
-import { faBoxArchive, faFile, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faBoxArchive, faFile, faInfoCircle, faMessage } from "@fortawesome/free-solid-svg-icons";
 
 
 export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
@@ -163,6 +163,24 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             { label: "Title", value: "title" },
         ],
         createNewButtonData: { label: "New Discussion", value: "", link: "/workspace/community/discussions/create" },
+        addListHeaderBottom: false,
+        menus: [],
+        initialSearchParams: {
+            searchTerm: "",
+            sortBy: "createdAt",
+            sortDescending: false,
+            page: 1,
+            itemsPerPage: 20,
+        },
+    },
+    "chats": {
+        pageTitle: { label: "Chats", value: "", icon: faMessage },
+        sortOptions: [
+            { label: "Created At", value: "createdAt" },
+            { label: "Updated At", value: "updatedAt" },
+            { label: "Title", value: "title" },
+        ],
+        createNewButtonData: { label: "New Discussion", value: "", link: "/workspace/community/chats/create" },
         addListHeaderBottom: false,
         menus: [],
         initialSearchParams: {

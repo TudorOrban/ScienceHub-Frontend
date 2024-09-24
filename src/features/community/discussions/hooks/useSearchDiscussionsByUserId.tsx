@@ -5,7 +5,7 @@ import { searchDiscussionsByUserId } from "../services/searchDiscussionsByUserId
 import { DiscussionSearchDTO } from "../models/Discussion";
 
 export const useSearchDiscussionsByUserId = (userId: number, searchParams: SearchParams, enabled?: boolean): Result<PaginatedResults<DiscussionSearchDTO>> => {
-    const queryKey = ["searchIssuesByUserIdAndIssueType", userId, searchParams.searchTerm, searchParams.sortBy, searchParams.sortDescending, searchParams.page, searchParams.itemsPerPage];
+    const queryKey = ["searchDiscussionsByUserId", userId, searchParams.searchTerm, searchParams.sortBy, searchParams.sortDescending, searchParams.page, searchParams.itemsPerPage];
 
     const result = useQuery<Result<PaginatedResults<DiscussionSearchDTO>>, StandardAPIError>({
         queryKey: queryKey,

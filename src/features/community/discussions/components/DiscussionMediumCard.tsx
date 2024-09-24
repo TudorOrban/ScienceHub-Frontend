@@ -98,7 +98,7 @@ const DiscussionMediumCard = ({
                         className="flex-1 flex items-center justify-center py-4 space-x-2"
                     >
                         <FontAwesomeIcon icon={item.icon ?? faQuestion} className="small-icon" />
-                        <span className="text-xl font-medium">{item.value ?? 0}</span>
+                        <span className="text-lg text-gray-800 font-medium">{item.value ?? 0}</span>
                     </button>
                 ))}
             </div>
