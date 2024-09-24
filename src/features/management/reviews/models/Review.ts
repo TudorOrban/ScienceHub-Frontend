@@ -25,3 +25,18 @@ export enum ReviewStatus {
     InProgress = "InProgress",
     Submitted = "Submitted",
 }
+
+export interface ReviewDetailsDTO extends ReviewSearchDTO {
+
+}
+
+export interface CreateReviewDTO {
+    reviewType: ReviewType;
+    projectId?: number;
+    workId?: number;
+    title: string;
+    description?: string;
+    isPublic?: boolean;
+    userIds?: number[];
+    collaborationIds?: number[];
+}
