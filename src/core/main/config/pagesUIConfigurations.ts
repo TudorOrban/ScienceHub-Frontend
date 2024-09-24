@@ -180,7 +180,7 @@ export const pagesUIConfigurations: Record<string, PageUIConfiguration> = {
             { label: "Updated At", value: "updatedAt" },
             { label: "Title", value: "title" },
         ],
-        createNewButtonData: { label: "New Discussion", value: "", link: "/workspace/community/chats/create" },
+        createNewButtonData: { label: "New Chat", value: "", link: "/workspace/community/chats/create" },
         addListHeaderBottom: false,
         menus: [],
         initialSearchParams: {

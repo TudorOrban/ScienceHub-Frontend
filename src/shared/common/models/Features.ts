@@ -5,5 +5,6 @@ export enum Feature {
     Issue,
     Review,
     Discussion,
+    Chat,
     UserProfile,
 }
