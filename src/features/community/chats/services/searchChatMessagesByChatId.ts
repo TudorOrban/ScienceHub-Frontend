@@ -6,7 +6,7 @@ import { ChatMessageSearchDTO } from "../models/Chat";
 
 export const searchChatMessagesByUserId = async (chatId: number, searchParams: SearchParams): Promise<Result<PaginatedResults<ChatMessageSearchDTO>>> => {
     const request = apiClient.get<PaginatedResults<ChatMessageSearchDTO>>(
-        `chat-messages/user/${chatId}/search`, 
+        `chat-messages/chat/${chatId}/search`, 
         { 
             params: searchParams,
         }
