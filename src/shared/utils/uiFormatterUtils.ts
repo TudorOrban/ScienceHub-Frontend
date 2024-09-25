@@ -23,3 +23,19 @@ export const formatDate = (dateIsoString?: string) => {
         return formatDistanceToNow(date, { addSuffix: true });
     }
 }
+
+export const formatMessageDateTime = (dateIsoString?: string) => {
+    if (!dateIsoString) return "";
+    
+    const date = parseISO(dateIsoString);
+    const now = new Date();
+    const oneDayAgo = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 1);
+
+    if (date < oneDayAgo) {
+        return format(date, "MMMM dd, yyyy");
+    } else {
+        return format(date, "h:mm a");
+    }
+
+
+}
