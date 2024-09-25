@@ -16,7 +16,6 @@ export default function DiscussionsPage() {
 
     const { currentUser } = useCurrentUser();
     const { data, error, isLoading } = useSearchChatsByUserId(currentUser?.id ?? 0, searchParams ?? {}, !!currentUser?.id);
-console.log("data: ", data);
 
     return (
         <div className="text-2xl overflow-x-hidden space-y-4">

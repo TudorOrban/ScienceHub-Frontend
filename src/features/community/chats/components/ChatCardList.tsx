@@ -12,7 +12,6 @@ export interface ChatsTableProps {
     error?: StandardAPIError;
     isLoading?: boolean;
     searchParams?: SearchParams;
-    menuStates?: Record<string, string>;
 
     handlePageChange: (page: number) => void;
 }
@@ -22,7 +21,6 @@ const ChatCardList = ({
     error,
     searchParams,
     isLoading,
-    menuStates,
     handlePageChange,
 }: ChatsTableProps) => {
     if (!!error) {
@@ -49,7 +47,7 @@ const ChatCardList = ({
 
     return (
         <div className="w-full overflow-x-auto">
-            <div className="page-standard-horizontal-padding">
+            <div className="">
                 {data?.results?.map((chat) => (
                     <ChatMediumCard key={chat.id} chat={chat} />
                 ))}
