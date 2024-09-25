@@ -46,3 +46,13 @@ export interface ChatUserDTO {
     role?: string;
     user?: UserSmall;
 }
+
+export interface ChatMessageSearchDTO {
+    id: number;
+    chatId: number;
+    userId: number;
+    createdAt?: Date;
+    updatedAt?: Date;
+    content?: string;
+    user?: UserSmall;
+}

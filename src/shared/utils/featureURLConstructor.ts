@@ -6,6 +6,7 @@ import { CollaborationSmall } from "@/features/community/collaborations/models/C
 export const constructFeatureURL = (feature: Feature, name?: string, users?: UserSmall[], collaborations?: CollaborationSmall[]): string => {
     if (!name) return "/not-found";
     const identifier = constructIdentifier(users, collaborations);
+    if (identifier == "/not-found") return "/not-found";
 
     switch (feature) {
         case Feature.UserProfile:
@@ -20,6 +21,8 @@ export const constructFeatureURL = (feature: Feature, name?: string, users?: Use
             return `/${identifier}/management/reviews/${name}`;
         case Feature.Discussion:
             return `/${identifier}/community/discussions/${name}`;
+        case Feature.Chat:
+            return `/${identifier}/community/chats/${name}`;
         default:
             return "/not-found";
     }

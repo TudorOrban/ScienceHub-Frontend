@@ -18,12 +18,12 @@ export default function DiscussionsPage() {
     const { data, error, isLoading } = useSearchChatsByUserId(currentUser?.id ?? 0, searchParams ?? {}, !!currentUser?.id);
 
     return (
-        <div className="text-2xl overflow-x-hidden space-y-4">
+        <div className="text-2xl overflow-x-hidden">
             <ListHeader
                 pageTitle={pageUIConfiguration.pageTitle}
                 sortOptions={pageUIConfiguration.sortOptions}
                 createNewButtonData={pageUIConfiguration.createNewButtonData}
-                addBottom={false}
+                addBottom={true}
                 searchParams={searchParams}
                 onTermChange={handleTermChange}
                 onSortOptionChange={handleSortOptionChange}

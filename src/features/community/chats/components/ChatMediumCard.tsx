@@ -16,8 +16,9 @@ const ChatMediumCard = ({
     chat,
 }: ChatMediumCardProps) => {
     const router = useRouter();
-    console.log("chatid: ", chat.id);
-    const chatUrl = constructFeatureURL(Feature.Chat, chat.id.toString() ?? "");
+    
+    const users = chat?.chatUsers?.map((chatUser) => chatUser.user)?.filter((user) => !!user) ?? [];
+    const chatUrl = constructFeatureURL(Feature.Chat, chat.id.toString() ?? "", users);
     const userUrl = constructFeatureURL(Feature.UserProfile, chat.chatUsers?.[0]?.user?.username ?? "");
     const isUniqueUser = (chat?.chatUsers?.length ?? 0) === 1;
 
@@ -28,7 +29,7 @@ const ChatMediumCard = ({
                     <UserAvatar userSmall={chat?.chatUsers?.[0]?.user} onClick={() => router.push(userUrl)}/>   
                 )}
 
-                <div>   
+                <div className="space-y-1">   
                     <Link href={chatUrl}>
                         {isUniqueUser ? (
                                 <span className="label-large pseudo-link">{chat.chatUsers?.[0]?.user?.username ?? ""}</span>
