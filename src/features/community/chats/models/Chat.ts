@@ -34,8 +34,15 @@ export interface ChatSearchDTO {
     createdAt?: Date;
     updatedAt?: Date;
     title?: string;
-    chatUsersData?: UserSmall[];
+    chatUsers?: ChatUserDTO[];
     content?: string;
     isPublic?: boolean;
     chatMessages?: ChatMessage[];
+}
+
+export interface ChatUserDTO {
+    chatId: number;
+    userId: number;
+    role?: string;
+    user?: UserSmall;
 }

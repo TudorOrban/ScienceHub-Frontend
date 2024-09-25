@@ -49,7 +49,7 @@ const ChatCardList = ({
 
     return (
         <div className="w-full overflow-x-auto">
-            <div className="page-standard-horizontal-padding py-4 space-y-4">
+            <div className="page-standard-horizontal-padding">
                 {data?.results?.map((chat) => (
                     <ChatMediumCard key={chat.id} chat={chat} />
                 ))}
