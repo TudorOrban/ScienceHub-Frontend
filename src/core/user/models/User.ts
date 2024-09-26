@@ -6,6 +6,7 @@ export interface UserSmall {
     fullName: string;
     createdAt?: string;
     avatarUrl?: string;
+    isOnline?: boolean;
 }
 
 export interface IdentifierUsersAndCollaborations {

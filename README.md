@@ -29,7 +29,7 @@ For an in-depth look at these features and our motivations for introducing them,
 ScienceHub is not yet deployed. To run it locally, follow these steps:
 1. Ensure you have installed: Docker, Minikube/Docker Compose and a newer version of Node.
 2. Fetch the [backend](https://github.com/TudorOrban/ScienceHub-Backend). From the root, run `cd scripts` and then the `StartMinikube` script, depending on your operating system. This will build the images for the backend microservices and register corresponding deployments and services in Minikube.
-3. Expose the API Gateway with `kubectl port-forward sciencehub-backend-api-gateway 8082:8082`. If you need to work with a service's database, also expose `postgresql-core 5432:5432` or `postgresql-community 5433:5433`.
+3. Expose the API Gateway with `kubectl port-forward service/sciencehub-api-gateway-service 8082:8082`. If you need to work with a service's database, also expose `postgresql-core-service 5432:5432` or `postgresql-community-service 5433:5433`.
 4. Fetch the [frontend](https://github.com/TudorOrban/ScienceHub-Frontend) and run from the root `npm install`, `npm run dev`. Now you can use the app by accessing it in the browser at `http://localhost:3000`.
 
 ## Contributing

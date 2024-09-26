@@ -3,9 +3,9 @@
 import { useCurrentUser } from "@/core/user/contexts/CurrentUserContext";
 import { useGetChatByChatId } from "../hooks/useGetChatByChatId";
 import { useSearchChatMessagesByChatId } from "../hooks/useSearchChatMessagesByChatId";
-import ChatMediumCard from "./ChatMediumCard";
 import { ChatMessages } from "./ChatMessages";
 import ChatInput from "./ChatInput";
+import ChatPageHeader from "./ChatPageHeader";
 
 
 export interface ChatClientPageProps {
@@ -28,7 +28,10 @@ export default function ChatClientPage({
         <div className="w-full h-full flex flex-col">
             {chat && (
                 <div className="flex-none">
-                    <ChatMediumCard chat={chat} />
+                    <ChatPageHeader 
+                        chat={chat} 
+                        currentUserId={currentUser?.id}
+                    />
                 </div>
             )}
 
