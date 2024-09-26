@@ -9,7 +9,7 @@ import ChatPageHeader from "./ChatPageHeader";
 import { useEffect, useState } from "react";
 import { ChatMessageSearchDTO } from "../models/Chat";
 import { SearchParams } from "@/shared/search/models/Search";
-
+import * as signalR from '@microsoft/signalr';
 
 export interface ChatClientPageProps {
     chatId: number;
@@ -24,6 +24,8 @@ export default function ChatClientPage({
         page: 1,
         itemsPerPage: 12,
     };
+
+    const [connection, setConnection] = useState<signalR.HubConnection | null>(null);
 
     const [searchParams, setSearchParams] = useState<SearchParams>(initialSearchParams);
     const [messages, setMessages] = useState<ChatMessageSearchDTO[]>([]);
@@ -50,6 +52,24 @@ export default function ChatClientPage({
         setMessages(mergedMessages);
     }, [oldMessages]);
 
+    useEffect(() => {
+        const connect = new signalR.HubConnectionBuilder()
+            .withUrl("http://localhost:8081/chatHub")
+            .configureLogging(signalR.LogLevel.Information)
+            .build();
+
+        connect.start().then(() => {
+            console.log("Connection started");
+            setConnection(connect);
+        }).catch((error) => {
+            console.log("Error: ", error);
+        });
+
+        connect.on("ReceiveMessage", (user, message) => {
+            console.log("Received message: ", user, message);
+        });
+    }, []);
+
     const areMoreMessagesAvailable = (searchParams?.page ?? 0) * (searchParams?.itemsPerPage ?? 0) <= (oldMessages?.totalCount ?? 0);
 
     const handleLoadMoreMessages = () => {
@@ -62,6 +82,7 @@ export default function ChatClientPage({
 
     const handleSendMessage = (message: string) => {
         console.log("Sending message: ", message);
+        if (connection) connection.invoke("SendMessage", "Username", message);
     }
 
 
