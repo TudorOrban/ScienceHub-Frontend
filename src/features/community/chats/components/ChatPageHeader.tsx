@@ -7,17 +7,21 @@ import { constructFeatureURL } from "@/shared/utils/featureURLConstructor";
 import { Feature } from "@/shared/common/models/Features";
 import Link from "next/link";
 import UserAvatar from "@/core/user/components/UserAvatar";
-import { formatDate, truncateString } from "@/shared/utils/uiFormatterUtils";
 import StandardButton from "@/shared/common/components/simple/StandardButton";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { StandardAPIError } from "@/shared/http/Http";
 
 export interface ChatPageHeaderProps {
     chat: ChatSearchDTO;
+    isLoading?: boolean;
+    error?: StandardAPIError;
     currentUserId?: number;
 }
 
 const ChatPageHeader = ({
     chat,
+    isLoading,
+    error,
     currentUserId
 }: ChatPageHeaderProps) => {
     const router = useRouter();
@@ -31,7 +35,7 @@ const ChatPageHeader = ({
     const userUrl = constructFeatureURL(Feature.UserProfile, otherUser?.username ?? "");
 
     return (
-        <div className="flex items-start justify-between w-full relative p-4 border-y border-gray-300 text-base">
+        <div className="flex items-center justify-between w-full relative p-4 bg-gray-50 border-y border-gray-300 text-base">
             <div className="flex items-center space-x-4">
                 {isUniqueOtherUser && (
                     <UserAvatar userSmall={otherUser} onClick={() => router.push(userUrl)}/>   
