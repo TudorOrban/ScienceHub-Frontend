@@ -67,7 +67,6 @@ const FormUserSelection = ({
         onSelectedUsersChange?.(selectedUsers.filter((u) => u.id !== user.id));
     }
 
-    // Remove test commit
     const handleLoadMore = () => {
         setSearchParams({
             ...searchParams,
