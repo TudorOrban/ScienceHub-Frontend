@@ -4,6 +4,8 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 interface SearchInputProps {
     searchTerm: string;
+    placeholder?: string;
+    className?: string;
     onTermChange: (term: string) => void;
     searchOnChange?: boolean;
     onFocus?: () => void;
@@ -12,6 +14,8 @@ interface SearchInputProps {
 
 const SearchInput: React.FC<SearchInputProps> = ({ 
     searchTerm, 
+    placeholder,
+    className,
     onTermChange, 
     searchOnChange,
     onFocus,
@@ -48,8 +52,8 @@ const SearchInput: React.FC<SearchInputProps> = ({
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onKeyDown={handleKeyPress}
-                placeholder="Search ScienceHub"
-                className="custom-search-input w-64 rounded-l-md"
+                placeholder={placeholder ?? "Search ScienceHub"}
+                className={`custom-search-input rounded-l-md ${className ?? ""}`}
             />
             <button
                 type="button"
